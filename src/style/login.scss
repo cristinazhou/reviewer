@@ -1,0 +1,156 @@
+p {
+  color: #464849;
+  font-size: 25px;
+  font-weight: bold;
+
+}
+
+.content-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../assets/cat.jpg");
+  background-size: cover;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.login-meta {
+  top: 200px;
+}
+
+.login-form {
+  box-sizing: border-box;
+  width: 340px;
+  position: absolute;
+  left: 60px;
+  border-radius: 4px;
+  height: 430px;
+  top: 60px;
+  font-weight: lighter;
+  background-color: white;
+  padding: 50px 0;
+
+  p {
+    font-size: 26px;
+    color: #464849;
+  }
+
+  label {
+    display: block;
+    color: #ccc;
+    font-size: 20px;
+    height: 40px;
+    margin: 40px 0;
+  }
+
+  i {
+    font-size: 14px;
+  }
+
+  input {
+    height: 40px;
+    padding: 0 10px;
+    display: inline-block;
+    width: 70%;
+    color: #666666;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #e4e4e4;
+    outline: none;
+    &::placeholder {
+      color: #8c939d;
+    }
+  }
+
+  button {
+    float: right;
+    outline: none;
+    margin: 40px 30px 0 0;
+    height: 34px;
+    width: 120px;
+    border: none;
+    background-color: #464849;
+    color: white;
+    font-size: 14px;
+    font-weight: lighter;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #464849;
+    }
+    &:active {
+      background-color: #464849;
+    }
+  }
+}
+
+.register-form {
+  box-sizing: border-box;
+  width: 340px;
+  position: absolute;
+  left: 60px;
+  border-radius: 4px;
+  height: 430px;
+  top: 60px;
+  font-weight: lighter;
+  background-color: white;
+  padding: 50px 0;
+
+  p {
+    font-size: 26px;
+    color: #464849;
+  }
+
+  label {
+    display: block;
+    color: #ccc;
+    font-size: 20px;
+    height: 40px;
+    margin: 40px 0;
+  }
+
+  i {
+    font-size: 14px;
+  }
+
+  input {
+    height: 40px;
+    padding: 0 10px;
+    display: inline-block;
+    width: 70%;
+    color: #666666;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #e4e4e4;
+    outline: none;
+    &::placeholder {
+      color: #8c939d;
+    }
+  }
+
+  button {
+    float: right;
+    outline: none;
+    margin: 40px 30px 0 0;
+    height: 34px;
+    width: 120px;
+    border: none;
+    background-color: #464849;
+    color: white;
+    font-size: 14px;
+    font-weight: lighter;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #464849;
+    }
+    &:active {
+      background-color: #464849;
+    }
+  }
+}
