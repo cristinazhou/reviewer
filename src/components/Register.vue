@@ -58,6 +58,7 @@
         let isValid = true;
         if (!this.username) {
           this.$Message.error('用户名不能为空');
+
           return false;
         }
         if (!this.password || !this.password1) {
@@ -87,6 +88,7 @@
       },
       doRegister() {
         if (this.checkValidity()) {
+          let router = this.$router;
           let message = this.$Message;
           this.$axios.post('/user/register', {
             userName: this.username,
@@ -94,7 +96,8 @@
             roleName: this.selected,
           }).then(function (code, response) {
             if (response.data.meta.success) {
-
+              message.confirm('登录成功');
+              router.push({path: '/'});
             }
           }).catch(function (error) {
             message.error(error);
