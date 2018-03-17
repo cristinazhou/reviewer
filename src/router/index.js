@@ -8,6 +8,7 @@ import MyPaper from '@/components/main-component/MyPaper'
 import AddPaper from '@/components/main-component/AddPaper'
 import UnReviewer from '@/components/main-component/UnReviewer'
 import test from '@/components/paper/test'
+import AddFile from '@/components/main-component/AddFile'
 
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ export default new Router({
           path: '/unreviewer',
           name: 'unreviewer',
           component: UnReviewer
+        },
+        {
+          path:'/addfile',
+          name:'addfile',
+          component:AddFile
         }
       ]
 

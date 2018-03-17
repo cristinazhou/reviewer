@@ -47,6 +47,7 @@
                         新建论文
                     </template>
                     <MenuItem name="4-1" @click.native="info">上传论文</MenuItem>
+                  <MenuItem name="4-2" @click.native="addfile">上传文件</MenuItem>
 
                 </Submenu>
             </Menu>
@@ -109,6 +110,9 @@
       },
       unreviewer() {
         this.$router.push({path: "/unreviewer"});
+      },
+      addfile() {
+        this.$router.push({path: "/addfile"});
       },
       handleClickUserDropdown(name) {
         if (name === 'loginout') {
