@@ -39,7 +39,7 @@
     methods: {
       getRole(){
         let roleList = this.roleList;
-        this.$axios.post('/user/get_role').then(function (response) {
+        this.$axios.get('/user/get_role').then(function (response) {
           if (response.data.meta.success) {
             let data = response.data;
             let roles = data.data;
