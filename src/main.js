@@ -21,12 +21,12 @@ Vue.prototype.$axios = http
 var token;
 
 Vue.config.productionTip = false
-router.beforeEach((to,from,next)=>{
-  if(to.path!=='/'&&to.path!=='/register' && to.path !== '/login'){
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/' && to.path !== '/register' && to.path !== '/login') {
     token = localStorage.getItem("token");
-    if(token){
+    if (token) {
       next();
-    }else {
+    } else {
       next('/');
     }
   } else {
@@ -35,11 +35,10 @@ router.beforeEach((to,from,next)=>{
 })
 
 
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

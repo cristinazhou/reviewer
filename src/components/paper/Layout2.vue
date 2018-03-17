@@ -70,8 +70,8 @@
             </Header>
             <Content :style="{padding: '0 16px 16px'}">
                 <div :style="{margin: '16px 0'}">
-                    <breadcrumb-nav>哈哈哈
-                    </breadcrumb-nav>
+                    <!--<breadcrumb-nav>哈哈哈-->
+                    <!--</breadcrumb-nav>-->
                 </div>
                 <Card>
                     <div style="height: 600px">
@@ -86,7 +86,8 @@
   export default {
     data() {
       return {
-        userName: localStorage.getItem("username")
+        userName: localStorage.getItem("username"),
+        avatorPath: ''
       }
     },
     computed: {
@@ -96,9 +97,6 @@
     },
     methods: {
       init() {
-        // this.userName = ;
-        // console.log(123)
-        // console.log(this.userName)
       },
       info() {
         this.$router.push({path: "/addPaper"});
@@ -122,10 +120,7 @@
 
     mounted() {
       this.init();
-      console.log(111)
     }
-
-
   }
 
 </script>

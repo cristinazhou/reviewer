@@ -6,14 +6,10 @@
         </div>
         <div class="login-form" @keyup.enter="doLogin">
             <p>系统登录</p>
-            <label>
-                <Select v-model="model1" style="width:240px">
-                    <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </Select>
-
+            <label style="margin-bottom: 0">
                 <input type="text" v-model="username" placeholder="用户名">
             </label>
-            <label>
+            <label style="margin-top: 0">
                 <input type="password" v-model="password" placeholder="密码">
             </label>
             <button @click="doRegister">注册</button>
@@ -30,24 +26,7 @@
       return {
         username: "",
         password: "",
-        token: "",
-        roleList: [
-          {
-            value: '1',
-            label: 'student'
-          },
-          {
-            value: '2',
-            label: 'teacher'
-          },
-          {
-            value: '3',
-            label: 'administrator'
-          }
-
-        ],
-        model1: ''
-
+        token: ""
       };
     },
     methods: {
@@ -74,19 +53,21 @@
 
         return isValid;
       },
-
       doLogin() {
         if (this.checkValidity()) {
           var router = this.$router;
-          this.$axios.post("/user/login?userName=" + this.username + "&userPassword=" + this.password).then(function (response) {
+          this.$axios.post('/user/login', {
+            userName: this.username,
+            userPassword: this.password
+          }).then(function (response) {
             if (response.data.meta.success) {
               localStorage.setItem("token", response.data.data.token);
               router.push({path: "/layout2"});
             } else {
               this.$Message.error(response.data.meta.message);
             }
-
           }).catch(function (error) {
+            this.$Message.error(error);
           });
         }
       },

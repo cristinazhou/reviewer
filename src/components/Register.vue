@@ -1,28 +1,27 @@
 <template>
-  <div class="content-wrapper">
-    <div class="login-container">
-      <div class="login-meta">
+    <div class="content-wrapper">
+        <div class="login-container">
+            <div class="login-meta">
 
-        <p>Reviewer 文档评阅系统</p>
-      </div>
-      <div class="register-form" @keyup.enter="doLogin">
-        <p>系统注册</p>
-        <label>
-          <Select v-model="model1" style="width:240px">
-            <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-          </Select>
-          <input type="text" v-model="username" placeholder="用户名"></input>
-        </label>
-        <label>
-          <input type="password" v-model="password" placeholder="密码"></input>
-          <input type="password" v-model="password" placeholder="确认密码"></input>
-        </label>
-
-        <button @click="doLogin">返回登陆</button>
-        <button @click="doRegister">注册</button>
-      </div>
+                <p>Reviewer 文档评阅系统</p>
+            </div>
+            <div class="register-form">
+                <p>系统注册</p>
+                <Select v-model="selected" style="width:240px">
+                    <Option v-for="item in roleList" :value="item.value" :key="item.value">{{
+                        item.label }}
+                    </Option>
+                </Select>
+                <input type="text" v-model="username" placeholder="用户名"></input>
+                <label style="margin-top: 0">
+                    <input type="password" v-model="password" placeholder="密码"></input>
+                    <input type="password" v-model="password1" placeholder="确认密码"></input>
+                </label>
+                <button @click="doLogin">返回登陆</button>
+                <button @click="doRegister">注册</button>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -32,33 +31,42 @@
       return {
         username: "",
         password: "",
-        roleList: [
-          {
-            value: '1',
-            label: 'student'
-          },
-          {
-            value: '2',
-            label: 'teacher'
-          },
-          {
-            value: '3',
-            label: 'administrator'
-          }
-
-        ],
-        model1: ''
+        password1: '',
+        roleList: [],
+        selected: '学生',
       };
     },
     methods: {
+      getRole(){
+        let roleList = this.roleList;
+        this.$axios.post('/user/get_role').then(function (response) {
+          if (response.data.meta.success) {
+            let data = response.data;
+            let roles = data.data;
+            for (let i = 0; i < roles.length; ++i) {
+              let role = roles[i];
+              roleList.push({
+                value: role.id,
+                label: role.roleName,
+              });
+            }
+          }
+        });
+        this.selected = 1;
+      },
       checkValidity() {
         let isValid = true;
         if (!this.username) {
           this.$Message.error('用户名不能为空');
           return false;
         }
-        if (!this.password) {
+        if (!this.password || !this.password1) {
           this.$Message.error('密码不能为空');
+          isValid = false;
+        }
+
+        if (this.password !== this.password1) {
+          this.$Message.error('密码不一致');
           isValid = false;
         }
 
@@ -67,7 +75,7 @@
           isValid = false;
         }
 
-        if (this.password.legend < 3) {
+        if (this.password.length < 3) {
           this.$Message.error('密码长度太短');
           isValid = false;
         }
@@ -75,22 +83,33 @@
         return isValid;
       },
       doLogin() {
-        if (this.checkValidity()) {
-          window.localStorage.setItem("username", this.username);
-
-          this.$router.push({path: "/layout2"});
-        }
+        this.$router.push({path: "/"});
       },
       doRegister() {
-        this.$router.push({path: "/register"});
-      }
+        if (this.checkValidity()) {
+          let message = this.$Message;
+          this.$axios.post('/user/register', {
+            userName: this.username,
+            userPassword: this.password,
+            roleName: this.roleList1,
+          }).then(function (code, response) {
+            if (response.data.meta.success) {
 
+            }
+          }).catch(function (error) {
+            message.error(error);
+          })
+        }
+      }
+    },
+    created () {
+      this.getRole();
     }
   };
 </script>
 
 
 <style scoped lang="scss" type="text/scss">
-  @import '../style/login.scss';
+    @import '../style/login.scss';
 
 </style>
