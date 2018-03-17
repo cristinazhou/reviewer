@@ -1,5 +1,5 @@
 <template>
-    <Upload action="http://localhost:8080/file/upload">
+    <Upload action="http://localhost:8080/file/upload" with-credentials="true">
         <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="60" style="color: #3399ff"></Icon>
             <p>Click or drag files here to upload</p>
@@ -21,7 +21,7 @@
     },
     methods: {},
     created() {
-      document.cookie = 'X-CSRF-TOKEN' + this.token;
+      document.cookie = 'X-CSRF-TOKEN=' + this.token;
     }
   };
 
