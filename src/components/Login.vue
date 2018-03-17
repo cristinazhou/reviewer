@@ -1,28 +1,26 @@
 <template>
     <div class="content-wrapper">
         <div class="login-container">
-            <div class="login-meta">
+            <div class="login-meta"
+            <p>Reviewer 文档评阅系统</p>
+        </div>
+        <div class="login-form" @keyup.enter="doLogin">
+            <p>系统登录</p>
+            <label>
+                <Select v-model="model1" style="width:240px">
+                    <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
 
-                <p>Reviewer 文档评阅系统</p>
-            </div>
-            <div class="login-form" @keyup.enter="doLogin">
-                <p>系统登录</p>
-                <label>
-                    <Select v-model="model1" style="width:240px">
-                        <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                    </Select>
-
-                    <input type="text" v-model="username" placeholder="用户名">
-                </label>
-                <label>
-                    <input type="password" v-model="password" placeholder="密码">
-                </label>
-                <button @click="doRegister">注册</button>
-                <button @click="doLogin">登录</button>
-            </div>
+                <input type="text" v-model="username" placeholder="用户名">
+            </label>
+            <label>
+                <input type="password" v-model="password" placeholder="密码">
+            </label>
+            <button @click="doRegister">注册</button>
+            <button @click="doLogin">登录</button>
         </div>
     </div>
-
+    </div>
 </template>
 
 <script>
@@ -82,10 +80,10 @@
           var router = this.$router;
           this.$axios.post("/user/login?userName=" + this.username + "&userPassword=" + this.password).then(function (response) {
             if (response.data.meta.success) {
-              localStorage.setItem("token", response.data.meta.token);
+              localStorage.setItem("token", response.data.data.token);
               router.push({path: "/layout2"});
             } else {
-               this.$Message.error(response.data.meta.message);
+              this.$Message.error(response.data.meta.message);
             }
 
           }).catch(function (error) {
