@@ -12,10 +12,10 @@
             <Option v-for="item in roleList" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
 
-          <input type="text" v-model="username" placeholder="用户名"></input>
+          <input type="text" v-model="username" placeholder="用户名">
         </label>
         <label>
-          <input type="password" v-model="password" placeholder="密码"></input>
+          <input type="password" v-model="password" placeholder="密码">
         </label>
         <button @click="doRegister">注册</button>
         <button @click="doLogin">登录</button>
@@ -32,6 +32,7 @@
       return {
         username: "",
         password: "",
+        token: "",
         roleList: [
           {
             value: '1',
@@ -68,18 +69,36 @@
           isValid = false;
         }
 
-        if (this.password.legend < 3) {
+        if (this.password.length < 3) {
           this.$Message.error('密码长度太短');
           isValid = false;
         }
 
         return isValid;
       },
+
       doLogin() {
         if (this.checkValidity()) {
-          window.localStorage.setItem("username", this.username);
+          this.$axios.post("/user/check?userName="+this.username+"&passWord="+this.password)
+            .then(function (response) {
+             if(response.data.meta.success){
+               localStorage.setItem("token", response.data.meta.token);
+               this.$router.push({path: "/layout2"});
+             } else {
+               localStorage.setItem('token', '234qwdsfaf');
+               alert(token)
 
-          this.$router.push({path: "/layout2"});
+               this.$router.push({path: "/layout2"});
+               // this.$Message.error(response.data.meta.message);
+             }
+
+            })
+            .catch(function (error) {
+              console.log(error);
+
+            });
+
+
         }
       },
       doRegister() {

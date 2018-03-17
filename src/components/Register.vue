@@ -53,29 +53,38 @@
     methods: {
       checkValidity() {
         let isValid = true;
-        if (!this.username || !this.password) {
-          this.$message.error({message: this.username ? "密码不能为空" : "用户名不能为空"});
+        if (!this.username) {
+          this.$Message.error('用户名不能为空');
           return false;
+        }
+        if (!this.password) {
+          this.$Message.error('密码不能为空');
+          isValid = false;
         }
 
         if (!/^[-a-zA-Z0-9_]{2,30}$/.test(this.username)) {
-          this.$message.error({message: "奇怪的用户名"});
+          this.$Message.error('奇怪的用户名');
           isValid = false;
         }
 
         if (this.password.legend < 3) {
-          this.$message.error({message: "密码长度太短"});
+          this.$Message.error('密码长度太短');
           isValid = false;
         }
 
         return isValid;
       },
       doLogin() {
-        this.$router.push({path: "/"});
+        if (this.checkValidity()) {
+          window.localStorage.setItem("username", this.username);
+
+          this.$router.push({path: "/layout2"});
+        }
       },
       doRegister() {
         this.$router.push({path: "/register"});
       }
+
     }
   };
 </script>
