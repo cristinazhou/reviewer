@@ -91,7 +91,7 @@
           this.$axios.post('/user/register', {
             userName: this.username,
             userPassword: this.password,
-            roleName: this.roleList1,
+            roleName: this.selected,
           }).then(function (code, response) {
             if (response.data.meta.success) {
 
