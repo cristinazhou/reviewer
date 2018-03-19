@@ -9,16 +9,11 @@ import Axios from 'axios'
 import 'iview/dist/styles/iview.css'    // 使用 CSS
 Vue.use(iView);
 var http = Axios.create({
-  // headers:{
-  //   // "Access-Control-Allow-Origin": true
-  // },
   timeout: 8000,
-  baseURL: 'http://localhost:8080/sce_reviewer'
+  baseURL: 'http://localhost:8080/sce_reviewer',
 })
-
-
+http.defaults.headers.common['Token'] = localStorage.getItem('token');
 Vue.prototype.$axios = http
-var token;
 
 Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
@@ -33,7 +28,6 @@ router.beforeEach((to, from, next) => {
     next();
   }
 })
-
 
 /* eslint-disable no-new */
 new Vue({
