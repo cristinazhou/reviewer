@@ -54,12 +54,11 @@
         return isValid;
       },
       doLogin() {
+        localStorage.setItem("token", 'asouf283rfhasdf');
         if (this.checkValidity()) {
           var router = this.$router;
-          this.$axios.post('/user/login', {
-            userName: this.username,
-            userPassword: this.password
-          }).then(function (response) {
+          this.$axios.post('/user/login?userName='+this.username+'&userPassword='+this.password )
+            .then(function (response) {
             if (response.data.meta.success) {
               localStorage.setItem("token", response.data.data.token);
               router.push({path: "/layout2"});
