@@ -1,9 +1,8 @@
 <template>
     <div>
         <form>
-            <input type="text" value="" v-model="name" placeholder="请输入用户名">
-            <!--<input type="text" value="" v-model="age" placeholder="请输入年龄">-->
-            <input type="file" @change="getFile($event)">
+
+            <input type="file"  @change="getFile($event)">
             <button @click="submitForm($event)">提交</button>
         </form>
     </div>
@@ -14,8 +13,6 @@
 
     data(){
       return {
-        name: '',
-        age: '',
         file: ''
       };
     },

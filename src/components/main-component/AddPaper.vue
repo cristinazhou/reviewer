@@ -6,32 +6,8 @@
     <FormItem label="论文作者" prop="paperAuthor">
       <Input v-model="formValidate.paperAuthor" placeholder="Enter your author"></Input>
     </FormItem>
-    <FormItem label="论文链接" prop="paperLink">
-      <Input v-model="formValidate.paperLink" placeholder="Enter your link"></Input>
-    </FormItem>
-
-    <FormItem label="Date">
-      <Row>
-        <Col span="11">
-        <FormItem prop="date">
-          <DatePicker type="date" placeholder="Select date" v-model="formValidate.date"></DatePicker>
-        </FormItem>
-        </Col>
-        <Col span="2" style="text-align: center">
-        -</Col>
-        <Col span="11">
-        <FormItem prop="time">
-          <TimePicker type="time" placeholder="Select time" v-model="formValidate.time"></TimePicker>
-        </FormItem>
-        </Col>
-      </Row>
-    </FormItem>
-    <FormItem label="论文状态" prop="state">
-      <RadioGroup v-model="formValidate.state">
-        <Radio label="undo">未提交评审</Radio>
-        <Radio label="doing">正在评审</Radio>
-        <Radio label="done">已定稿</Radio>
-      </RadioGroup>
+    <FormItem label="所有者" prop="paperLink">
+      <Input v-model="formValidate.paperOwner" placeholder="Enter your owner"></Input>
     </FormItem>
     <FormItem label="论文权限" prop="authority">
       <RadioGroup v-model="formValidate.authority">
