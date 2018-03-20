@@ -34,15 +34,19 @@
           url: '/file/upload',
           data: formData,})
           .then(function (response) {
+          alert(111)
           if (response.status === 200) {
+            alert(111)
               /*这里做处理*/
           }
         })
       }
     }
+
+
   };
 </script>
-<style scoped lang="scss" type="text/css">
+<style>
   /*@import '../../style/input.scss';*/
 </style>
 
