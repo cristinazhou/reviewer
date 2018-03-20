@@ -1,28 +1,27 @@
 <template>
-  <div>
-    <Input v-model="value" placeholder="请输入论文名" style="width: 200px"/>
-
-    <button @click="">搜索</button>
-    <Table :columns="columns1" :data="data2"></Table>
-    <Page :total="dataCount"
-          :current="pageNum"
-          :page-size="pageSize"
-          show-elevator show-sizer show-total
-          placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-  </div>
+    <div>
+        <Input v-model="value" placeholder="请输入论文名" style="width: 200px"/>
+        <button @click="">搜索</button>
+        <Table :columns="columns1" :data="data2">
+        </Table>
+        <Page :total="dataCount"
+              :current="pageNum"
+              :page-size="pageSize"
+              show-elevator show-sizer show-total
+              placement="top"
+        <!--@on-change="handlePage" @on-page-size-change='handlePageSize'>-->
+        </Page>
+    </div>
 </template>
 <script>
   import Operation from './Operation.vue'
   export default {
-    props: ['message'],
-
-    components:{
-      Operation
-
+    components: {
+      Operation,
     },
     data() {
       return {
-        message:"hello",
+        value: '',
         columns1: [
           {
             title: '论文名称',
@@ -35,12 +34,15 @@
           {
             title: '操作',
             key: 'operation',
-            render(){
-
-              return <Operation  ></Operation>;
+            render: function (h, params) {
+              return h(Operation, {
+                props: {
+                  paperId: params.row.id,
+                  paperStatus: params.row.status,
+                }
+              })
             }
           }
-
         ],
         data2: []
       }
@@ -52,6 +54,7 @@
         this.$axios({
           method: 'post',
           url: '/public_paper/list'
+
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
@@ -63,16 +66,6 @@
                 status: paper.status,
               })
             })
-          } else {
-            for (let i = 0; i < 5; ++i) {
-              data2.push({
-                id: i,
-                name: 'Fxxk',
-                author: 'ZHOUDI',
-                status: "1",
-
-              })
-            }
           }
         })
       }
