@@ -29,40 +29,24 @@ router.beforeEach((to, from, next) => {
 });
 
 http.interceptors.response.use(
-  response =>{
-  if(response.status===200){
-    if(response.data)
-    {
-      if(response.data.meta)
-        if(response.data.meta.success)
-        {
-          return response;
-        }
-
+  response => {
+    if (response.status === 200) {
+      if (response.data) {
+        if (response.data.meta)
+          // if (response.data.meta.success) {
+            return response;
+          // }
+      }
     }
-
-
-
+  }, error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 500 :
+      }
+      return Promise.reject(error);
+    }
   }
-  // else
-  //   {
-  //     if(response.status===500){this.$Message.error("error 404!")}
-  //     else if(response.status===500){this.$Message.error("error 500!")}
-  //     else{this.$Message.error("error")}
-  //
-
-
-},
-  error=>{
-    if(error.response){
-  switch(error.response.status)
-  {
-    case 500 :alert(111)
-  }
-  return Promise.reject(error);
-
-  }}
-  );
+);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

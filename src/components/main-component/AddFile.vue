@@ -1,9 +1,11 @@
 <template>
     <div>
-        <form>
+        <form  class="file">
 
-            <input type="file"  @change="getFile($event)">
-            <button @click="submitForm($event)">提交</button>
+            <input type="file" @change="getFile($event)" />
+
+
+            <button @click="submitForm($event)">上传</button>
         </form>
     </div>
 </template>
@@ -30,8 +32,8 @@
         this.$axios({
           method: 'post',
           url: '/file/upload',
-          data: formData,
-        }).then(function (response) {
+          data: formData,})
+          .then(function (response) {
           alert(111)
           if (response.status === 200) {
             alert(111)
@@ -44,6 +46,9 @@
 
   };
 </script>
+<style scoped lang="scss" type="text/css">
+  @import '../../style/input.scss';
+</style>
 
 
 

@@ -1,12 +1,12 @@
 <template>
   <div>
-  <Table  :columns="columns1" :data="data2"></Table>
+    <Table :columns="columns1" :data="data2"></Table>
     <Page :total="dataCount"
           :current="pageNum"
           :page-size="pageSize"
           show-elevator show-sizer show-total
           placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-
+    <button @click="pageList">搜索</button>
 
   </div>
 </template>
@@ -85,6 +85,12 @@
           }
         ]
       }
+    },
+    methods: {
+      pageList() {
+        alert(11)
+        console.log(111)
+      }
     }
-  }
+  };
 </script>

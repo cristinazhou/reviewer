@@ -6,7 +6,7 @@
     <FormItem label="论文作者" prop="paperAuthor">
       <Input v-model="formValidate.paperAuthor" placeholder="Enter your author"></Input>
     </FormItem>
-    <FormItem label="所有者" prop="paperLink">
+    <FormItem label="所有者" prop="paperOwner">
       <Input v-model="formValidate.paperOwner" placeholder="Enter your owner"></Input>
     </FormItem>
     <FormItem label="论文权限" prop="authority">
@@ -46,11 +46,8 @@
         formValidate: {
           paperTitle: '',
           paperAuthor: '',
-          paperLink: '',
-          state: '',
+          paperOwner: '',
           authority: '',
-          date: '',
-          time: '',
           upload: ''
         },
         ruleValidate: {
