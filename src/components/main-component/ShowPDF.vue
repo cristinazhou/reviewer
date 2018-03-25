@@ -8,7 +8,8 @@
             <iframe ref="annotationIframe" :src='"/static/viewer/web/viewer.html?file=./testpdf/1707.04873"+".pdf"'
                     width="100%" height="100%"
                     scrolling="no"></iframe>
-            <Annotation v-if="text.length > 0" :text="text" :paperId="paperId" :fileId="fileId"></Annotation>
+            <Annotation ref="annotationBtn" v-show="text.trim().length > 0" :text="text" :paperId="paperId"
+                        :fileId="fileId"></Annotation>
         </div>
     </div>
 </template>
@@ -21,6 +22,8 @@
     name: "show-p-d-f",
     data(){
       return {
+        textIframe: null,
+        annotation: null,
         text: '',
         paperId: '',
         fileId: '',
@@ -55,7 +58,8 @@
         })
       },
       editAnnotationOnTextLayer() {
-        let textIframe = this.$refs.annotationIframe;
+        this.textIframe = this.$refs.annotationIframe;
+        let textIframe = this.textIframe;
         let pages = $(textIframe.contentWindow.document).find(".page");
         if (pages.length) {
           for (let i = 0; i < pages.length; ++i) {
@@ -63,20 +67,26 @@
             let divs = $(textLayer).find("div");
             if (divs.length) {
               for (let i = 0; i < divs.length; ++i) {
-                $(divs[i]).on('mouseup', this.textSelect());
+                $(divs[i]).off('mouseup', this.textSelect);
+                $(divs[i]).on('mouseup', this.textSelect);
               }
             }
           }
         }
       },
-      textSelect(){
-        let selectedText = window.getSelection().toString();
+      textSelect(event) {
+        let selectedText = this.textIframe.contentWindow.getSelection().toString();
         if (selectedText !== null && selectedText.length > 0) {
           this.text = selectedText;
-          console.log(selectedText);
+          let curNode = event.currentTarget;
+          let x = $(curNode).offset().top;
+          let y = $(curNode).offset().left;
+          this.annotation = this.$refs.annotationBtn;
+          let annotationBtn = this.annotation;
+          $(annotationBtn.$el).offset({top: x, left: y});
         }
       },
-    }
+    },
   }
 </script>
 
