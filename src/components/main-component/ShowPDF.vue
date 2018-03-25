@@ -47,6 +47,13 @@
       getParams () {
         return store.getters.temp;
       },
+      find(){
+        this.$axios({
+          method:'post',
+          url:'/'
+
+        })
+      },
       editAnnotationOnTextLayer() {
         let textIframe = this.$refs.annotationIframe;
         let pages = $(textIframe.contentWindow.document).find(".page");

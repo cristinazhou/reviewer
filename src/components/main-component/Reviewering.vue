@@ -60,7 +60,39 @@
           }
         ]
       }
-    }
+    },
+    method:{
+      pageList: function () {
+        let data1 = this.data1;
+        //根据教师ID获取
+        this.$axios({
+          method: 'post',
+          url: '/',
+          data:{
+            teacherName:this.username,
+
+          }
+
+        }).then(function (response) {
+          let data = response.data.data;
+          if (data) {
+            data.forEach(function (paper) {
+              data1.push({
+                id: paper.paperId,
+                name: paper.paperName,
+                author: paper.paperAuthor,
+                status: paper.status,
+              })
+            })
+          }
+        })
+      }
+
+    },
+    created(){
+      this.pageList()
+
+  }
 
   }
 </script>

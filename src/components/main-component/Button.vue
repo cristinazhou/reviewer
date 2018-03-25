@@ -10,7 +10,7 @@
     name: "button",
     methods: {
       list(){
-        this.$router.push({path: '/paperlist'})
+        this.$router.push({path: '/showpdf'})
 
       }
     }
