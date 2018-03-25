@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width: 200px; height: auto;">
         <i-button type="primary" size="small" @click="annotate">批注</i-button>
         <p>{{ text }}</p>
         <textarea v-if="text.length > 0" v-model="annotation"></textarea>
@@ -30,7 +30,7 @@
           url: '',
           data: formData,
         }).then(function (response) {
-
+          alert("批注成功");
         })
       }
     },
