@@ -31,7 +31,7 @@
           method: 'post',
           data: formData,
         }).then(function (response) {
-          alert("批注成功");
+          this.$emit('annotationPostListener');
         })
       }
     },

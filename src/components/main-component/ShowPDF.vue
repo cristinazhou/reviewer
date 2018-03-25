@@ -8,7 +8,8 @@
             <iframe ref="annotationIframe" :src='"/static/viewer/web/viewer.html?file=./testpdf/1707.04873"+".pdf"'
                     width="100%" height="100%"
                     scrolling="no"></iframe>
-            <Annotation ref="annotationBtn" v-show="word.trim().length > 0" :word="word" :paperId="paperId"
+            <Annotation @annotationPostListener="find" ref="annotationBtn" v-show="word.trim().length > 0" :word="word"
+                        :paperId="paperId"
                         :fileId="fileId"></Annotation>
         </div>
     </div>
