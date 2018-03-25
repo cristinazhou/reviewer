@@ -1,24 +1,70 @@
 <template>
     <div>
-        <form  class="file">
+      <Input v-model="value" placeholder="请输入文件名" style="width: 200px"/>
+      <button @click="search">搜索</button>
+      <h3>{{count}}</h3>
+
+
+      <form  class="file">
 
             <input type="file" @change="getFile($event)" />
-
-
             <button @click="submitForm($event)">上传</button>
         </form>
+      <Table :columns="columns" :data="fileSet">
+      </Table>
+      <Page :total="dataCount"
+            :current="pageNum"
+            :page-size="pageSize"
+            show-elevator show-sizer show-total
+            placement="top"
+      <!--@on-change="handlePage" @on-page-size-change='handlePageSize'>-->
+      </Page>
     </div>
 </template>
 
 <script>
+  import Operation3 from './Operation3.vue'
+  import store from '../vuex/store'
   export default {
+    components: {
+      Operation3,
+    },
 
     data(){
       return {
-        file: ''
+        file: '',
+        columns:[{
+          title:'序号',
+          key:'number'
+
+        },{
+          title:'上传用户名',
+          key:'userName'
+
+        },{
+          title:'文件名',
+          key:'fileName'
+        },{
+          title:'操作',
+          key:'operation',
+          render: function (h, params) {
+            return <Operation3></Operation3>
+          }
+
+        }],
+        fileSet:[]
       };
     },
+    computed:{
+      count(){
+        return this.$store.state.count;
+      }
+
+    },
+
     methods: {
+
+
       getFile(event) {
         this.file = event.target.files[0];
       },
@@ -40,8 +86,37 @@
               /*这里做处理*/
           }
         })
+      },
+      search(){
+
+
+      },
+      list(){
+        let fileSet =this.fileSet;
+        this.$axios({
+          method:'get',
+          url:'/file/list'
+        })
+          .then(function (response) {
+            let data = response.data.data;
+            if (data) { var i=1
+              data.forEach(function (file) {
+                fileSet.push({
+                  number:i,
+                  username:file.user.userName,
+                  fileName:file.fileName
+
+              });
+                i++;
+            }
+
+          )
       }
+    })}},
+    created() {
+      this.list();
     }
+
 
 
   };

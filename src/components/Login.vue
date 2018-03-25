@@ -61,7 +61,7 @@
             .then(function (response) {
             if (response.data.meta.success) {
               localStorage.setItem("token", response.data.data.token);
-              router.push({path: "/layout2"});
+              router.push({path: "/search"});
             } else {
               this.$Message.error(response.data.meta.message);
             }

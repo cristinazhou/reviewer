@@ -16,15 +16,27 @@
       </RadioGroup>
     </FormItem>
     <FormItem >
-      <form  class="file">
-        <input type="file" @change="getFile($event)" />
-        <button @click="submitForm($event)">上传</button>
-      </form>
+      <Transfer
+        :data="dataLeft"
+        :target-keys="targetKeys"
+        :list-style="listStyle"
+        :render-format="render3"
+        :operations="['To left','To right']"
+        filterable
+        @on-change="handleChange3">
+        <div :style="{float: 'right', margin: '5px'}">
+          <Button type="ghost" size="small" @click="reloadMockData">Refresh</Button>
+        </div>
+      </Transfer>
+      <!--<form  class="file">-->
+        <!--<input type="file" @change="getFile($event)" />-->
+        <!--<button @click="submitForm($event)">上传</button>-->
+      <!--</form>-->
     </FormItem>
 
 
     <FormItem>
-      <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
+      <Button type="primary" @click="submitForm($event)">Submit</Button>
       <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
     </FormItem>
   </Form>
@@ -42,8 +54,14 @@
           paperAuthor: '',
           paperOwner: '',
           authority: '',
-          file: ''
+          file: '',
+
         },
+        dataLeft: this.getMockData(),
+        targetKeys: this.getTargetKeys(),
+        listStyle: {
+          width: '250px',
+          height: '300px',
         ruleValidate: {
           paperTitle: [
             {required: true, message: 'The title cannot be empty', trigger: 'blur'}
@@ -61,35 +79,81 @@
         }
       }
 
-    },
+    };   },
     methods: {
-      handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.$Message.success('Success!');
-          } else {
-            this.$Message.error('Fail!');
-          }
+      getMockData () {
+        var mockData = [];
+        this.$axios({
+          method:'get',
+          url:'/user/search'
         })
+          .then(function(response){
+            if(response.status===200) {
+              for(let i=0;i<response.data.data.length;i++){
+                mockData.push({
+                  key:i.toString(),
+                  fileName:response.data.data[i].fileName,
+                  fileId:response.data.data[i].file,
+                  disabled: Math.random() * 3 < 1
+                });
+
+
+              }
+
+            }else{
+              console.log('error');
+            }
+
+          })
+          .catch(function (error) {
+            console.log('error')
+
+          })
+
+        // for (let i = 1; i <= 20; i++) {
+        //   mockData.push({
+        //     key: i.toString(),
+        //     label: 'Content ' + i,
+        //     description: 'The desc of content  ' + i,
+        //     disabled: Math.random() * 3 < 1
+        //   });
+        // }
+        return mockData;
+      },
+      getTargetKeys () {
+        return this.getMockData()
+          .filter(() => Math.random() * 2 > 1)
+          .map(item => item.key);
+      },
+      handleChange3 (newTargetKeys) {
+        this.targetKeys = newTargetKeys;
+      },
+      render3 (item) {
+        return  item.fileName;
+      },
+      reloadMockData () {
+        this.dataLeft = this.getMockData();
+        this.targetKeys = this.getTargetKeys();
       },
       handleReset(name) {
         this.$refs[name].resetFields();
       },
-      getFile(event) {
-        this.file = event.target.files[0];
-      },
+      // getFile(event) {
+      //   this.file = event.target.files[0];
+      // },
       submitForm(event) {
         event.preventDefault();
         let file = this.formValidate.file;
         let formData = new FormData();
-        formData.append('fileId', this.formValidate.file.fileId);
+        for(let i=0;i<targetKeys.length;i++)
+        {
+          formData.append('fileId', this.targetKeys.fileId);//
+
+        }
         formData.append('paperTitle',this.formValidate.paperTitle);
-        //alert(formData.get('paperTitle'))
         formData.append('paperAuthor',this.formValidate.paperAuthor);
         formData.append('paperOwner',this.formValidate.paperOwner);
         formData.append('ispublic',this.formValidate.authority);
-//        formData.append('Content-Type', 'application/json;charset=UTF-8');
-
         this.$axios({
           method: 'post',
           url: '/paper/create',

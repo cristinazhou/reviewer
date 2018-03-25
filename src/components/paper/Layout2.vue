@@ -26,9 +26,9 @@
                 <Submenu name="2">
                     <template slot="title">
                         <Icon type="ios-keypad"></Icon>
-                        我的论文
+                        个人中心
                     </template>
-                    <MenuItem name="2-1" @click.native="mypaper">我的收藏</MenuItem>
+                    <MenuItem name="2-1" @click.native="mypaper">我的论文</MenuItem>
                     <MenuItem name="2-2">我的批注</MenuItem>
                     <MenuItem name="2-3">私有论文</MenuItem>
                 </Submenu>
@@ -38,7 +38,7 @@
                         论文评审
                     </template>
                     <MenuItem name="3-1" @click.native="unreviewer">未评审</MenuItem>
-                    <MenuItem name="3-2">正在评审</MenuItem>
+                    <MenuItem name="3-2" @click.native="doing">正在评审</MenuItem>
                     <MenuItem name="3-3">已定稿</MenuItem>
                 </Submenu>
                 <Submenu name="4">
@@ -46,8 +46,8 @@
                         <Icon type="ios-analytics"></Icon>
                         新建论文
                     </template>
+                  <MenuItem name="4-2" @click.native="addfile">文件管理</MenuItem>
                     <MenuItem name="4-1" @click.native="info">上传论文</MenuItem>
-                  <MenuItem name="4-2" @click.native="addfile">上传文件</MenuItem>
 
                 </Submenu>
             </Menu>
@@ -110,6 +110,9 @@
       },
       unreviewer() {
         this.$router.push({path: "/unreviewer"});
+      },
+      doing() {
+        this.$router.push({path: "/reviewering"});
       },
       addfile() {
         this.$router.push({path: "/addfile"});

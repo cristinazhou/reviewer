@@ -8,6 +8,9 @@ import MyPaper from '@/components/main-component/MyPaper'
 import AddPaper from '@/components/main-component/AddPaper'
 import UnReviewer from '@/components/main-component/UnReviewer'
 import AddFile from '@/components/main-component/AddFile'
+import ShowPDF from '@/components/main-component/ShowPDF'
+import Reviewering from '@/components/main-component/Reviewering'
+import PaperList from '@/components/main-component/PaperList'
 
 
 Vue.use(Router)
@@ -20,6 +23,11 @@ export default new Router({
       component: Login
     },
     {
+      path: '/showpdf',
+      name: 'showpdf',
+      component: ShowPDF
+    },
+    {
       path: '/layout2',
       name: 'layout2',
       component: Layout2,
@@ -28,6 +36,17 @@ export default new Router({
           path: '/addpaper',
           name: 'addpaper',
           component: AddPaper
+        },
+
+        {
+          path: '/paperlist',
+          name: 'paperlist',
+          component: PaperList
+        },
+        {
+          path: '/reviewering',
+          name: 'reviewering',
+          component: Reviewering
         },
         {
           path: '/search',

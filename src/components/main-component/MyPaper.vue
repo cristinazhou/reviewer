@@ -1,3 +1,12 @@
+<style>
+  .ivu-table td.state-color{
+
+
+  }
+  .ivu-table td.number-width{
+    width:120px;
+  }
+</style>
 <template>
   <div>
     <Table :columns="columns1" :data="data2"></Table>
@@ -6,7 +15,7 @@
           :page-size="pageSize"
           show-elevator show-sizer show-total
           placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-    <button @click="pageList">搜索</button>
+
 
   </div>
 </template>
@@ -18,16 +27,22 @@
       return {
         columns1: [
           {
-            title: '论文序号',
-            key: 'name'
+            title: '序号',
+            key: 'number',
+            className:'number-width'
           },
           {
             title: '论文名称',
-            key: 'age'
+            key: 'paperName'
           },
           {
             title: '论文作者',
-            key: 'address'
+            key: 'paperAuthor'
+          },
+          {
+            title: '论文状态',
+            key: 'state',
+            className:'state-color'
           },
           {
             title: '操作',
@@ -36,61 +51,82 @@
         ],
         data2: [
           {
-            name: 'John Brown',
-            age: 18,
-            address: 'New York No. 1 Lake Park',
-            date: '2016-10-03'
+            number: 1,
+            paperName: 18,
+            paperAuthor: 'New York No. 1 Lake Park',
+
+            state:'待评审'
           },
           {
-            name: 'Jim Green',
-            age: 24,
-            address: 'London No. 1 Lake Park',
-            date: '2016-10-01'
+            number: 2,
+            paperName: 24,
+            paperAuthor: 'London No. 1 Lake Park',
+
+            state:'正在评审'
           },
           {
-            name: 'Joe Black',
-            age: 30,
-            address: 'Sydney No. 1 Lake Park',
-            date: '2016-10-02'
+            number: 3,
+            paperName: 30,
+            paperAuthor: 'Sydney No. 1 Lake Park',
+            state:'已定稿  '
           },
           {
-            name: 'Jon Snow',
-            age: 26,
-            address: 'Ottawa No. 2 Lake Park',
-            date: '2016-10-04'
+            number: 4,
+            paperName: 26,
+            paperAuthor: 'Ottawa No. 2 Lake Park'
+
           },
           {
-            name: 'John Brown',
-            age: 18,
-            address: 'New York No. 1 Lake Park',
-            date: '2016-10-03'
+            number: 5,
+            paperName: 18,
+            paperAuthor: 'New York No. 1 Lake Park'
+
           },
           {
-            name: 'Jim Green',
-            age: 24,
-            address: 'London No. 1 Lake Park',
-            date: '2016-10-01'
+            number: 6,
+            paperName: 24,
+            paperAuthor: 'London No. 1 Lake Park'
+          },
+
+          {
+            number: 7,
+            paperName: 30,
+            paperAuthor: 'Sydney No. 1 Lake Park'
+
           },
           {
-            name: 'Joe Black',
-            age: 30,
-            address: 'Sydney No. 1 Lake Park',
-            date: '2016-10-02'
-          },
-          {
-            name: 'Jon Snow',
-            age: 26,
-            address: 'Ottawa No. 2 Lake Park',
-            date: '2016-10-04'
+            number: 8,
+            paperName: 26,
+            paperAuthor: 'Ottawa No. 2 Lake Park'
           }
         ]
       }
     },
     methods: {
-      pageList() {
-        alert(11)
-        console.log(111)
+      pageList: function () {
+        let data2 = this.data2;
+
+        this.$axios({
+          method: 'post',
+          url: '/user_paper/list'
+
+        }).then(function (response) {
+          let data = response.data.data;
+          if (data) {
+            data.forEach(function (paper) {
+              data2.push({
+                id: paper.paperId,
+                name: paper.paperName,
+                author: paper.paperAuthor,
+                status: paper.status,
+              })
+            })
+          }
+        })
       }
+    },
+    created() {
+      this.pageList()
     }
   };
 </script>
