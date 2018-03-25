@@ -8,7 +8,7 @@
             <iframe ref="annotationIframe" :src='"/static/viewer/web/viewer.html?file=./testpdf/1707.04873"+".pdf"'
                     width="100%" height="100%"
                     scrolling="no"></iframe>
-            <Annotation ref="annotationBtn" v-show="text.trim().length > 0" :text="text" :paperId="paperId"
+            <Annotation ref="annotationBtn" v-show="word.trim().length > 0" :word="word" :paperId="paperId"
                         :fileId="fileId"></Annotation>
         </div>
     </div>
@@ -24,21 +24,20 @@
       return {
         textIframe: null,
         annotation: null,
-        text: '',
+        word: '',
         paperId: '',
         fileId: '',
         columns: [{
           title: '原文',
           key: 'word'
-        },
-          {
-            title: '批注',
-            key: 'comment'
-          }],
+        }, {
+          title: '批注',
+          key: 'comment'
+        }],
         data: [
           {
-            word: 1,
-            comment: 2
+            word: '我敲里吗',
+            comment: '这个俚语很赞!'
           }
         ]
       };
@@ -50,14 +49,23 @@
       getParams () {
         return store.getters.temp;
       },
-      find(){
+      find() {
+        let data1 = this.data;
         this.$axios({
-          method:'post',
-          url:'/'
-
+          method: 'get',
+          url: '/'
+        }).then(function (response) {
+          let data = response.data.data;
+          if (data) {
+            data.forEach(function (item) {
+              data1.push({
+                word: item.word,
+                comment: item.comment,
+              })
+            })
+          }
         })
-      },
-      editAnnotationOnTextLayer() {
+      }, editAnnotationOnTextLayer() {
         this.textIframe = this.$refs.annotationIframe;
         let textIframe = this.textIframe;
         let pages = $(textIframe.contentWindow.document).find(".page");
@@ -77,7 +85,7 @@
       textSelect(event) {
         let selectedText = this.textIframe.contentWindow.getSelection().toString();
         if (selectedText !== null && selectedText.length > 0) {
-          this.text = selectedText;
+          this.word = selectedText;
           let curNode = event.currentTarget;
           let x = $(curNode).offset().top;
           let y = $(curNode).offset().left;

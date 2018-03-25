@@ -1,23 +1,23 @@
 <style>
-  .ivu-table td.state-color{
+    .ivu-table td.state-color {
 
+    }
 
-  }
-  .ivu-table td.number-width{
-    width:120px;
-  }
+    .ivu-table td.number-width {
+        width: 120px;
+    }
 </style>
 <template>
-  <div>
-    <Table :columns="columns1" :data="data2"></Table>
-    <Page :total="dataCount"
-          :current="pageNum"
-          :page-size="pageSize"
-          show-elevator show-sizer show-total
-          placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
+    <div>
+        <Table :columns="columns1" :data="data2"></Table>
+        <Page :total="dataCount"
+              :current="pageNum"
+              :page-size="pageSize"
+              show-elevator show-sizer show-total
+              placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
 
 
-  </div>
+    </div>
 </template>
 <script>
 
@@ -29,7 +29,7 @@
           {
             title: '序号',
             key: 'number',
-            className:'number-width'
+            className: 'number-width'
           },
           {
             title: '论文名称',
@@ -42,7 +42,7 @@
           {
             title: '论文状态',
             key: 'state',
-            className:'state-color'
+            className: 'state-color'
           },
           {
             title: '操作',
@@ -55,20 +55,20 @@
             paperName: 18,
             paperAuthor: 'New York No. 1 Lake Park',
 
-            state:'待评审'
+            state: '待评审'
           },
           {
             number: 2,
             paperName: 24,
             paperAuthor: 'London No. 1 Lake Park',
 
-            state:'正在评审'
+            state: '正在评审'
           },
           {
             number: 3,
             paperName: 30,
             paperAuthor: 'Sydney No. 1 Lake Park',
-            state:'已定稿  '
+            state: '已定稿  '
           },
           {
             number: 4,
@@ -107,18 +107,18 @@
         let data2 = this.data2;
 
         this.$axios({
-          method: 'post',
+          method: 'get',
           url: '/user_paper/list'
-
         }).then(function (response) {
           let data = response.data.data;
+          //非空对象但对象里面没东西的情况需要考虑进去
           if (data) {
             data.forEach(function (paper) {
               data2.push({
                 id: paper.paperId,
-                name: paper.paperName,
-                author: paper.paperAuthor,
-                status: paper.status,
+                paperName: paper.paperName,
+                paperAuthor: paper.paperAuthor,
+                state: paper.status,
               })
             })
           }

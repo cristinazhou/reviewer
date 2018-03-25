@@ -36,9 +36,9 @@ http.interceptors.response.use(
     if (response.status === 200) {
       if (response.data) {
         if (response.data.meta)
-          // if (response.data.meta.success) {
+          if (response.data.meta.success) {
             return response;
-          // }
+          }
       }
     }
   }, error => {
@@ -53,8 +53,8 @@ http.interceptors.response.use(
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router:router,
-  store:store,
+  router: router,
+  store: store,
   components: {App},
   template: '<App/>'
 })
