@@ -54,7 +54,7 @@ export default new Router({
         },
         {
           path: '/paper/search',
-          name: 'search',
+          name: 'paperSearch',
           component: PaperSearch
           
         },
