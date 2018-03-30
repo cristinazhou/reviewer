@@ -1,33 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/pages/Login'
-import Register from '@/components/pages/Register'
-import Home from '@/components/pages/Home'
-import Search from '@/components/pages/Search'
-import MyPaper from '@/components/pages/MyPaper'
-import AddPaper from '@/components/pages/AddPaper'
-import UnReviewed from '@/components/pages/UnReviewed'
-import AddFile from '@/components/pages/AddFile'
-import ShowPDF from '@/components/components/ShowPDF'
-import Reviewing from '@/components/pages/Reviewing'
-import PaperList from '@/components/components/PaperList'
-import myAnnotation from '@/components/pages/myAnnotation'
-import myCollection from '@/components/pages/myCollection'
-import Reviewed from '@/components/pages/Reviewed'
-
-Vue.use(Router)
+import Login from '@/pages/Login'
+import Register from '@/pages/Register'
+import Home from '@/pages/Home'
+import PaperSearch from '@/pages/PaperSearch'
+import MyPaper from '@/pages/MyPaper'
+import MyAnnotation from '@/pages/MyAnnotation'
+import MyCollection from '@/pages/MyCollection'
+import PaperCreate from '@/pages/PaperCreate'
+import PaperUnreviewed from '@/pages/PaperUnreviewed'
+import PaperReviewing from '@/pages/PaperReviewing'
+import PaperReviewed from '@/pages/PaperReviewed'
+import FileCreate from '@/pages/FileCreate'
+import PDFShow from '@/components/PDFShow'
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Login',
+      name: 'login',
       component: Login
     },
     {
-      path: '/showpdf',
-      name: 'showpdf',
-      component: ShowPDF
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
+    {
+      path: '/pdf',
+      name: 'PDFShow',
+      component: PDFShow
     },
     {
       path: '/home',
@@ -35,65 +38,52 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/mycollection',
-          name: 'mycollection',
-          component: myCollection
+          path: '/collection',
+          name: 'myCollection',
+          component: MyCollection
         },
         {
-          path: '/myannotation',
-          name: 'myannotation',
-          component: myAnnotation
+          path: '/annotation',
+          name: 'myAnnotation',
+          component: MyAnnotation
         },
         {
-          path: '/addpaper',
-          name: 'addpaper',
-          component: AddPaper
-        },
-        
-        {
-          path: '/paperlist',
-          name: 'paperlist',
-          component: PaperList
+          path: '/paper/create',
+          name: 'paperCreate',
+          component: PaperCreate
         },
         {
-          path: '/search',
+          path: '/paper/search',
           name: 'search',
-          component: Search
+          component: PaperSearch
           
         },
         {
-          path: '/mypaper',
-          name: 'mypaper',
+          path: '/paper',
+          name: 'myPaper',
           component: MyPaper
         },
         {
-          path: '/unreviewed',
-          name: 'unreviewed',
-          component: UnReviewed
+          path: '/paper/unreviewed',
+          name: 'paperUnreviewed',
+          component: PaperUnreviewed
         },
         {
-          path: '/reviewing',
-          name: 'reviewing',
-          component: Reviewing
+          path: '/paper/reviewing',
+          name: 'paperReviewing',
+          component: PaperReviewing
         },
         {
-          path: '/reviewed',
-          name: 'reviewed',
-          component: Reviewed
+          path: '/paper/reviewed',
+          name: 'paperReviewed',
+          component: PaperReviewed
         },
         {
-          path: '/addfile',
-          name: 'addfile',
-          component: AddFile
+          path: '/file/create',
+          name: 'fileCreate',
+          component: FileCreate
         }
       ]
-      
     },
-    {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    }
-  
   ]
 })

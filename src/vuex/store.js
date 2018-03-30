@@ -6,22 +6,22 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     count: 1,
-    papaerID:'',
-    refresh:false
+    papaerID: '',
+    refresh: false
   },
   mutations: {
     increment (state) {
       // 变更状态
       state.count++
     },
-    setpaper(state,payload){
-      state.temp.paperID+=payload.papaerID;
+    setpaper(state, payload){
+      state.temp.paperID += payload.papaerID;
     },
     refreshcomment(state){
-
-      state.refresh=(state.refresh?false:true);
+      
+      state.refresh = (state.refresh ? false : true);
     }
-
+    
   }, getters
 });
 
