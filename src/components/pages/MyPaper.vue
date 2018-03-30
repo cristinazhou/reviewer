@@ -70,35 +70,6 @@
             paperAuthor: 'Sydney No. 1 Lake Park',
             state: '已定稿  '
           },
-          {
-            number: 4,
-            paperName: 26,
-            paperAuthor: 'Ottawa No. 2 Lake Park'
-
-          },
-          {
-            number: 5,
-            paperName: 18,
-            paperAuthor: 'New York No. 1 Lake Park'
-
-          },
-          {
-            number: 6,
-            paperName: 24,
-            paperAuthor: 'London No. 1 Lake Park'
-          },
-
-          {
-            number: 7,
-            paperName: 30,
-            paperAuthor: 'Sydney No. 1 Lake Park'
-
-          },
-          {
-            number: 8,
-            paperName: 26,
-            paperAuthor: 'Ottawa No. 2 Lake Park'
-          }
         ]
       }
     },

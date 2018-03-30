@@ -1,7 +1,7 @@
 <template>
     <div class="content-wrapper">
         <div class="login-container">
-            <div class="login-meta"
+            <div class="login-meta">
             <p>Reviewer 文档评阅系统</p>
         </div>
         <div class="login-form" @keyup.enter="doLogin">
@@ -55,29 +55,28 @@
       },
       doLogin() {
         let message = this.$Message;
-        //localStorage.setItem("token", 'asouf283rfhasdf');
         if (this.checkValidity()) {
           var router = this.$router;
-          var jsonStr = {"userName":this.username,"userPassword":this.password}
+          var jsonStr = {"userName": this.username, "userPassword": this.password}
 
-            this.$axios({
-              method:'post',
-              url:'/user/login',
-              headers:{'Content-Type': 'application/json'},
-              data: JSON.stringify(jsonStr)
-            })
+          this.$axios({
+            method: 'post',
+            url: '/user/login',
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify(jsonStr)
+          })
             .then(function (response) {
-            if (response.data.meta.success) {
-              localStorage.setItem("token", response.data.data.tokn.token);
-              //  alert(this.token)
-              router.push({path: "/search"});
-            } else {
-              message.error(response.data.meta.message);
-            }
-          }).catch(function (error) {
+              if (response.data.meta.success) {
+                localStorage.setItem("token", response.data.data.tokn.token);
+                router.push({path: "/home"});
+              } else {
+                message.error(response.data.meta.message);
+              }
+            }).catch(function (error) {
             message.error(error);
           });
-        }}
+        }
+      }
       ,
       doRegister() {
         this.$router.push({path: "/register"});
@@ -88,7 +87,7 @@
 
 
 <style scoped lang="scss" type="text/scss">
-    @import '../style/login.scss';
+    /*@import '../../style/login.scss';*/
 
 
 </style>

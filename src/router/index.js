@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
-import Layout2 from '@/components/paper/Layout2'
-import Search from '@/components/main-component/Search'
-import MyPaper from '@/components/main-component/MyPaper'
-import AddPaper from '@/components/main-component/AddPaper'
-import UnReviewer from '@/components/main-component/UnReviewer'
-import AddFile from '@/components/main-component/AddFile'
-import ShowPDF from '@/components/main-component/ShowPDF'
-import Reviewering from '@/components/main-component/Reviewering'
-import PaperList from '@/components/main-component/PaperList'
-import myAnnotation from '@/components/main-component/myAnnotation'
-import myCollection from '@/components/main-component/myCollection'
-
+import Login from '@/components/pages/Login'
+import Register from '@/components/pages/Register'
+import Home from '@/components/pages/Home'
+import Search from '@/components/pages/Search'
+import MyPaper from '@/components/pages/MyPaper'
+import AddPaper from '@/components/pages/AddPaper'
+import UnReviewed from '@/components/pages/UnReviewed'
+import AddFile from '@/components/pages/AddFile'
+import ShowPDF from '@/components/components/ShowPDF'
+import Reviewing from '@/components/pages/Reviewing'
+import PaperList from '@/components/components/PaperList'
+import myAnnotation from '@/components/pages/myAnnotation'
+import myCollection from '@/components/pages/myCollection'
+import Reviewed from '@/components/pages/Reviewed'
 
 Vue.use(Router)
 
@@ -30,9 +30,9 @@ export default new Router({
       component: ShowPDF
     },
     {
-      path: '/layout2',
-      name: 'layout2',
-      component: Layout2,
+      path: '/home',
+      name: 'home',
+      component: Home,
       children: [
         {
           path: '/mycollection',
@@ -49,22 +49,17 @@ export default new Router({
           name: 'addpaper',
           component: AddPaper
         },
-
+        
         {
           path: '/paperlist',
           name: 'paperlist',
           component: PaperList
         },
         {
-          path: '/reviewering',
-          name: 'reviewering',
-          component: Reviewering
-        },
-        {
           path: '/search',
           name: 'search',
           component: Search
-
+          
         },
         {
           path: '/mypaper',
@@ -72,23 +67,33 @@ export default new Router({
           component: MyPaper
         },
         {
-          path: '/unreviewer',
-          name: 'unreviewer',
-          component: UnReviewer
+          path: '/unreviewed',
+          name: 'unreviewed',
+          component: UnReviewed
         },
         {
-          path:'/addfile',
-          name:'addfile',
-          component:AddFile
+          path: '/reviewing',
+          name: 'reviewing',
+          component: Reviewing
+        },
+        {
+          path: '/reviewed',
+          name: 'reviewed',
+          component: Reviewed
+        },
+        {
+          path: '/addfile',
+          name: 'addfile',
+          component: AddFile
         }
       ]
-
+      
     },
     {
       path: '/register',
       name: 'Register',
       component: Register
     }
-
+  
   ]
 })

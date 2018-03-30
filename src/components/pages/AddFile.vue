@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import Operation3 from './Operation3.vue'
+  import Operation3 from '../components/Operation3.vue'
   import store from '../vuex/store'
   export default {
     components: {

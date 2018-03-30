@@ -38,8 +38,8 @@
                         论文评审
                     </template>
                     <MenuItem name="3-1" @click.native="unreviewer">未评审</MenuItem>
-                    <MenuItem name="3-2" @click.native="doing">正在评审</MenuItem>
-                    <MenuItem name="3-3">已定稿</MenuItem>
+                    <MenuItem name="3-2" @click.native="reviewing">正在评审</MenuItem>
+                    <MenuItem name="3-3" @click.native="reviewed">已定稿</MenuItem>
                 </Submenu>
                 <Submenu name="4">
                     <template slot="title">
@@ -115,10 +115,13 @@
         this.$router.push({path: "/mypaper"});
       },
       unreviewer() {
-        this.$router.push({path: "/unreviewer"});
+        this.$router.push({path: "/unreviewed"});
       },
-      doing() {
-        this.$router.push({path: "/reviewering"});
+      reviewing() {
+        this.$router.push({path: "/reviewing"});
+      },
+      reviewed(){
+        this.$router.push({path:'/reviewed'});
       },
       addfile() {
         this.$router.push({path: "/addfile"});
