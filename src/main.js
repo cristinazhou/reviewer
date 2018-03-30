@@ -6,7 +6,7 @@ import router from './router'
 import iView from 'iview'
 import Axios from 'axios'
 import 'iview/dist/styles/iview.css'    // 使用 CSS
-import store from './components/vuex/store'
+import store from './vuex/store'
 import  Vuex from 'vuex'
 Vue.use(iView);
 
@@ -37,6 +37,9 @@ http.interceptors.response.use(
         if (response.data.meta)
           if (response.data.meta.success) {
             return response;
+          } else {
+          //指定一个全局的方法弹出response的错误message
+            // message.error(response.data.meta.message);
           }
       }
     }

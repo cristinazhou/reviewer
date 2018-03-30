@@ -2,7 +2,6 @@ p {
   color: #464849;
   font-size: 25px;
   font-weight: bold;
-
 }
 
 .content-wrapper {
@@ -11,7 +10,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("../assets/cat.jpg");
+  background: url("~@/assets/cat.jpg");
   background-size: cover;
   text-align: center;
   font-weight: lighter;
@@ -32,14 +31,13 @@ p {
   font-weight: lighter;
   background-color: white;
   padding: 50px 0;
-
   p {
     font-size: 26px;
     color: #464849;
   }
 
   label {
-    display: block;
+    display: block;;
     color: #ccc;
     font-size: 20px;
     height: 40px;
@@ -60,9 +58,9 @@ p {
     border: none;
     border-bottom: 1px solid #e4e4e4;
     outline: none;
-    //&::placeholder {
-    //  color: #8c939d;
-    //}
+    &::placeholder {
+      color: #8c939d;
+    }
   }
 
   button {
