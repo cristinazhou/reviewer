@@ -15,7 +15,6 @@ var http = Axios.create({
   baseURL: 'http://localhost:8080/sce_reviewer',
 });
 http.defaults.headers.common['X-Token'] = localStorage.getItem('token');
-Vue.prototype.$axios = http;
 
 Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
@@ -50,6 +49,7 @@ http.interceptors.response.use(
     }
   }
 );
+Vue.prototype.$axios = http;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

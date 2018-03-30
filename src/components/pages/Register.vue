@@ -52,7 +52,9 @@
             }
           }
         });
-        this.selected = 1;
+        if (this.selected == '') {
+          this.selected = 1;
+        }
       },
       checkValidity() {
         let isValid = true;
@@ -90,23 +92,23 @@
         if (this.checkValidity()) {
           let router = this.$router;
           let message = this.$Message;
-          var jsonStr = {"userName":this.username,"userPassword":this.password,"role":{"roleName":this.selected}}
+          var jsonStr = {"userName": this.username, "userPassword": this.password, "role": {"roleName": this.selected}}
           this.$axios({
-            method:'post',
-            url:'/user/register',
+            method: 'post',
+            url: '/user/register',
 
-            headers:{'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
 
             data: JSON.stringify(jsonStr)
           })
             .then(function (response) {
               //alert(response.data.meta.message)
-            if (response.data.meta.success===true) {
-              message.success("注册成功");
+              if (response.data.meta.success === true) {
+                message.success("注册成功");
 
-              router.push({path:'/'});
-            }
-          }).catch(function (error) {
+                router.push({path: '/'});
+              }
+            }).catch(function (error) {
             //message.error(error);
           })
         }
@@ -120,6 +122,6 @@
 
 
 <style scoped lang="scss" type="text/scss">
-    @import '../style/login.scss';
+    /*@import '../../style/login.scss';*/
 
 </style>
