@@ -42,9 +42,13 @@
           key:'fileName'
         },{
           title:'操作',
-          key:'operation',
+          key:'operation3',
           render: function (h, params) {
-            return <Operation3></Operation3>
+            return h(Operation3,{
+              props:{
+               fileId:params.row.id
+              }
+            })
           }
 
         }],
@@ -106,14 +110,15 @@
         let fileSet =this.fileSet;
         this.$axios({
           method:'get',
-          url:'/file/list'
+          url:'/file/user_list'
         })
           .then(function (response) {
             let data = response.data.data;
-            if (data) { var i=1
+            if (data) { var i=0
               data.forEach(function (file) {
                 fileSet.push({
                   number:i,
+                  id:file.id,
                   username:file.user.userName,
                   fileName:file.fileName
 

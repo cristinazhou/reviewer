@@ -4,19 +4,47 @@
       <Icon type="arrow-down-b"></Icon>
     </i-button>
     <Dropdown-menu slot="list">
-      <Dropdown-item name="not_review" >删除</Dropdown-item>
-      <Dropdown-item name="reviewing" >下载</Dropdown-item>
-      <Dropdown-item>详情</Dropdown-item>
+      <Dropdown-item name="delete" >删除</Dropdown-item>
+      <Dropdown-item name="download" >下载</Dropdown-item>
+      <Dropdown-item name="detail">详情</Dropdown-item>
     </Dropdown-menu>
+
+
   </Dropdown>
 
 </template>
 <script>
   export default {
+    props: ['fileId'],
     data(){
       return{
 
       };
+    },
+    methods:{
+      judge(name){
+        switch(name){
+          case "download" : {
+
+          this.$axios.get('/file/download?fileId='+this.fileId)
+            .then(function(response){
+
+            })
+        }
+          case "delete" :{
+            this.$axios.get('/file/delete?fileId='+this.fileId)
+              .then(function(response){
+
+              })
+          }
+          case "detail" :{
+            this.$axios.get('/file/show?fileId='+this.fileId)
+              .then(function(response){
+
+              })
+          }
+        }
+      }
     }
   };
 
