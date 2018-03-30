@@ -33,11 +33,8 @@
         <!--<button @click="submitForm($event)">上传</button>-->
       <!--</form>-->
     </FormItem>
-
-
     <FormItem>
-      <Button type="primary" @click="submitForm($event)">Submit</Button>
-      <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
+      <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
     </FormItem>
   </Form>
 
@@ -95,7 +92,7 @@
                 mockData.push({
                   key:i,
                   label:response.data.data[i].fileName,
-                  fileType:response.data.data[i].fileType,
+                  fileId:response.data.data[i].id,
 
 
                   //disabled: Math.random() * 3 < 1
@@ -109,19 +106,6 @@
             }
 
           })
-          .catch(function (error) {
-            console.log('error')
-
-          })
-
-        // for (let i = 1; i <= 20; i++) {
-        //   mockData.push({
-        //     key: i.toString(),
-        //     label: 'Content ' + i,
-        //     description: 'The desc of content  ' + i,
-        //     disabled: Math.random() * 3 < 1
-        //   });
-        // }
         return mockData;
       },
       getTargetKeys () {
@@ -145,31 +129,28 @@
       // getFile(event) {
       //   this.file = event.target.files[0];
       // },
-      submitForm(event) {
-        event.preventDefault();
-        let file = this.formValidate.file;
-        let formData = new FormData();
-        for(let i=0;i<targetKeys.length;i++)
-        {
-          formData.append('fileId', this.targetKeys.fileId);//
+      handleSubmit (name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            this.$axios({
+              method:'post',
+              url:'/paper/create',
+              data:{
+                paperTitle:this.formValidate.paperTitle,
+                paperAuthor:this.formValidate.paperAuthor,
+                ispublic:this.formValidate.authority,
+                fileId:this.targetKeys[0].fileName
 
-        }
-        formData.append('paperTitle',this.formValidate.paperTitle);
-        formData.append('paperAuthor',this.formValidate.paperAuthor);
-        formData.append('paperOwner',this.formValidate.paperOwner);
-        formData.append('ispublic',this.formValidate.authority);
-        this.$axios({
-          method: 'post',
-          url: '/paper/create',
-          data:formData,})
-          .then(function (response) {
-            alert(111)
-            if (response.status === 200) {
-              alert(111)
-              /*这里做处理*/
-            }
-          })
-      }
+              }
+            })
+            this.$Message.success('提交成功!');
+
+          } else {
+            this.$Message.error('表单验证失败!');
+          }
+        })
+      },
+
     }
 
 

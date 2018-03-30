@@ -1,4 +1,4 @@
-<template>
+  <template>
     <div>
         <div style="">
             <!--此处输入框的model是否绑定了？-->

@@ -6,8 +6,8 @@
         <Dropdown-menu slot="list">
             <Dropdown-item name="not_review" v-if="paperStatus === 0">开始审核</Dropdown-item>
             <Dropdown-item name="reviewing" v-else-if="paperStatus === 1">审核完成</Dropdown-item>
-            <Dropdown-item>批注</Dropdown-item>
-          <Dropdown-item>收藏</Dropdown-item>
+            <Dropdown-item name="annotate">批注</Dropdown-item>
+          <Dropdown-item name="collect">收藏</Dropdown-item>
         </Dropdown-menu>
     </Dropdown>
 
@@ -25,7 +25,17 @@
             break;
           case 'reviewing':
             break;
+          case 'annotation' :
+            break;
+          case 'collect' :{
+            let massage = this.$Message;
+            this.$axios.get('/public_paper/collect?paperId='+this.paperId)
+            .then(function(response){
+              massage.success("收藏成功！");
 
+            })
+            break;
+          }
           default:
             break;
         }
