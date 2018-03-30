@@ -31,7 +31,7 @@
               title:'操作',
               key:'operation',
               render(){
-                return <i-button type="primary">开始评审</i-button>
+                return <i-button size="small" type="primary">开始评审</i-button>
               }
             }
           ],

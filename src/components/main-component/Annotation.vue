@@ -1,13 +1,13 @@
 <template>
-    <div style="width: 200px; height: auto;">
-        <i-button type="primary" size="small" @click="annotate">批注</i-button>
-        <p>{{ word }}</p>
-        <textarea v-if="word.length > 0" v-model="annotation"></textarea>
+    <div id="target" onmousemove="move();"  style="width: 200px; height: auto;">
+      <i-input  v-model=word type="textarea" autosize="true" readonly="true" ></i-input>
+
+        <i-input type="textarea" v-if="word.length > 0" v-model="annotation" autosize="true"></i-input>
+      <i-button type="primary"  @click="annotate">批注</i-button>
     </div>
 </template>
 
 <script>
-  import store from '../vuex/store.js'
   export default {
     props: ['word', 'paperId', 'fileId'],
     data () {
@@ -16,6 +16,12 @@
       }
     },
     methods: {
+      move(e){
+        var div = document.getElementById("target");
+        div.style.left=e.clientX+"px";
+        div.style.right=e.clientY+"px";
+
+    },
       annotate() {
         let word = this.word;
         let formData = new FormData();
@@ -27,7 +33,7 @@
         formData.append('fileId', fileId);
         formData.append('annotation', annotation);
         this.$axios({
-          url: '',
+          url: 'user/check',
           method: 'post',
           data: formData,
         }).then(function (response) {
@@ -35,9 +41,6 @@
         })
       }
     },
-    onCreated() {
-
-    }
   }
 </script>
 <style scoped>

@@ -11,6 +11,8 @@ import AddFile from '@/components/main-component/AddFile'
 import ShowPDF from '@/components/main-component/ShowPDF'
 import Reviewering from '@/components/main-component/Reviewering'
 import PaperList from '@/components/main-component/PaperList'
+import myAnnotation from '@/components/main-component/myAnnotation'
+import myCollection from '@/components/main-component/myCollection'
 
 
 Vue.use(Router)
@@ -32,6 +34,16 @@ export default new Router({
       name: 'layout2',
       component: Layout2,
       children: [
+        {
+          path: '/mycollection',
+          name: 'mycollection',
+          component: myCollection
+        },
+        {
+          path: '/myannotation',
+          name: 'myannotation',
+          component: myAnnotation
+        },
         {
           path: '/addpaper',
           name: 'addpaper',

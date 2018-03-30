@@ -1,10 +1,6 @@
 <template>
     <div style="height:100%;width:100%;display:table">
-        <div style="float: left;width:20%;display: table-cell;height:100%">
-            <Table :columns="columns" :data="data"></Table>
-            <i-button @click="editAnnotationOnTextLayer">添加</i-button>
-        </div>
-        <div style="float:right;display:table-cell;width:80%;height:100%">
+        <div style="float:left;display:table-cell;width:80%;height:100%">
             <iframe ref="annotationIframe" :src='"/static/viewer/web/viewer.html?file=./testpdf/1707.04873"+".pdf"'
                     width="100%" height="100%"
                     scrolling="no"></iframe>
@@ -12,6 +8,10 @@
                         :paperId="paperId"
                         :fileId="fileId"></Annotation>
         </div>
+      <div style="float:right;width:20%;display: table-cell;height:100%">
+        <Table :columns="columns" :data="data"></Table>
+        <i-button @click="editAnnotationOnTextLayer">添加</i-button>
+      </div>
     </div>
 </template>
 
@@ -21,6 +21,11 @@
   import $ from 'jquery'
   export default {
     name: "show-p-d-f",
+    computed:{
+      refresh(){
+        return this.$store.state.refresh;
+      }
+    },
     data(){
       return {
         textIframe: null,
@@ -96,7 +101,7 @@
         }
       },
     },
-  }
+  };
 </script>
 
 <style scoped>

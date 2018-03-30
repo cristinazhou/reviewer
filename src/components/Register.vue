@@ -33,7 +33,7 @@
         password: "",
         password1: '',
         roleList: [],
-        selected: '学生',
+        selected: 'student',
       };
     },
     methods: {
@@ -46,7 +46,7 @@
             for (let i = 0; i < roles.length; ++i) {
               let role = roles[i];
               roleList.push({
-                value: role.id,
+                value: role.roleName,
                 label: role.roleName,
               });
             }
@@ -90,17 +90,24 @@
         if (this.checkValidity()) {
           let router = this.$router;
           let message = this.$Message;
-          this.$axios.post('/user/register', {
-            userName: this.username,
-            userPassword: this.password,
-            roleName: this.selected,
-          }).then(function (code, response) {
-            if (response.data.meta.success) {
-              message.confirm('登录成功');
-              router.push({path: '/'});
+          var jsonStr = {"userName":this.username,"userPassword":this.password,"role":{"roleName":this.selected}}
+          this.$axios({
+            method:'post',
+            url:'/user/register',
+
+            headers:{'Content-Type': 'application/json'},
+
+            data: JSON.stringify(jsonStr)
+          })
+            .then(function (response) {
+              //alert(response.data.meta.message)
+            if (response.data.meta.success===true) {
+              message.success("注册成功");
+
+              router.push({path:'/'});
             }
           }).catch(function (error) {
-            message.error(error);
+            //message.error(error);
           })
         }
       }

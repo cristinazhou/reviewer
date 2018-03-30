@@ -29,8 +29,8 @@
                         个人中心
                     </template>
                     <MenuItem name="2-1" @click.native="mypaper">我的论文</MenuItem>
-                    <MenuItem name="2-2">我的批注</MenuItem>
-                    <MenuItem name="2-3">私有论文</MenuItem>
+                    <MenuItem name="2-2" @click.native="myAnnotation">我的批注</MenuItem>
+                    <MenuItem name="2-3" @click.native="myCollection">我的收藏</MenuItem>
                 </Submenu>
                 <Submenu name="3">
                     <template slot="title">
@@ -97,6 +97,12 @@
       }
     },
     methods: {
+      myAnnotation() {
+        this.$router.push({path: "/myannotation"});
+      },
+      myCollection() {
+        this.$router.push({path: "/mycollection"});
+      },
       init() {
       },
       info() {

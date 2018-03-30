@@ -85,16 +85,20 @@
         var mockData = [];
         this.$axios({
           method:'get',
-          url:'/user/search'
+          url:'/file/user_list',
+
         })
           .then(function(response){
             if(response.status===200) {
               for(let i=0;i<response.data.data.length;i++){
+
                 mockData.push({
-                  key:i.toString(),
-                  fileName:response.data.data[i].fileName,
-                  fileId:response.data.data[i].file,
-                  disabled: Math.random() * 3 < 1
+                  key:i,
+                  label:response.data.data[i].fileName,
+                  fileType:response.data.data[i].fileType,
+
+
+                  //disabled: Math.random() * 3 < 1
                 });
 
 
@@ -129,7 +133,7 @@
         this.targetKeys = newTargetKeys;
       },
       render3 (item) {
-        return  item.fileName;
+        return  item.label;
       },
       reloadMockData () {
         this.dataLeft = this.getMockData();

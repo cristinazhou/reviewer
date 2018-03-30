@@ -54,22 +54,31 @@
         return isValid;
       },
       doLogin() {
-        localStorage.setItem("token", 'asouf283rfhasdf');
+        let message = this.$Message;
+        //localStorage.setItem("token", 'asouf283rfhasdf');
         if (this.checkValidity()) {
           var router = this.$router;
-          this.$axios.post('/user/login?userName='+this.username+'&userPassword='+this.password )
+          var jsonStr = {"userName":this.username,"userPassword":this.password}
+
+            this.$axios({
+              method:'post',
+              url:'/user/login',
+              headers:{'Content-Type': 'application/json'},
+              data: JSON.stringify(jsonStr)
+            })
             .then(function (response) {
             if (response.data.meta.success) {
-              localStorage.setItem("token", response.data.data.token);
+              localStorage.setItem("token", response.data.data.tokn.token);
+              //  alert(this.token)
               router.push({path: "/search"});
             } else {
-              this.$Message.error(response.data.meta.message);
+              message.error(response.data.meta.message);
             }
           }).catch(function (error) {
-            this.$Message.error(error);
+            message.error(error);
           });
-        }
-      },
+        }}
+      ,
       doRegister() {
         this.$router.push({path: "/register"});
       }

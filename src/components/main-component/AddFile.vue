@@ -1,8 +1,7 @@
 <template>
     <div>
-      <Input v-model="value" placeholder="请输入文件名" style="width: 200px"/>
-      <button @click="search">搜索</button>
-      <h3>{{count}}</h3>
+      <Input v-model=value  placeholder="请输入文件名" style="width: 200px"/>
+      <i-button type="primary"  @click="search">搜索</i-button>
 
 
       <form  class="file">
@@ -32,14 +31,11 @@
 
     data(){
       return {
+        value:'',
         file: '',
         columns:[{
           title:'序号',
           key:'number'
-
-        },{
-          title:'上传用户名',
-          key:'userName'
 
         },{
           title:'文件名',
@@ -80,14 +76,29 @@
           url: '/file/upload',
           data: formData,})
           .then(function (response) {
-          alert(111)
+
           if (response.status === 200) {
-            alert(111)
+
               /*这里做处理*/
           }
         })
       },
       search(){
+        this.$axios.get('/file/all_search?keyWords='+this.value)
+          .then(function(response){
+            let data=response.data.data;
+            if (data) {
+              data.forEach(function (file) {
+                fileSet.push({
+                  id: file.id,
+                  name: file.paperTitle,
+                  author: file.paperAuthor,
+                  owner:file.paperOwner,
+                  status: file.ispublic
+                })
+              })
+            }
+          })
 
 
       },
