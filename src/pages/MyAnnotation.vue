@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Table :columns="columns" :data="data1"></Table>
+        <Table height="567" :columns="columns" :data="data1"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"

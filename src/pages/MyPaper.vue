@@ -9,7 +9,7 @@
 </style>
 <template>
     <div>
-        <Table :columns="columns1" :data="data2"></Table>
+        <Table height="567":columns="columns1" :data="data2"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"

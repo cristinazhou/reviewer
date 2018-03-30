@@ -30,18 +30,21 @@
             .then(function(response){
 
             })
+            break;
         }
           case "delete" :{
             this.$axios.get('/file/delete?fileId='+this.fileId)
               .then(function(response){
 
               })
+            break;
           }
           case "detail" :{
             this.$axios.get('/file/show?fileId='+this.fileId)
               .then(function(response){
 
               })
+            break;
           }
         }
       }
