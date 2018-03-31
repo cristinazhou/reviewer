@@ -56,9 +56,6 @@
         },
         dataLeft: this.getMockData(),
         targetKeys: this.getTargetKeys(),
-        listStyle: {
-          width: '250px',
-          height: '300px',
         ruleValidate: {
           paperTitle: [
             {required: true, message: 'The title cannot be empty', trigger: 'blur'}
@@ -76,7 +73,7 @@
         }
       }
 
-    };   },
+    } ,
     methods: {
       getMockData () {
         var mockData = [];
