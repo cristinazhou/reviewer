@@ -71,7 +71,6 @@
     data() {
       return {
         userName: localStorage.getItem("username"),
-        avatorPath: ''
       }
     },
     methods: {
@@ -104,8 +103,14 @@
       },
       handleClickUserDropDown(name) {
         if (name === 'logout') {
-          localStorage.removeItem('token');
-          this.$router.push({name: "login"});
+          this.$axios.get('/user/exit?userName='+this.userName)
+            .then(function (response){
+              localStorage.removeItem('token');
+
+              this.$router.push({name: "login"});
+
+            })
+
         }
       }
     },

@@ -9,6 +9,7 @@ import 'iview/dist/styles/iview.css'    // 使用 CSS
 import store from './vuex/store'
 import  Vuex from 'vuex'
 Vue.use(iView);
+import { Modal } from 'iview'
 
 var http = Axios.create({
   timeout: 8000,

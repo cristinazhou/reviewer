@@ -33,10 +33,23 @@
             break;
         }
           case "delete" :{
-            this.$axios.get('/file/delete?fileId='+this.fileId)
-              .then(function(response){
+           // let message = this.$Message;
+              this.$Modal.confirm({
+                title: '确认对话框标题',
+                content: '<p>删除该文件</p>',
+                onOk: () => {
+                  let message = this.$Message;
+                  this.$axios.get('/file/delete?fileId='+this.fileId)
+                    .then(function(response){
+                      message.info('删除成功');
 
-              })
+                    })
+                  //this.$Message.info('点击了确定');
+                },
+                onCancel: () => {
+                  this.$Message.info('取消删除');
+                }
+              });
             break;
           }
           case "detail" :{

@@ -33,7 +33,7 @@
         formData.append('fileId', fileId);
         formData.append('annotation', annotation);
         this.$axios({
-          url: 'user/check',
+          url: '/annotation/save',
           method: 'post',
           data: formData,
         }).then(function (response) {

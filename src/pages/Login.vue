@@ -65,6 +65,7 @@
           }).then(function (response) {
             localStorage.setItem("token", response.data.data.tokn.token);
             router.push({name: "home"});
+            localStorage.setItem("username",this.data.userName)
           })
         }
       },
