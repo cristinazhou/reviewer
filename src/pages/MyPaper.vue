@@ -20,8 +20,10 @@
     </div>
 </template>
 <script>
+  import PersonalButton from '../components/PersonalButton'
 
   export default {
+    components:{PersonalButton},
 
     data() {
       return {
@@ -46,7 +48,16 @@
           },
           {
             title: '操作',
-            key: 'operate'
+            key: 'operate',
+            render: function (h, params) {
+              return h(PersonalButton, {
+                props: {
+                  paperId: params.row.id,
+                  //paperStatus: params.row.state
+                }
+              })
+            }
+
           }
         ],
         data2: [
@@ -77,10 +88,8 @@
       pageList: function () {
         let data2 = this.data2;
 
-        this.$axios({
-          method: 'get',
-          url: '/user_paper/list'
-        }).then(function (response) {
+        this.$axios.get('/paper/list')
+          .then(function (response) {
           let data = response.data.data;
           //非空对象但对象里面没东西的情况需要考虑进去
           if (data) {

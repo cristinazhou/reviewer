@@ -137,8 +137,8 @@
 
   };
 </script>
-<style>
-  /*@import '../../style/input.scss';*/
+<style lang="scss" type="text/scss">
+  @import '~@/style/input.scss';
 </style>
 
 

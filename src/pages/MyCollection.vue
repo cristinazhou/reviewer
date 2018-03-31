@@ -1,6 +1,7 @@
 <template>
     <div>
-        <Table height="567" :columns="columns" :data="data"></Table>
+
+        <Table height="567" :columns="columns" :data="data1"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
@@ -40,30 +41,26 @@
             }
           }
         ],
-        data: []
+        data1: []
       }
     },
-    method: {
-      pageList: function () {
+    methods: {
+      pageList() {
         let data1 = this.data1;
-        //根据教师ID获取
         this.$axios({
-          method: 'post',
-          url: '/',
-          data: {
-            teacherName: this.username,
-
-          }
-
-        }).then(function (response) {
+          method:'get',
+          url:'/individual_center/collect_list'
+        })
+          .then(function (response) {
+            let i=0;
           let data = response.data.data;
           if (data) {
             data.forEach(function (paper) {
               data1.push({
-                id: paper.paperId,
-                name: paper.paperName,
-                author: paper.paperAuthor,
-                status: paper.status,
+                number: paper[i].id,
+                paperName: paper[i].paperOwner,
+                paperAuthor: paper[i].paperAuthor,
+                status: paper[i].ispublic
               })
             })
           }
