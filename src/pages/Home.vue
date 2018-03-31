@@ -103,14 +103,11 @@
       },
       handleClickUserDropDown(name) {
         if (name === 'logout') {
-          this.$axios.get('/user/exit?userName='+this.userName)
-            .then(function (response){
+          this.$axios.get('/user/exit?userName=' + this.userName)
+            .then(function (response) {
               localStorage.removeItem('token');
-
               this.$router.push({name: "login"});
-
             })
-
         }
       }
     },

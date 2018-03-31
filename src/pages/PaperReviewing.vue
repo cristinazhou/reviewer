@@ -6,12 +6,10 @@
               :page-size="pageSize"
               show-elevator show-sizer show-total
               placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-
-
     </div>
 </template>
 <script>
-  import Button from '../components/Button.vue'
+  import Button from '@/components/Button.vue'
   export default {
     components: {
       Button
@@ -63,13 +61,8 @@
         let data1 = this.data1;
         //根据教师ID获取
         this.$axios({
-          method: 'post',
+          method: 'get',
           url: '/',
-          data: {
-            teacherName: this.username,
-
-          }
-
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
@@ -84,12 +77,9 @@
           }
         })
       }
-
     },
     created(){
       this.pageList()
-
     }
-
   }
 </script>

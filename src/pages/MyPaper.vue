@@ -9,22 +9,20 @@
 </style>
 <template>
     <div>
-        <Table height="567":columns="columns1" :data="data2"></Table>
+        <Table height="567" :columns="columns1" :data="data2"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
               show-elevator show-sizer show-total
               placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-
-
     </div>
 </template>
 <script>
-  import PersonalButton from '../components/PersonalButton'
-
+//  import ButtonMyPaper from '../components/buttons/ButtonMyPaper.vue'
   export default {
-    components:{PersonalButton},
-
+    components: {
+//      ButtonMyPaper
+    },
     data() {
       return {
         columns1: [
@@ -90,19 +88,19 @@
 
         this.$axios.get('/paper/list')
           .then(function (response) {
-          let data = response.data.data;
-          //非空对象但对象里面没东西的情况需要考虑进去
-          if (data) {
-            data.forEach(function (paper) {
-              data2.push({
-                id: paper.paperId,
-                paperName: paper.paperName,
-                paperAuthor: paper.paperAuthor,
-                state: paper.status,
+            let data = response.data.data;
+            //非空对象但对象里面没东西的情况需要考虑进去
+            if (data) {
+              data.forEach(function (paper) {
+                data2.push({
+                  id: paper.paperId,
+                  paperName: paper.paperName,
+                  paperAuthor: paper.paperAuthor,
+                  state: paper.status,
+                })
               })
-            })
-          }
-        })
+            }
+          })
       }
     },
     created() {

@@ -8,20 +8,21 @@
                         :paperId="paperId"
                         :fileId="fileId"></Annotation>
         </div>
-      <div style="float:right;width:20%;display: table-cell;height:100%">
-        <Table :columns="columns" :data="data"></Table>
-        <i-button @click="editAnnotationOnTextLayer">添加</i-button>
-      </div>
+        <div style="float:right;width:20%;display: table-cell;height:100%">
+            <Table :columns="columns" :data="data"></Table>
+            <i-button @click="editAnnotationOnTextLayer">添加</i-button>
+            <i-button>查询</i-button>
+            <i-button>删除</i-button>
+        </div>
     </div>
 </template>
-
 <script>
-  import Annotation from './Annotation.vue'
+  import Annotation from '@/components/Annotation.vue'
   import store from '../vuex/store.js'
   import $ from 'jquery'
   export default {
     name: "show-p-d-f",
-    computed:{
+    computed: {
       refresh(){
         return this.$store.state.refresh;
       }

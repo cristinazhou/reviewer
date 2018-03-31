@@ -1,11 +1,10 @@
   <template>
     <div>
-        <div style="">
+        <div>
             <!--此处输入框的model是否绑定了？-->
             <Input v-model="value" placeholder="请输入论文名" style="width: 200px"/>
             <i-button type="primary" @click="search">搜索</i-button>
-            <Table height="531" :columns="columns1" :data="data2">
-            </Table>
+            <Table height="531" :columns="columns1" :data="data2"></Table>
         </div>
         <div style="border:1px">
             <Page :total="dataCount"
@@ -67,7 +66,6 @@
         this.pageNum = value;
         data2 = [];
         this.pageList();
-
       },
       handlePageSize(value){
         this.pageSize = value;
@@ -77,7 +75,7 @@
         let data2 = this.data2;
         let key = this.key;
         this.$axios({
-          method: 'get',
+          method: 'post',
           data: {
             key: key,
           },
@@ -98,7 +96,6 @@
         })
       },
       search() {
-        //只有在搜索的时候把搜索框的value绑定一次到key上
         this.key = this.value;
         this.pageList();
       }

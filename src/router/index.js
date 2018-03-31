@@ -12,7 +12,7 @@ import PaperUnreviewed from '@/pages/PaperUnreviewed'
 import PaperReviewing from '@/pages/PaperReviewing'
 import PaperReviewed from '@/pages/PaperReviewed'
 import FileCreate from '@/pages/FileCreate'
-import PDFShow from '@/components/PDFShow'
+import PDFShow from '@/pages/PDFShow'
 Vue.use(Router);
 
 export default new Router({

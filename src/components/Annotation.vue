@@ -9,6 +9,7 @@
 
 <script>
   export default {
+    name: 'annotation',
     props: ['word', 'paperId', 'fileId'],
     data () {
       return {

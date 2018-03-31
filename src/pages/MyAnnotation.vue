@@ -6,13 +6,11 @@
               :page-size="pageSize"
               show-elevator show-sizer show-total
               placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-
-
     </div>
 </template>
 
 <script>
-  import Button from '../components/Button.vue'
+  import Button from '@/components/Button.vue'
   export default {
     components: {
       Button
@@ -31,6 +29,10 @@
           {
             title: '论文作者',
             key: 'paperAuthor'
+          },
+          {
+            title: '文件名',
+            key: 'fileName'
           },
           {
             title: '操作',
@@ -52,15 +54,9 @@
     method: {
       pageList: function () {
         let data1 = this.data1;
-        //根据教师ID获取
         this.$axios({
-          method: 'post',
-          url: '/',
-          data: {
-            teacherName: this.username,
-
-          }
-
+          method: 'get',
+          url: '/annotation/user_list',
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
@@ -75,13 +71,10 @@
           }
         })
       }
-
     },
     created(){
       this.pageList()
-
     }
-
   }
 </script>
 

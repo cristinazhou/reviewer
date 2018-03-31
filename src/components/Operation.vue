@@ -32,7 +32,6 @@
             this.$axios.get('/public_paper/collect?paperId='+this.paperId)
             .then(function(response){
               massage.success("收藏成功！");
-
             })
             break;
           }
