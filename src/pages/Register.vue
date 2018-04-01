@@ -11,7 +11,7 @@
                         item.label }}
                     </Option>
                 </Select>
-                <input type="text" v-model="username" placeholder="用户名"/>
+                <input type="text" v-model="userName" placeholder="用户名"/>
                 <label style="margin-top: 0">
                     <input type="password" v-model="password" placeholder="密码"/>
                     <input type="password" v-model="password1" placeholder="确认密码"/>
@@ -27,7 +27,7 @@
   export default {
     data() {
       return {
-        username: "",
+        userName: "",
         password: "",
         passwordRepeat: '',
         roleList: [
@@ -85,14 +85,14 @@
         this.$router.push({name: "login"});
       },
       doRegister() {
-        let userName = this.username;
+        let userName = this.userName;
         let password = this.password;
         let passwordRepeat = this.passwordRepeat;
         if (this.checkValidity(userName, password, passwordRepeat)) {
           let router = this.$router;
           let message = this.$Message;
           let data = {
-            "userName": this.username,
+            "userName": this.userName,
             "userPassword": this.password,
             "role": {
               "roleName": this.selected

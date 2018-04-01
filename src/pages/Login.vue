@@ -7,7 +7,7 @@
             <div class="login-form" @keyup.enter="doLogin">
                 <p>系统登录</p>
                 <label style="margin-bottom: 0">
-                    <input type="text" v-model="username" placeholder="用户名">
+                    <input type="text" v-model="userName" placeholder="用户名">
                 </label>
                 <label style="margin-top: 0">
                     <input type="password" v-model="password" placeholder="密码">
@@ -23,7 +23,7 @@
   export default {
     data() {
       return {
-        username: "",
+        userName: "",
         password: "",
         token: ""
       };
@@ -54,7 +54,7 @@
         if (this.checkValidity(userName, password)) {
           let router = this.$router;
           let data = {
-            "userName": this.username,
+            "userName": this.userName,
             "userPassword": this.password
           };
           this.$axios({
@@ -64,7 +64,7 @@
           }).then(function (response) {
             localStorage.setItem("token", response.data.data.token);
             router.push({name: "home"});
-            localStorage.setItem("username", this.data.userName)
+            localStorage.setItem("userName", this.data.userName)
           })
         }
       },

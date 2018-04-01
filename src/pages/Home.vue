@@ -70,7 +70,7 @@
   export default {
     data() {
       return {
-        userName: localStorage.getItem("username"),
+        userName: localStorage.getItem("userName") ? localStorage.getItem("username") : ''
       }
     },
     methods: {
