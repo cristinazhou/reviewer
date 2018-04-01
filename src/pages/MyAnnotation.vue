@@ -10,10 +10,10 @@
 </template>
 
 <script>
-  import Button from '@/components/Button.vue'
+  import ButtonAnnotation from '@/components/buttons/ButtonAnnotation.vue'
   export default {
     components: {
-      Button
+      ButtonAnnotation: ButtonAnnotation
     },
     data(){
       return {
@@ -36,9 +36,11 @@
           },
           {
             title: '操作',
-            key: 'operation',
-            render(){
-              return <Button></Button>
+            key: 'op',
+            render: function (h) {
+              return h(ButtonAnnotation, {
+                props: {}
+              });
             }
           }
         ],
@@ -46,8 +48,8 @@
           {
             number: 1,
             paperName: '人脸识别系统',
-            paperAuthor: 'leon yang',
-          },
+            paperAuthor: 'leon yang'
+          }
         ]
       }
     },
@@ -56,7 +58,7 @@
         let data1 = this.data1;
         this.$axios({
           method: 'get',
-          url: '/annotation/user_list',
+          url: '/annotation/user_list'
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
@@ -65,7 +67,7 @@
                 id: paper.paperId,
                 name: paper.paperName,
                 author: paper.paperAuthor,
-                status: paper.status,
+                status: paper.status
               })
             })
           }

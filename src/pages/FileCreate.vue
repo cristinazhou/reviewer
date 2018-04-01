@@ -22,7 +22,7 @@
   import ButtonFile from '@/components/buttons/ButtonFile.vue'
   export default {
     components: {
-      ButtonFile,
+      ButtonFile
     },
     data(){
       return {
@@ -116,7 +116,6 @@
   };
 </script>
 <style lang="scss" type="text/scss">
-    /*@import '~@/style/input.scss';*/
 </style>
 
 

@@ -1,22 +1,20 @@
 <template>
     <div>
 
-        <Table height="567" :columns="columns" :data="data1"></Table>
+        <Table height="567" :columns="columns" :data="collections"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
               show-elevator show-sizer show-total
               placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
-
-
     </div>
 </template>
 
 <script>
-  import Button from '@/components/Button.vue'
+  import ButtonCollection from '@/components/buttons/ButtonCollection.vue'
   export default {
     components: {
-      Button
+      ButtonCollection: ButtonCollection
     },
     data(){
       return {
@@ -35,36 +33,38 @@
           },
           {
             title: '操作',
-            key: 'operation',
-            render(){
-              return <Button></Button>
+            key: 'op',
+            render: function (h) {
+              return h(ButtonAnnotation, {
+                props: {}
+              });
             }
           }
         ],
-        data1: []
+        collections: []
       }
     },
     methods: {
       pageList() {
-        let data1 = this.data1;
+        let collections = this.collections;
         this.$axios({
-          method:'get',
-          url:'/individual_center/collect_list'
+          method: 'get',
+          url: '/individual_center/collect_list'
         })
           .then(function (response) {
-            let i=0;
-          let data = response.data.data;
-          if (data) {
-            data.forEach(function (paper) {
-              data1.push({
-                number: paper[i].id,
-                paperName: paper[i].paperOwner,
-                paperAuthor: paper[i].paperAuthor,
-                status: paper[i].ispublic
+            let i = 0;
+            let data = response.data.data;
+            if (data) {
+              data.forEach(function (paper) {
+                collections.push({
+                  number: paper[i].id,
+                  paperName: paper[i].paperOwner,
+                  paperAuthor: paper[i].paperAuthor,
+                  status: paper[i].ispublic
+                })
               })
-            })
-          }
-        })
+            }
+          })
       }
 
     },
@@ -72,7 +72,6 @@
       this.pageList()
 
     }
-
   }
 </script>
 
