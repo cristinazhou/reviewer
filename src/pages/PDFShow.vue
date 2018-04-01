@@ -4,12 +4,13 @@
             <iframe ref="annotationIframe" :src="pdfUrl"
                     width="100%" height="100%"
                     scrolling="no"></iframe>
-            <ModalAnnotation @annotationCreate="annotationGet" ref="annotationBtn" v-show="word.trim().length > 0"
+            <ModalAnnotation @annotationCreate="annotationGet" ref="annotationBtn" v-show="this.word.trim().length > 0"
                              :word="word"
                              :paperId="paperId"
                              :fileId="fileId"></ModalAnnotation>
         </div>
         <div style="float:right;width:20%;display: table-cell;height:100%">
+            <Input @keyup.enter.native="annotationSearch"/>
             <Table :columns="columns" :data="annotations"></Table>
             <Button @click.native="annotationCreate">添加</Button>
         </div>
@@ -63,18 +64,21 @@
       ButtonPDFAnnotation: ButtonPDFAnnotation
     },
     methods: {
+      annotationSearch(){
+      },
       init(){
-        let pdfUrl = this.pdfUrl;
-        let fileId = this.$route.query.fileId;
-        this.$axios({
-          url: '/pdf',
-          method: 'get',
-          data: {
-            fileId: fileId
-          }
-        }).then(function (response) {
-          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
-        });
+        this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
+//        let pdfUrl = this.pdfUrl;
+//        let fileId = this.$route.query.fileId;
+//        this.$axios({
+//          url: '/pdf',
+//          method: 'get',
+//          data: {
+//            fileId: fileId
+//          }
+//        }).then(function (response) {
+//          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
+//        });
       },
       annotationGet() {
         let annotations = this.annotations;
@@ -95,40 +99,6 @@
         })
       },
       annotationCreate() {
-        this.textIframe = this.$refs.annotationIframe;
-        let textIframe = this.textIframe;
-        let pages = $(textIframe.contentWindow.document).find(".page");
-        if (pages.length) {
-          for (let i = 0; i < pages.length; ++i) {
-            let textLayer = $(pages[i]).children(".textLayer")[0];
-            let divs = $(textLayer).find("div");
-            if (divs.length) {
-              for (let i = 0; i < divs.length; ++i) {
-                $(divs[i]).off('mouseup', this.textSelect);
-                $(divs[i]).on('mouseup', this.textSelect);
-              }
-            }
-          }
-        }
-      },
-      annotationSearch() {
-        this.textIframe = this.$refs.annotationIframe;
-        let textIframe = this.textIframe;
-        let pages = $(textIframe.contentWindow.document).find(".page");
-        if (pages.length) {
-          for (let i = 0; i < pages.length; ++i) {
-            let textLayer = $(pages[i]).children(".textLayer")[0];
-            let divs = $(textLayer).find("div");
-            if (divs.length) {
-              for (let i = 0; i < divs.length; ++i) {
-                $(divs[i]).off('mouseup', this.textSelect);
-                $(divs[i]).on('mouseup', this.textSelect);
-              }
-            }
-          }
-        }
-      },
-      annotationDelete() {
         this.textIframe = this.$refs.annotationIframe;
         let textIframe = this.textIframe;
         let pages = $(textIframe.contentWindow.document).find(".page");

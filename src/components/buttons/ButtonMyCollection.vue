@@ -8,7 +8,6 @@
             <Dropdown-menu slot="list">
                 <Dropdown-item name="files">下载</Dropdown-item>
                 <Dropdown-item name="detail">详情</Dropdown-item>
-                <!--打开pdf-->
             </Dropdown-menu>
         </Dropdown>
     </div>
@@ -25,7 +24,8 @@
     methods: {
       paperUnCollect() {
         let paperId = this.paperId;
-        let message = this.$Message;
+        let msg = this.$Message;
+        let store = this.$store;
         this.$axios({
           method: 'post',
           url: '/public_paper/uncollect',
@@ -33,7 +33,8 @@
             paperId: paperId
           }
         }).then(function (response) {
-          message.success('取消收藏成功');
+          msg.success('取消收藏成功');
+          store.$emit('paperUncollect');
         })
       },
       judge(name){

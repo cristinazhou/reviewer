@@ -30,13 +30,13 @@
             this.$Modal.confirm({
               title: '确认对话框标题',
               content: '<p>删除该文件?</p>',
-              onOk: () => {
+              onOk: function () {
                 this.$axios.get('/file/delete?fileId=' + this.fileId)
                   .then(function (response) {
                     message.info('删除成功');
                   });
               },
-              onCancel: () => {
+              onCancel: function () {
                 this.$Message.info('取消删除');
               }
             });

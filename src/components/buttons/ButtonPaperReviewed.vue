@@ -10,7 +10,6 @@
                 <Dropdown-item name="download">下载</Dropdown-item>
                 <Dropdown-item name="detail">详情</Dropdown-item>
                 <Dropdown-item name="delete">删除</Dropdown-item>
-                <!--打开pdf-->
             </Dropdown-menu>
         </Dropdown>
     </div>

@@ -19,7 +19,7 @@
         switch (name) {
           case 'annotationDelete':
             this.$axios({
-              url: '',
+              url: '/',
               method: 'post',
               data: {
                 annotationId: annotationId

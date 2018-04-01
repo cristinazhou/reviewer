@@ -1,5 +1,5 @@
 <template>
-    <div id="target" onmousemove="move();" style="width: 200px; height: auto;">
+    <div id="target" style="width: 200px; height: auto;">
         <Input v-model=word type="textarea" autosize="true" readonly="true"/>
         <Input type="textarea" v-if="word.length > 0" v-model="annotation" autosize="true"/>
         <Button type="primary" @click="annotate">批注</Button>
@@ -11,7 +11,7 @@
     props: ['word', 'paperId', 'fileId'],
     data () {
       return {
-        annotation: '',
+        annotation: ''
       }
     },
     methods: {

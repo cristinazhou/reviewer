@@ -7,6 +7,7 @@ const app = {
     annotationAllDelete: false,
     fileDelete: false,
     paperCollect: false,
+    paperUncollect: false,
   },
   mutations: {
     annotationDelete(state) {
@@ -20,6 +21,9 @@ const app = {
     },
     annotationAllDelete(state) {
       state.annotationAllDelete = !state.annotationAllDelete;
+    },
+    paperUncollect(state) {
+      state.paperUncollect = !state.paperUncollect;
     },
   }
 };
