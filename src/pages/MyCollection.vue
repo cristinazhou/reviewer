@@ -62,11 +62,12 @@
                 collections.push({
                   number: i,
                   id: paper.id,
-                  paperName: paper.paperOwner,
+                  paperName: paper.paperTitle,
                   paperAuthor: paper.paperAuthor,
-                  status: paper.isPublic,
-                  fileName: paper.file.fileName,
-                  fileId: paper.file.fileId
+                  status: paper.isPublic
+                  //重新点开才请求文件
+//                  fileName: paper.file.fileName
+//                  fileId: paper.file.fileId
                 });
                 ++i;
               })

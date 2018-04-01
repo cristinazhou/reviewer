@@ -19,7 +19,7 @@
         let store = this.$store;
         switch (name) {
           case 'annotationSearch':
-            //这里需要在列表中查找，暂时先不写，涉及到DOM操作
+            //这里需要在列表中查找，暂时先不写，涉及到DOM操作，是输入框
             break;
           case 'annotationDelete':
             this.$axios({

@@ -3,12 +3,20 @@
  */
 const app = {
   state: {
-    annotationDelete: false
+    annotationDelete: false,
+    fileDelete: false,
+    paperCollect: false,
   },
   mutations: {
     annotationDelete(state) {
       state.annotationDelete = !state.annotationDelete;
-    }
+    },
+    fileDelete(state) {
+      state.fileDelete = !state.fileDelete;
+    },
+    paperCollect(state) {
+      state.paperCollect = !state.paperCollect;
+    },
   }
 };
 

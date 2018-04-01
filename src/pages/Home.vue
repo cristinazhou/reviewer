@@ -38,7 +38,6 @@
             </Menu>
         </Sider>
         <Layout :style="{marginLeft: '200px'}">
-
             <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
                 <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                     <Dropdown transfer trigger="click" @on-click="handleClickUserDropDown">

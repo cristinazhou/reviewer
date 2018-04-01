@@ -1,12 +1,12 @@
 <template>
     <div>
-        <i-button type="primary" @click='list' size="small">提交</i-button>
+        <Button type="primary" @click='list' size="small">提交</Button>
         <!--如果角色是老师-->
-        <i-button type="primary" @click='list' size="small">???</i-button>
+        <Button type="primary" @click='list' size="small">???</Button>
         <Dropdown style="margin-left: 20px" transfer trigger="click" @on-click="judge">
-            <i-button type="primary">文件
+            <Button size="small" type="primary">文件
                 <Icon type="arrow-down-b"></Icon>
-            </i-button>
+            </Button>
             <Dropdown-menu slot="list">
                 <Dropdown-item name="create">增加文件</Dropdown-item>
                 <Dropdown-item name="download">下载</Dropdown-item>

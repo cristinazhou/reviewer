@@ -1,7 +1,8 @@
 <template>
     <div>
         <Button type="primary" @click.native='detail' size="small">详情</Button>
-        <Button type="primary" size="small">删除批注</Button>
+        <Button type="primary" size="small" @click.native="annotationAllDelete">删除批注</Button>
+        <!--删除该文件所有批注-->
     </div>
 </template>
 
@@ -10,8 +11,7 @@
     name: 'ButtonMyAnnotation',
     props: [
       'paperId',
-      'fileId',
-//      'annotationId'
+      'fileId'
     ],
     methods: {
       detail(){

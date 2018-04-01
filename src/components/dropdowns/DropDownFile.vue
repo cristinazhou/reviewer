@@ -18,16 +18,10 @@
       fileOp(name){
         let message = this.$Message;
         let fileId = this.fileId;
+        let store = this.$store;
         switch (name) {
           case 'fileDownload':
-            this.$axios({
-              method: 'get',
-              url: '/file/user_list',
-              data: {
-                fileId: fileId
-              }
-            }).then(function (response) {
-              //下载
+            this.$axios.get('/file/download?fileId=' + this.fileId).then(function (response) {
             });
             break;
           case 'fileDelete':
@@ -39,24 +33,22 @@
               }
             }).then(function (response) {
               message.success('文件删除成功');
+              store.$emit('fileDelete')
             });
             break;
           case 'fileDetail':
-            let router = this.
-            this.$axios({
-              method: 'get',
-              url: '/file/show',
-              data: {
+            let fileId = this.fileId;
+            this.$router.push({
+              name: 'PDFShow',
+              query: {
                 fileId: fileId
               }
-            }).then(function (response) {
-              this.$router.push({name: "PDFShow"});
             });
             break;
           default:
             break;
         }
-      }
+      },
     }
   }
 </script>

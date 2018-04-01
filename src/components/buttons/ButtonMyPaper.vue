@@ -11,7 +11,6 @@
     props: [
       'paperId',
       'paperStatus',
-      'paperFiles',
     ],
     components: {
       ModalFile: ModalFile
@@ -23,12 +22,13 @@
     },
     methods: {
       paperFileRender(){
-        let paperFiles = this.paperFiles;
+        let paperId = this.paperId;
         this.$Modal.confirm({
-          render: (h) => {
+          render: function (h) {
             return h(ModalFile, {
               props: {
-                files: paperFiles,
+                paperId: paperId,
+                url: '/paper/user_list'
               }
             })
           }

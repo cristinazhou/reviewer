@@ -37,12 +37,8 @@
             key: 'paperName'
           },
           {
-            title: '论文作者',
+            title: '文件名称',
             key: 'paperAuthor'
-          },
-          {
-            title: '最新文件名',
-            key: 'fileName'
           },
           {
             title: '操作',
@@ -81,15 +77,14 @@
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
-            data.forEach(function (paper) {
+            data.forEach(function (file) {
               let i = 1;
-              papers.push({
+              file.push({
                 number: i,
-                id: paper.paperId,
-                paperName: paper.paperName,
-                paperAuthor: paper.paperAuthor,
-                fileName: paper.file.fileName,
-                fileId: paper.file.id
+                id: file.id,
+                fileName: file.fileName,
+                paperId: file.paperId,
+                paperName: file.paper.paperTitle
               });
               ++i;
             })

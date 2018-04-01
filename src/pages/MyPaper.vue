@@ -47,7 +47,6 @@
                 }
               })
             }
-
           }
         ],
         papers: [
@@ -87,9 +86,11 @@
             data.forEach(function (paper) {
               papers.push({
                 id: paper.paperId,
-                paperName: paper.paperName,
+                paperName: paper.paperTitle,
                 paperAuthor: paper.paperAuthor,
-                paperStatus: paper.status
+                paperStatus: paper.paperStatus,
+                //单独请求
+                paperFiles: paper.files
               })
             })
           }

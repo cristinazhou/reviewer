@@ -2,7 +2,7 @@
     <div>
         <div>
             <Input v-model="value" placeholder="请输入论文名" style="width: 200px"/>
-            <i-button type="primary" @click="search">搜索</i-button>
+            <Button type="primary" @click="search">搜索</Button>
             <Table height="531" :columns="columns" :data="papers"></Table>
         </div>
         <div style="border:1px">
@@ -34,30 +34,37 @@
           },
           {
             title: '论文名称',
-            key: 'name'
+            key: 'paperName'
           },
           {
             title: '论文作者',
-            key: 'author'
+            key: 'paperAuthor'
           },
           {
             title: '论文所有者',
-            key: 'owner'
+            key: 'paperOwner'
           },
           {
             title: '操作',
-            key: 'operation',
+            key: 'op',
             render: function (h, params) {
               return h(ButtonPaperSearch, {
                 props: {
                   paperId: params.row.paperId,
-                  fileId: params.row.fileId
                 }
               })
             }
           }
         ],
-        papers: []
+        papers: [
+          {
+            number: 1,
+            paperId: 23,
+            paperName: 'eeafd',
+            paperAuthor: '123123',
+            paperOwner: '123123',
+          }
+        ]
       }
     },
     methods: {
@@ -76,7 +83,7 @@
         this.$axios({
           method: 'post',
           data: {
-            key: key
+            keyWords: key
           },
           url: '/public_paper/list?pageNo=' + this.pageNum + '&pageSize=' + this.pageSize
         }).then(function (response) {
@@ -87,10 +94,9 @@
               papers.push({
                 number: i,
                 paperId: paper.id,
-                name: paper.paperTitle,
-                author: paper.paperAuthor,
-                owner: paper.paperOwner,
-                fileId: paper.file.fileId
+                paperName: paper.paperTitle,
+                paperAuthor: paper.paperAuthor,
+                paperOwner: paper.paperOwner,
               });
               ++i;
             })
