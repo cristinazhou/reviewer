@@ -9,10 +9,10 @@
     </div>
 </template>
 <script>
-  import Button from '@/components/Button.vue'
+  import ButtonReviewed from '@/components/buttons/ButtonReviewed.vue'
   export default {
     components: {
-      Button
+      ButtonReviewed: ButtonReviewed
     },
     data(){
       return {
@@ -33,7 +33,7 @@
             title: '操作',
             key: 'operation',
             render(){
-              return <Button></Button>
+              return <ButtonReviewed></ButtonReviewed>
             }
           }
         ],

@@ -11,7 +11,7 @@
     props: [
       'paperId',
       'paperStatus',
-//      'paperFiles',
+      'paperFiles',
     ],
     components: {
       ModalFile: ModalFile
@@ -19,10 +19,6 @@
     data(){
       return {
         modalFile: false,
-        paperFiles: [{
-          fileId: 3,
-          fileName: "123",
-        }]
       }
     },
     methods: {
@@ -55,7 +51,7 @@
       paperDelete() {
         let paperId = this.paperId;
         this.$axios({
-          url: '',
+          url: '/paper/delete',
           method: 'post',
           data: {
             paperId: paperId,
@@ -63,31 +59,6 @@
         }).then(function (response) {
           this.$Message('论文删除成功')
         })
-      },
-      instance (type) {
-        const title = '文件列表';
-        switch (type) {
-          case 'info':
-            let data1 = this.data1
-            let columns4 = this.columns4
-            this.$Modal.confirm({
-              render: (h) => {
-                return h('i-table', {
-                  props: {
-                    columns: columns4,
-                    data: data1
-                  },
-                  on: {
-                    Input: (val) => {
-                      this.createName = val
-                    }
-                  }
-                })
-              }
-            })
-            break;
-
-        }
       },
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Button type="primary" @click='list' size="small">取消收藏</Button>
+        <Button type="primary" @click.native='paperCollect' size="small">取消收藏</Button>
         <Dropdown style="margin-left: 20px" transfer trigger="click" @on-click="judge">
             <i-button type="primary">最新文件
                 <Icon type="arrow-down-b"></Icon>
@@ -20,20 +20,19 @@
       return {};
     },
     methods: {
-      judge(name) {
-        switch (name) {
-          case 'collect' : {
-            let massage = this.$Message;
-            this.$axios.get('/public_paper/collect?paperId=' + this.paperId)
-              .then(function (response) {
-                massage.success("收藏成功！");
-              });
-            break;
+      paperCollect() {
+        let paperId = this.paperId;
+        let message = this.$Message;
+        this.$axios({
+          method: 'post',
+          url: '/public_paper/uncollect',
+          data: {
+            paperId: paperId
           }
-          default:
-            break;
-        }
-      }
+        }).then(function (response) {
+          message.success('取消收藏成功');
+        })
+      },
     }
   };
 </script>

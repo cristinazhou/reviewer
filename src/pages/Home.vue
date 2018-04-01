@@ -34,7 +34,6 @@
                     </template>
                     <MenuItem name="4-2" @click.native="fileCreate">文件管理</MenuItem>
                     <MenuItem name="4-1" @click.native="paperCreate">上传论文</MenuItem>
-
                 </Submenu>
             </Menu>
         </Sider>

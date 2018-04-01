@@ -32,7 +32,7 @@
             render: function (h, params) {
               return h(DropDownFile, {
                 props: {
-                  fileId: params.row.fileId,
+                  fileId: params.row.fileId
                 }
               })
             }

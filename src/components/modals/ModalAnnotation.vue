@@ -1,15 +1,13 @@
 <template>
-    <div id="target" onmousemove="move();"  style="width: 200px; height: auto;">
-      <i-input  v-model=word type="textarea" autosize="true" readonly="true" ></i-input>
-
-        <i-input type="textarea" v-if="word.length > 0" v-model="annotation" autosize="true"></i-input>
-      <i-button type="primary"  @click="annotate">批注</i-button>
+    <div id="target" onmousemove="move();" style="width: 200px; height: auto;">
+        <Input v-model=word type="textarea" autosize="true" readonly="true"/>
+        <Input type="textarea" v-if="word.length > 0" v-model="annotation" autosize="true"/>
+        <Button type="primary" @click="annotate">批注</Button>
     </div>
 </template>
 
 <script>
   export default {
-//    name: 'annotation',
     props: ['word', 'paperId', 'fileId'],
     data () {
       return {
@@ -18,11 +16,10 @@
     },
     methods: {
       move(e){
-        var div = document.getElementById("target");
-        div.style.left=e.clientX+"px";
-        div.style.right=e.clientY+"px";
-
-    },
+        let div = document.getElementById("target");
+        div.style.left = e.clientX + "px";
+        div.style.right = e.clientY + "px";
+      },
       annotate() {
         let word = this.word;
         let formData = new FormData();
@@ -38,7 +35,7 @@
           method: 'post',
           data: formData,
         }).then(function (response) {
-          this.$emit('annotationPostListener');
+          this.$emit('annotationCreate');
         })
       }
     },

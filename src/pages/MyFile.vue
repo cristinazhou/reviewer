@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import ButtonFile from '@/components/buttons/ButtonFile.vue'
+  import ButtonMyFile from '@/components/buttons/ButtonMyFile.vue'
   export default {
     components: {
-      ButtonFile: ButtonFile
+      ButtonMyFile: ButtonMyFile
     },
     data(){
       return {
@@ -38,13 +38,12 @@
           title: '操作',
           key: 'operation3',
           render: function (h, params) {
-            return h(ButtonFile, {
+            return h(ButtonMyFile, {
               props: {
                 fileId: params.row.id
               }
             })
           }
-
         }],
         fileSet: []
       };

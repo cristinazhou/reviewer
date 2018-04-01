@@ -136,9 +136,9 @@
                 fileId: this.targetKeys[0].fileName
               }
             });
-            message.success('提交成功!');
+            message.success('论文新建成功');
           } else {
-            message.error('表单验证失败!');
+            message.error('论文新建失败');
           }
         })
       }

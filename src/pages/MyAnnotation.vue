@@ -31,7 +31,7 @@
             key: 'paperAuthor'
           },
           {
-            title: '文件名',
+            title: '最新文件名',
             key: 'fileName'
           },
           {
@@ -67,7 +67,6 @@
                 id: paper.paperId,
                 name: paper.paperName,
                 author: paper.paperAuthor,
-                status: paper.status
               })
             })
           }
