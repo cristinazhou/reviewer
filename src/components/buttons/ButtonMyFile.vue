@@ -43,8 +43,12 @@
             break;
           }
           case "detail" : {
-            this.$axios.get('/file/show?fileId=' + this.fileId).then(function (response) {
-
+            let fileId = this.fileId;
+            this.$router.push({
+              name: 'PDFShow',
+              query: {
+                fileId: fileId
+              }
             });
             break;
           }

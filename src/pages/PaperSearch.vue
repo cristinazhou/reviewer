@@ -30,7 +30,7 @@
         columns: [
           {
             title: '序号',
-            key: 'id'
+            key: 'number'
           },
           {
             title: '论文名称',
@@ -50,17 +50,20 @@
             render: function (h, params) {
               return h(ButtonPaperSearch, {
                 props: {
-                  paperId: params.row.id
+                  paperId: params.row.paperId,
+                  fileId: params.row.fileId
                 }
               })
             }
           }
         ],
         papers: [{
-          id: 1,
-          name: '123',
-          author: '123123',
-          owner: "12313123",
+          number: 0,
+          paperId: '',
+          name: '',
+          author: '',
+          owner: '',
+          fileId: ''
         }]
       }
     },
@@ -86,13 +89,17 @@
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
+            let i = 1;
             data.forEach(function (paper) {
               papers.push({
-                id: paper.id,
+                number: i,
+                paperId: paper.id,
                 name: paper.paperTitle,
                 author: paper.paperAuthor,
-                owner: paper.paperOwner
-              })
+                owner: paper.paperOwner,
+                fileId: paper.file.fileId
+              });
+              ++i;
             })
           }
         })

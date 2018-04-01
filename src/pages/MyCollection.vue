@@ -34,14 +34,26 @@
           {
             title: '操作',
             key: 'op',
-            render: function (h) {
+            render: function (h, params) {
               return h(ButtonMyCollection, {
-                props: {}
+                props: {
+                  paperId: params.row.paperId,
+                  fileId: params.row.fileId
+                }
               });
             }
           }
         ],
-        collections: []
+        collections: [
+          {
+            id: 0,
+            paperName: '',
+            paperAuthor: '',
+            status: '',
+            fileName: '',
+            fileId: ''
+          }
+        ]
       }
     },
     methods: {
@@ -52,16 +64,20 @@
           url: '/individual_center/collect_list'
         })
           .then(function (response) {
-            let i = 0;
             let data = response.data.data;
             if (data) {
+              let i = 1;
               data.forEach(function (paper) {
                 collections.push({
-                  number: paper[i].id,
-                  paperName: paper[i].paperOwner,
-                  paperAuthor: paper[i].paperAuthor,
-                  status: paper[i].ispublic
-                })
+                  number: i,
+                  id: paper.id,
+                  paperName: paper.paperOwner,
+                  paperAuthor: paper.paperAuthor,
+                  status: paper.isPublic,
+                  fileName: paper.file.fileName,
+                  fileId: paper.file.fileId
+                });
+                ++i;
               })
             }
           })
@@ -70,7 +86,6 @@
     },
     created(){
       this.pageList()
-
     }
   }
 </script>

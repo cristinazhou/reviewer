@@ -56,8 +56,14 @@
         ]
       }
     },
-    method: {
-      pageList: function () {
+    methods: {
+      handlePage(){
+
+      },
+      handlePageSize(){
+
+      },
+      pageList() {
         let papers = this.papers;
         this.$axios({
           method: 'get',

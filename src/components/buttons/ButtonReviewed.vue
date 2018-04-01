@@ -7,10 +7,15 @@
 
 <script>
   export default {
-    name: "button",
     methods: {
       list(){
-        this.$router.push({name: 'PDFShow'})
+//        let fileId = this.fileId;
+//        this.$router.push({
+//          name: 'PDFShow',
+//          query: {
+//            fileId: fileId
+//          }
+//        });
       }
     }
   }

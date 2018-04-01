@@ -14,7 +14,7 @@
 </template>
 <script>
   export default {
-    props: ['paperId'],
+    props: ['paperId', 'fileId'],
     data(){
       return {};
     },
@@ -29,11 +29,19 @@
       judge(name) {
         switch (name) {
           case 'download' : {
+            this.$axios.get('/file/download?fileId=' + this.fileId).then(function (response) {
 
+            });
             break;
           }
           case 'detail' : {
-
+            let fileId = this.fileId;
+            this.$router.push({
+              name: 'PDFShow',
+              query: {
+                fileId: fileId
+              }
+            });
             break;
           }
           default:
