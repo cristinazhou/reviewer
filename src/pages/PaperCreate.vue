@@ -1,42 +1,42 @@
 <template>
-  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-    <FormItem label="论文标题" prop="paperTitle">
-      <Input v-model="formValidate.paperTitle" placeholder="Enter your title"/>
-    </FormItem>
-    <FormItem label="论文作者" prop="paperAuthor">
-      <Input v-model="formValidate.paperAuthor" placeholder="Enter your author"/>
-    </FormItem>
-    <FormItem label="所有者" prop="paperOwner">
-      <Input v-model="formValidate.paperOwner" placeholder="Enter your owner"/>
-    </FormItem>
-    <FormItem label="论文权限" prop="authority">
-      <RadioGroup v-model="formValidate.authority">
-        <Radio label="true" value="true">公开论文</Radio>
-        <Radio label="false" value="false">私有论文</Radio>
-      </RadioGroup>
-    </FormItem>
-    <FormItem >
-      <Transfer
-        :data="dataLeft"
-        :target-keys="targetKeys"
-        :list-style="listStyle"
-        :render-format="render3"
-        :operations="['To left','To right']"
-        filterable
-        @on-change="handleChange3">
-        <div :style="{float: 'right', margin: '5px'}">
-          <Button type="ghost" size="small" @click="reloadMockData">Refresh</Button>
-        </div>
-      </Transfer>
-      <!--<form  class="file">-->
-        <!--<input type="file" @change="getFile($event)" />-->
-        <!--<button @click="submitForm($event)">上传</button>-->
-      <!--</form>-->
-    </FormItem>
-    <FormItem>
-      <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
-    </FormItem>
-  </Form>
+    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+        <FormItem label="论文标题" prop="paperTitle">
+            <Input v-model="formValidate.paperTitle" placeholder="Enter your title"/>
+        </FormItem>
+        <FormItem label="论文作者" prop="paperAuthor">
+            <Input v-model="formValidate.paperAuthor" placeholder="Enter your author"/>
+        </FormItem>
+        <FormItem label="所有者" prop="paperOwner">
+            <Input v-model="formValidate.paperOwner" placeholder="Enter your owner"/>
+        </FormItem>
+        <FormItem label="论文权限" prop="authority">
+            <RadioGroup v-model="formValidate.authority">
+                <Radio label="true" value="true">公开论文</Radio>
+                <Radio label="false" value="false">私有论文</Radio>
+            </RadioGroup>
+        </FormItem>
+        <FormItem>
+            <Transfer
+                    :data="dataLeft"
+                    :target-keys="targetKeys"
+                    :list-style="listStyle"
+                    :render-format="render3"
+                    :operations="['To left','To right']"
+                    filterable
+                    @on-change="handleChange3">
+                <div :style="{float: 'right', margin: '5px'}">
+                    <Button type="ghost" size="small" @click="reloadMockData">Refresh</Button>
+                </div>
+            </Transfer>
+            <!--<form  class="file">-->
+            <!--<input type="file" @change="getFile($event)" />-->
+            <!--<button @click="submitForm($event)">上传</button>-->
+            <!--</form>-->
+        </FormItem>
+        <FormItem>
+            <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
+        </FormItem>
+    </Form>
 
 
 </template>
@@ -51,8 +51,7 @@
           paperAuthor: '',
           paperOwner: '',
           authority: '',
-          file: '',
-
+          file: ''
         },
         dataLeft: this.getMockData(),
         targetKeys: this.getTargetKeys(),
@@ -73,23 +72,23 @@
         }
       }
 
-    } ,
+    },
     methods: {
       getMockData () {
         var mockData = [];
         this.$axios({
-          method:'get',
-          url:'/file/user_list',
+          method: 'get',
+          url: '/file/user_list',
 
         })
-          .then(function(response){
-            if(response.status===200) {
-              for(let i=0;i<response.data.data.length;i++){
+          .then(function (response) {
+            if (response.status === 200) {
+              for (let i = 0; i < response.data.data.length; i++) {
 
                 mockData.push({
-                  key:i,
-                  label:response.data.data[i].fileName,
-                  fileId:response.data.data[i].id,
+                  key: i,
+                  label: response.data.data[i].fileName,
+                  fileId: response.data.data[i].id,
 
 
                   //disabled: Math.random() * 3 < 1
@@ -98,7 +97,7 @@
 
               }
 
-            }else{
+            } else {
               console.log('error');
             }
 
@@ -114,7 +113,7 @@
         this.targetKeys = newTargetKeys;
       },
       render3 (item) {
-        return  item.label;
+        return item.label;
       },
       reloadMockData () {
         this.dataLeft = this.getMockData();
@@ -123,34 +122,27 @@
       handleReset(name) {
         this.$refs[name].resetFields();
       },
-      // getFile(event) {
-      //   this.file = event.target.files[0];
-      // },
       handleSubmit (name) {
-        this.$refs[name].validate((valid) => {
+        let message = this.$Message;
+        this.$refs[name].validate(function (valid) {
           if (valid) {
             this.$axios({
-              method:'post',
-              url:'/paper/create',
-              data:{
-                paperTitle:this.formValidate.paperTitle,
-                paperAuthor:this.formValidate.paperAuthor,
-                ispublic:this.formValidate.authority,
-                fileId:this.targetKeys[0].fileName
-
+              method: 'post',
+              url: '/paper/create',
+              data: {
+                paperTitle: this.formValidate.paperTitle,
+                paperAuthor: this.formValidate.paperAuthor,
+                isPublic: this.formValidate.authority,
+                fileId: this.targetKeys[0].fileName
               }
-            })
-            this.$Message.success('提交成功!');
-
+            });
+            message.success('提交成功!');
           } else {
-            this.$Message.error('表单验证失败!');
+            message.error('表单验证失败!');
           }
         })
-      },
-
+      }
     }
-
-
   };
 </script>
 

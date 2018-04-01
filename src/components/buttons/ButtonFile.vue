@@ -20,26 +20,21 @@
       judge(name){
         switch (name) {
           case "download" : {
+            this.$axios.get('/file/download?fileId=' + this.fileId).then(function (response) {
 
-            this.$axios.get('/file/download?fileId=' + this.fileId)
-              .then(function (response) {
-
-              })
+            });
             break;
           }
           case "delete" : {
-            // let message = this.$Message;
+            let message = this.$Message;
             this.$Modal.confirm({
               title: '确认对话框标题',
-              content: '<p>删除该文件</p>',
+              content: '<p>删除该文件?</p>',
               onOk: () => {
-                let message = this.$Message;
                 this.$axios.get('/file/delete?fileId=' + this.fileId)
                   .then(function (response) {
                     message.info('删除成功');
-
-                  })
-                //this.$Message.info('点击了确定');
+                  });
               },
               onCancel: () => {
                 this.$Message.info('取消删除');
@@ -48,10 +43,9 @@
             break;
           }
           case "detail" : {
-            this.$axios.get('/file/show?fileId=' + this.fileId)
-              .then(function (response) {
+            this.$axios.get('/file/show?fileId=' + this.fileId).then(function (response) {
 
-              })
+            });
             break;
           }
         }

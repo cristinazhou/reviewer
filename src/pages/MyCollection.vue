@@ -11,10 +11,10 @@
 </template>
 
 <script>
-  import ButtonCollection from '@/components/buttons/ButtonCollection.vue'
+  import ButtonMyCollection from '@/components/buttons/ButtonMyCollection.vue'
   export default {
     components: {
-      ButtonCollection: ButtonCollection
+      ButtonMyCollection: ButtonMyCollection
     },
     data(){
       return {
@@ -35,7 +35,7 @@
             title: '操作',
             key: 'op',
             render: function (h) {
-              return h(ButtonAnnotation, {
+              return h(ButtonMyCollection, {
                 props: {}
               });
             }

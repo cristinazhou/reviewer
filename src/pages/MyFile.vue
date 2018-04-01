@@ -22,7 +22,7 @@
   import ButtonFile from '@/components/buttons/ButtonFile.vue'
   export default {
     components: {
-      ButtonFile
+      ButtonFile: ButtonFile
     },
     data(){
       return {
@@ -31,7 +31,6 @@
         columns: [{
           title: '序号',
           key: 'number'
-
         }, {
           title: '文件名',
           key: 'fileName'
@@ -61,6 +60,7 @@
         this.file = event.target.files[0];
       },
       submitForm(event) {
+        let message = this.$Message;
         event.preventDefault();
         let file = this.file;
         let formData = new FormData();
@@ -68,25 +68,26 @@
         this.$axios({
           method: 'post',
           url: '/file/upload',
-          data: formData,
+          data: formData
         }).then(function (response) {
+          message.success('文件上传成功');
         })
       },
       search(){
-        this.$axios.get('/file/all_search?keyWords=' + this.value)
+        let fileSet = this.fileSet;
+        this.$axios.get('/file/user_search?keyWords=' + this.value)
           .then(function (response) {
             let data = response.data.data;
-            if (data) {
-              data.forEach(function (file) {
+            let i = 0;
+            data.forEach(function (file) {
                 fileSet.push({
+                  number: i,
                   id: file.id,
-                  name: file.paperTitle,
-                  author: file.paperAuthor,
-                  owner: file.paperOwner,
-                  status: file.ispublic
-                })
-              })
-            }
+                  fileName: file.fileName
+                });
+                ++i;
+              }
+            )
           })
       },
       list(){
@@ -97,13 +98,14 @@
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
+            let i = 0;
             data.forEach(function (file) {
                 fileSet.push({
                   number: i,
                   id: file.id,
-                  username: file.user.userName,
                   fileName: file.fileName
                 });
+                ++i;
               }
             )
           }

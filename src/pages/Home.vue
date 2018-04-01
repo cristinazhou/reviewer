@@ -100,7 +100,7 @@
         this.$router.push({name: 'paperReviewed'});
       },
       fileCreate() {
-        this.$router.push({name: "fileCreate"});
+        this.$router.push({name: "myFile"});
       },
       handleClickUserDropDown(name) {
         if (name === 'logout') {

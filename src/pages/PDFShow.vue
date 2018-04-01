@@ -1,7 +1,7 @@
 <template>
     <div style="height:100%;width:100%;display:table">
         <div style="float:left;display:table-cell;width:80%;height:100%">
-            <iframe ref="annotationIframe" :src='"/static/viewer/web/viewer.html?file=./testpdf/1707.04873"+".pdf"'
+            <iframe ref="annotationIframe" :src='"http://localhost:8080?file=./testpdf/1707.04873"+".pdf"'
                     width="100%" height="100%"
                     scrolling="no"></iframe>
             <Annotation @annotationPostListener="find" ref="annotationBtn" v-show="word.trim().length > 0" :word="word"
@@ -10,9 +10,9 @@
         </div>
         <div style="float:right;width:20%;display: table-cell;height:100%">
             <Table :columns="columns" :data="data"></Table>
-            <i-button @click="editAnnotationOnTextLayer">添加</i-button>
-            <i-button>查询</i-button>
-            <i-button>删除</i-button>
+            <Button @click="editAnnotationOnTextLayer">添加</Button>
+            <Button @click.native="annotationSearch">查询</Button>
+            <Button @click.native="annotationDelete">删除</Button>
         </div>
     </div>
 </template>
@@ -20,11 +20,6 @@
   import Annotation from '@/components/Annotation.vue'
   import $ from 'jquery'
   export default {
-    computed: {
-      refresh(){
-        return this.$store.state.refresh;
-      }
-    },
     data(){
       return {
         textIframe: null,
@@ -51,9 +46,6 @@
       Annotation: Annotation
     },
     methods: {
-      getParams () {
-        return store.getters.temp;
-      },
       find() {
         let data1 = this.data;
         this.$axios({

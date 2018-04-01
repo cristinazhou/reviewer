@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'ButtonAnnotation',
+    name: 'ButtonMyAnnotation',
     props:['paperId', 'annotationId'],
     methods: {
       list(){

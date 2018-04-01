@@ -10,10 +10,10 @@
 </template>
 
 <script>
-  import ButtonAnnotation from '@/components/buttons/ButtonAnnotation.vue'
+  import ButtonMyAnnotation from '@/components/buttons/ButtonMyAnnotation.vue'
   export default {
     components: {
-      ButtonAnnotation: ButtonAnnotation
+      ButtonMyAnnotation: ButtonMyAnnotation
     },
     data(){
       return {
@@ -38,7 +38,7 @@
             title: '操作',
             key: 'op',
             render: function (h) {
-              return h(ButtonAnnotation, {
+              return h(ButtonMyAnnotation, {
                 props: {}
               });
             }

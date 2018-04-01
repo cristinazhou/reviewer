@@ -11,7 +11,7 @@ import PaperCreate from '@/pages/PaperCreate'
 import PaperUnreviewed from '@/pages/PaperUnreviewed'
 import PaperReviewing from '@/pages/PaperReviewing'
 import PaperReviewed from '@/pages/PaperReviewed'
-import FileCreate from '@/pages/FileCreate'
+import MyFile from '@/pages/MyFile'
 import PDFShow from '@/pages/PDFShow'
 Vue.use(Router);
 
@@ -79,9 +79,9 @@ export default new Router({
           component: PaperReviewed
         },
         {
-          path: '/file/create',
-          name: 'fileCreate',
-          component: FileCreate
+          path: '/file',
+          name: 'myFile',
+          component: MyFile
         }
       ]
     },
