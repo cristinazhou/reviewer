@@ -16,6 +16,16 @@
     components: {
       ButtonMyCollection: ButtonMyCollection
     },
+    computed: {
+      refresh(){
+        return this.$store.state.app.paperCollect;
+      }
+    },
+    watch: {
+      refresh(val){
+        this.pageList();
+      }
+    },
     data(){
       return {
         columns: [
@@ -38,13 +48,20 @@
               return h(ButtonMyCollection, {
                 props: {
                   paperId: params.row.paperId,
-                  fileId: params.row.fileId
                 }
               });
             }
           }
         ],
-        collections: []
+        collections: [
+          {
+            number: 1,
+            id: 23,
+            paperName: '233',
+            paperAuthor: '12312313',
+            status: '123123'
+          }
+        ]
       }
     },
     methods: {
@@ -65,9 +82,6 @@
                   paperName: paper.paperTitle,
                   paperAuthor: paper.paperAuthor,
                   status: paper.isPublic
-                  //重新点开才请求文件
-//                  fileName: paper.file.fileName
-//                  fileId: paper.file.fileId
                 });
                 ++i;
               })

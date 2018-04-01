@@ -51,6 +51,7 @@
       doLogin() {
         let userName = this.userName;
         let password = this.password;
+        let store = this.$store;
         if (this.checkValidity(userName, password)) {
           let router = this.$router;
           let data = {
@@ -63,8 +64,8 @@
             data: data
           }).then(function (response) {
             localStorage.setItem("token", response.data.data.token);
+            store.$emit('login', response.data.data.user.role.roleName);
             router.push({name: "home"});
-            localStorage.setItem("userName", this.data.userName)
           })
         }
       },

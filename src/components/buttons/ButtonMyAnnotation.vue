@@ -1,8 +1,7 @@
 <template>
     <div>
         <Button type="primary" @click.native='detail' size="small">详情</Button>
-        <Button type="primary" size="small" @click.native="annotationAllDelete">删除批注</Button>
-        <!--删除该文件所有批注-->
+        <Button type="primary" size="small" @click.native="annotationAllDelete">删除所有批注</Button>
     </div>
 </template>
 
@@ -10,7 +9,6 @@
   export default {
     name: 'ButtonMyAnnotation',
     props: [
-      'paperId',
       'fileId'
     ],
     methods: {
@@ -21,6 +19,21 @@
           query: {
             fileId: fileId
           }
+        })
+      },
+      annotationAllDelete(){
+        let fileId = this.fileId;
+        let msg = this.$Message;
+        let store = this.$store;
+        this.$axios({
+          method: 'post',
+          url: '/',
+          data: {
+            fileId: fileId,
+          }
+        }).then(function (response) {
+          msg.success('该文件所有批注删除成功');
+          store.$emit('annotationAllDelete');
         })
       }
     }

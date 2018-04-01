@@ -49,7 +49,6 @@
             break;
           case 'download':
             this.$axios.get('/file/download?fileId=' + this.fileId).then(function (response) {
-
             });
             break;
             break;

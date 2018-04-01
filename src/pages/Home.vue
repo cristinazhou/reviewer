@@ -23,9 +23,13 @@
                         <Icon type="ios-analytics"></Icon>
                         论文评审
                     </template>
-                    <MenuItem name="3-1" @click.native="paperUnreviewed">未评审</MenuItem>
+                    <MenuItem v-if="this.$store.state.user.role !== 'student'" name="3-1"
+                              @click.native="paperUnreviewed">未评审
+                    </MenuItem>
                     <MenuItem name="3-2" @click.native="paperReviewing">正在评审</MenuItem>
-                    <MenuItem name="3-3" @click.native="paperReviewed">已定稿</MenuItem>
+                    <MenuItem v-if="this.$store.state.user.role !== 'student'" name="3-3" @click.native="paperReviewed">
+                        已定稿
+                    </MenuItem>
                 </Submenu>
                 <Submenu name="4">
                     <template slot="title">

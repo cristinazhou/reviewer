@@ -4,6 +4,7 @@
 const app = {
   state: {
     annotationDelete: false,
+    annotationAllDelete: false,
     fileDelete: false,
     paperCollect: false,
   },
@@ -16,6 +17,9 @@ const app = {
     },
     paperCollect(state) {
       state.paperCollect = !state.paperCollect;
+    },
+    annotationAllDelete(state) {
+      state.annotationAllDelete = !state.annotationAllDelete;
     },
   }
 };

@@ -7,7 +7,11 @@ const user = {
     role: null
   },
   mutations: {
+    login (state, role) {
+      state.role = role;
+    },
     logout (state) {
+      state.role = null;
       Cookies.remove('user');
       Cookies.remove('password');
       Cookies.remove('access');
