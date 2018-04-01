@@ -15,6 +15,16 @@
     components: {
       ButtonMyAnnotation: ButtonMyAnnotation
     },
+    computed: {
+      refresh(){
+        return this.$store.state.app.annotationDelete;
+      }
+    },
+    watch: {
+      refresh(val){
+        this.pageList();
+      }
+    },
     data(){
       return {
         columns: [

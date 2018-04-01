@@ -44,16 +44,7 @@
             }
           }
         ],
-        collections: [
-          {
-            id: 0,
-            paperName: '',
-            paperAuthor: '',
-            status: '',
-            fileName: '',
-            fileId: ''
-          }
-        ]
+        collections: []
       }
     },
     methods: {
@@ -82,7 +73,6 @@
             }
           })
       }
-
     },
     created(){
       this.pageList()

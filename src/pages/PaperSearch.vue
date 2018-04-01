@@ -57,14 +57,7 @@
             }
           }
         ],
-        papers: [{
-          number: 0,
-          paperId: '',
-          name: '',
-          author: '',
-          owner: '',
-          fileId: ''
-        }]
+        papers: []
       }
     },
     methods: {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Table :columns="columns" :data="data1"></Table>
+        <Table :columns="columns" :data="papers"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
@@ -11,7 +11,11 @@
     </div>
 </template>
 <script>
+  import ButtonPaperReviewing from '@/components/buttons/ButtonPaperReviewing.vue'
   export default {
+    components: {
+      ButtonPaperReviewing: ButtonPaperReviewing
+    },
     data(){
       return {
         columns: [
@@ -29,13 +33,13 @@
           },
           {
             title: '操作',
-            key: 'operation',
-            render(){
-              return <i-button size="small" type="primary">开始评审</i-button>
+            key: 'op',
+            render: function (h, params) {
+              return h(ButtonPaperReviewing, {})
             }
           }
         ],
-        data1: [
+        papers: [
           {
             number: 1,
             paperName: '人脸识别系统',
@@ -54,9 +58,7 @@
         ]
       }
     },
-    methods: {
-
-    }
+    methods: {}
   }
 </script>
 

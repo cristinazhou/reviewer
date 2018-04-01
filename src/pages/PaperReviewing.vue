@@ -9,10 +9,10 @@
     </div>
 </template>
 <script>
-  import ButtonReviewed from '@/components/buttons/ButtonReviewed.vue'
+  import ButtonPaperReviewed from '@/components/buttons/ButtonPaperReviewed.vue'
   export default {
     components: {
-      ButtonReviewed: ButtonReviewed
+      ButtonPaperReviewed: ButtonPaperReviewed
     },
     data(){
       return {
@@ -31,9 +31,9 @@
           },
           {
             title: '操作',
-            key: 'operation',
-            render(){
-              return <ButtonReviewed></ButtonReviewed>
+            key: 'op',
+            render: function (h, params) {
+              return h(ButtonPaperReviewed, {})
             }
           }
         ],

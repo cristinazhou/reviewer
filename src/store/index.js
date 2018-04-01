@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import user from './modules/user';
-
+import user from './user';
+import app from './app'
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -11,14 +11,11 @@ const store = new Vuex.Store({
   mutations: {
     //
   },
-  actions: {
-    
-  },
+  actions: {},
   modules: {
-    // user
+    user,
+    app
   }
 });
 
 export default store;
-
-

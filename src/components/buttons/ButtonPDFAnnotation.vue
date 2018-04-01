@@ -14,12 +14,24 @@
     props: ['annotationId'],
     methods: {
       judge(name) {
+        let msg = this.$Message;
+        let annotationId = this.annotationId;
+        let store = this.$store;
         switch (name) {
-          case 'annotationCreate':
-            break;
           case 'annotationSearch':
+            //这里需要在列表中查找，暂时先不写，涉及到DOM操作
             break;
           case 'annotationDelete':
+            this.$axios({
+              url: '',
+              method: 'post',
+              data: {
+                annotationId: annotationId
+              }
+            }).then(function (response) {
+              msg.success('批注删除成功');
+              store.commit('annotationDelete');
+            });
             break;
           default:
             break;
