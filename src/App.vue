@@ -1,5 +1,5 @@
 <template>
-    <router-view id="reviewer"></router-view>
+    <router-view id="app"></router-view>
 </template>
 
 <script>
@@ -7,6 +7,6 @@
     name: 'App'
   }
 </script>
-<style>
-    @import "style/normalize.scss";
+<style type="text/scss" lang="scss">
+    @import "~@/style/normalize.scss";
 </style>

@@ -1,10 +1,9 @@
-  <template>
+<template>
     <div>
         <div>
-            <!--此处输入框的model是否绑定了？-->
             <Input v-model="value" placeholder="请输入论文名" style="width: 200px"/>
             <i-button type="primary" @click="search">搜索</i-button>
-            <Table height="531" :columns="columns1" :data="data2"></Table>
+            <Table height="531" :columns="columns" :data="papers"></Table>
         </div>
         <div style="border:1px">
             <Page :total="dataCount"
@@ -16,10 +15,10 @@
     </div>
 </template>
 <script>
-  import Operation from '../components/Operation.vue'
+  import ButtonPaperSearch from '@/components/buttons/ButtonPaperSearch.vue'
   export default {
     components: {
-      Operation,
+      ButtonPaperSearch
     },
     data() {
       return {
@@ -28,7 +27,7 @@
         pageSize: 10,
         value: '',
         key: '',
-        columns1: [
+        columns: [
           {
             title: '序号',
             key: 'id'
@@ -49,16 +48,20 @@
             title: '操作',
             key: 'operation',
             render: function (h, params) {
-              return h(Operation, {
+              return h(ButtonPaperSearch, {
                 props: {
-                  paperId: params.row.id,
-                  paperStatus: params.row.status,
+                  paperId: params.row.id
                 }
               })
             }
           }
         ],
-        data2: []
+        papers: [{
+          id: 1,
+          name: '123',
+          author: '123123',
+          owner: "12313123",
+        }]
       }
     },
     methods: {
@@ -72,24 +75,23 @@
         this.pageList();
       },
       pageList: function () {
-        let data2 = this.data2;
+        let papers = this.papers;
         let key = this.key;
         this.$axios({
           method: 'post',
           data: {
-            key: key,
+            key: key
           },
           url: '/public_paper/list?pageNo=' + this.pageNum + '&pageSize=' + this.pageSize
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
             data.forEach(function (paper) {
-              data2.push({
+              papers.push({
                 id: paper.id,
                 name: paper.paperTitle,
                 author: paper.paperAuthor,
-                owner: paper.paperOwner,
-                status: paper.ispublic
+                owner: paper.paperOwner
               })
             })
           }

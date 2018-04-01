@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import Operation3 from '../components/Operation3.vue'
+  import ButtonFile from '@/components/buttons/ButtonFile.vue'
   export default {
     components: {
-      Operation3,
+      ButtonFile,
     },
     data(){
       return {
@@ -39,7 +39,7 @@
           title: '操作',
           key: 'operation3',
           render: function (h, params) {
-            return h(Operation3, {
+            return h(ButtonFile, {
               props: {
                 fileId: params.row.id
               }
@@ -88,8 +88,6 @@
               })
             }
           })
-
-
       },
       list(){
         let fileSet = this.fileSet;
@@ -99,7 +97,6 @@
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
-            let i = 0;
             data.forEach(function (file) {
                 fileSet.push({
                   number: i,
@@ -107,7 +104,6 @@
                   username: file.user.userName,
                   fileName: file.fileName
                 });
-                i++;
               }
             )
           }

@@ -1,15 +1,6 @@
-<style>
-    .ivu-table td.state-color {
-
-    }
-
-    .ivu-table td.number-width {
-        width: 120px;
-    }
-</style>
 <template>
     <div>
-        <Table height="567" :columns="columns1" :data="data2"></Table>
+        <Table height="567" :columns="columns" :data="papers"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
@@ -18,14 +9,14 @@
     </div>
 </template>
 <script>
-//  import ButtonMyPaper from '../components/buttons/ButtonMyPaper.vue'
+  import ButtonMyPaper from '@/components/buttons/ButtonMyPaper.vue'
   export default {
     components: {
-//      ButtonMyPaper
+      ButtonMyPaper
     },
     data() {
       return {
-        columns1: [
+        columns: [
           {
             title: '序号',
             key: 'number',
@@ -41,70 +32,79 @@
           },
           {
             title: '论文状态',
-            key: 'state',
-            className: 'state-color'
+            key: 'paperStatus',
+            className: 'status-color'
           },
           {
             title: '操作',
-            key: 'operate',
+            key: 'op',
             render: function (h, params) {
-              return h(PersonalButton, {
+              return h(ButtonMyPaper, {
                 props: {
                   paperId: params.row.id,
-                  //paperStatus: params.row.state
+                  paperStatus: params.row.paperStatus,
+//                  paperFiles:
                 }
               })
             }
 
           }
         ],
-        data2: [
+        papers: [
           {
             number: 1,
             paperName: 18,
             paperAuthor: 'New York No. 1 Lake Park',
-
-            state: '待评审'
+            status: '待评审'
           },
           {
             number: 2,
             paperName: 24,
             paperAuthor: 'London No. 1 Lake Park',
-
-            state: '正在评审'
+            status: '正在评审'
           },
           {
             number: 3,
             paperName: 30,
             paperAuthor: 'Sydney No. 1 Lake Park',
-            state: '已定稿  '
-          },
+            status: '已定稿  '
+          }
         ]
       }
     },
     methods: {
-      pageList: function () {
-        let data2 = this.data2;
+      handlePage(){
 
-        this.$axios.get('/paper/list')
-          .then(function (response) {
-            let data = response.data.data;
-            //非空对象但对象里面没东西的情况需要考虑进去
-            if (data) {
-              data.forEach(function (paper) {
-                data2.push({
-                  id: paper.paperId,
-                  paperName: paper.paperName,
-                  paperAuthor: paper.paperAuthor,
-                  state: paper.status,
-                })
+      },
+      handlePageSize(){
+
+      },
+      pageList: function () {
+        let papers = this.papers;
+        this.$axios.get('/paper/list').then(function (response) {
+          let data = response.data.data;
+          if (data) {
+            data.forEach(function (paper) {
+              papers.push({
+                id: paper.paperId,
+                paperName: paper.paperName,
+                paperAuthor: paper.paperAuthor,
+                paperStatus: paper.status
               })
-            }
-          })
+            })
+          }
+        })
       }
     },
-    created() {
+    created()
+    {
       this.pageList()
     }
-  };
+  }
+  ;
 </script>
+<style>
+    .ivu-table td.number-width {
+        width: 120px;
+    }
+</style>
