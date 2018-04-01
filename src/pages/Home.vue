@@ -41,10 +41,10 @@
         <Layout :style="{marginLeft: '200px'}">
 
             <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
-                <Row style="padding-top: 15px" type="flex" justify="end" align="middle" class="user-dropdown-innercon">
+                <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
                     <Dropdown transfer trigger="click" @on-click="handleClickUserDropDown">
                         <a href="javascript:void(0)">
-                            <span class="main-user-name">{{ userName }}</span>
+                            <span class="main-user-name">{{ userName.length ? userName : 'test' }}</span>
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <DropdownMenu slot="list">
@@ -110,7 +110,7 @@
             })
         }
       }
-    },
+    }
   }
 </script>
 <style scoped>

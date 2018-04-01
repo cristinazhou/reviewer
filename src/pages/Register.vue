@@ -29,7 +29,7 @@
       return {
         username: "",
         password: "",
-        password1: '',
+        passwordRepeat: '',
         roleList: [
           {
             value: 'student',
@@ -40,6 +40,30 @@
       };
     },
     methods: {
+      checkValidity(userName, password, passwordRepeat) {
+        if (!userName) {
+          this.$Message.error('用户名不能为空');
+          return false;
+        }
+        if (!password) {
+          this.$Message.error('密码不能为空');
+          return false;
+        }
+        if (!/^[-a-zA-Z0-9_]{2,30}$/.test(userName)) {
+          this.$Message.error('奇怪的用户名');
+          return false;
+        }
+        if (password.length < 3) {
+          this.$Message.error('密码长度太短');
+          return false;
+        }
+
+        if (password !== passwordRepeat) {
+          this.$Message.error('密码不一致');
+          return false;
+        }
+        return true;
+      },
       getRole(){
         let roleList = this.roleList;
         this.$axios.get('/user/get_role').then(function (response) {
@@ -55,38 +79,19 @@
             }
           }
         });
-        if (this.selected == '') {
-          this.selected = 1;
-        }
-      },
-      checkValidity() {
-        if (!this.username) {
-          this.$Message.error('用户名不能为空');
-          return false;
-        }
-        if (!this.password) {
-          this.$Message.error('密码不能为空');
-          return false;
-        }
-        if (!/^[-a-zA-Z0-9_]{2,30}$/.test(this.username)) {
-          this.$Message.error('奇怪的用户名');
-          return false;
-        }
-        if (this.password.length < 3) {
-          this.$Message.error('密码长度太短');
-          return false;
-        }
-
-        return true;
+        this.selected = 'student';
       },
       doLogin() {
         this.$router.push({name: "login"});
       },
       doRegister() {
-        if (this.checkValidity()) {
+        let userName = this.username;
+        let password = this.password;
+        let passwordRepeat = this.passwordRepeat;
+        if (this.checkValidity(userName, password, passwordRepeat)) {
           let router = this.$router;
           let message = this.$Message;
-          var data = {
+          let data = {
             "userName": this.username,
             "userPassword": this.password,
             "role": {

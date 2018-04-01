@@ -6,10 +6,9 @@ import router from './router'
 import iView from 'iview'
 import Axios from 'axios'
 import 'iview/dist/styles/iview.css'    // 使用 CSS
-import store from './vuex/store'
-import  Vuex from 'vuex'
+import store from '@/store'
+import util from '@/lib/util';
 Vue.use(iView);
-import { Modal } from 'iview'
 
 var http = Axios.create({
   timeout: 8000,
@@ -17,7 +16,7 @@ var http = Axios.create({
 });
 http.defaults.headers.common['X-Token'] = localStorage.getItem('token');
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   if (to.path !== '/' && to.path !== '/register' && to.path !== '/login') {
     let token = localStorage.getItem("token");
@@ -39,7 +38,7 @@ http.interceptors.response.use(
           if (response.data.meta.success) {
             return response;
           } else {
-          //指定一个全局的方法弹出response的错误message
+            //指定一个全局的方法弹出response的错误message
             // message.error(response.data.meta.message);
           }
       }
@@ -54,11 +53,10 @@ http.interceptors.response.use(
   }
 );
 Vue.prototype.$axios = http;
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router: router,
   store: store,
   components: {App},
   template: '<App/>'
-})
+});

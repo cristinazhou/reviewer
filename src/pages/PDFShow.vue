@@ -18,10 +18,8 @@
 </template>
 <script>
   import Annotation from '@/components/Annotation.vue'
-  import store from '../vuex/store.js'
   import $ from 'jquery'
   export default {
-    name: "show-p-d-f",
     computed: {
       refresh(){
         return this.$store.state.refresh;

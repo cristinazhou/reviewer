@@ -29,43 +29,42 @@
       };
     },
     methods: {
-      checkValidity() {
-        if (!this.username) {
+      checkValidity(userName, password) {
+        if (!userName) {
           this.$Message.error('用户名不能为空');
           return false;
         }
-        if (!this.password) {
+        if (!password) {
           this.$Message.error('密码不能为空');
           return false;
         }
-        if (!/^[-a-zA-Z0-9_]{2,30}$/.test(this.username)) {
+        if (!/^[-a-zA-Z0-9_]{2,30}$/.test(userName)) {
           this.$Message.error('奇怪的用户名');
           return false;
         }
-        if (this.password.length < 3) {
+        if (password.length < 3) {
           this.$Message.error('密码长度太短');
           return false;
         }
-
         return true;
       },
       doLogin() {
-        let message = this.$Message;
-        if (this.checkValidity()) {
-          var router = this.$router;
-          var data = {
+        let userName = this.userName;
+        let password = this.password;
+        if (this.checkValidity(userName, password)) {
+          let router = this.$router;
+          let data = {
             "userName": this.username,
             "userPassword": this.password
           };
-
           this.$axios({
             method: 'post',
             url: '/user/login',
             data: data
           }).then(function (response) {
-            localStorage.setItem("token", response.data.data.tokn.token);
+            localStorage.setItem("token", response.data.data.token);
             router.push({name: "home"});
-            localStorage.setItem("username",this.data.userName)
+            localStorage.setItem("username", this.data.userName)
           })
         }
       },
