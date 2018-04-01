@@ -77,7 +77,7 @@
         this.$axios.get('/file/user_search?keyWords=' + this.value)
           .then(function (response) {
             let data = response.data.data;
-            let i = 0;
+            let i = 1;
             data.forEach(function (file) {
                 fileSet.push({
                   number: i,
@@ -97,7 +97,7 @@
         }).then(function (response) {
           let data = response.data.data;
           if (data) {
-            let i = 0;
+            let i = 1;
             data.forEach(function (file) {
                 fileSet.push({
                   number: i,

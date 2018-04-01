@@ -1,15 +1,17 @@
 <template>
     <div style="height:100%;width:100%;display:table">
         <div style="float:left;display:table-cell;width:80%;height:100%">
-            <iframe ref="annotationIframe" :src='"http://localhost:8080?file=./testpdf/1707.04873"+".pdf"'
+            <iframe ref="annotationIframe" :src="pdfUrl"
                     width="100%" height="100%"
                     scrolling="no"></iframe>
-            <ModalAnnotation @annotationCreate="find" ref="annotationBtn" v-show="word.trim().length > 0" :word="word"
+            <ModalAnnotation @annotationCreate="annotationGet" ref="annotationBtn" v-show="word.trim().length > 0"
+                             :word="word"
                              :paperId="paperId"
                              :fileId="fileId"></ModalAnnotation>
         </div>
         <div style="float:right;width:20%;display: table-cell;height:100%">
             <Table :columns="columns" :data="annotations"></Table>
+            <Button @click.native="annotationCreate">添加</Button>
         </div>
     </div>
 </template>
@@ -20,6 +22,7 @@
   export default {
     data(){
       return {
+        pdfUrl: '',
         textIframe: null,
         annotation: null,
         word: '',
@@ -48,6 +51,7 @@
         ],
         annotations: [
           {
+            id: 1,
             word: '我敲里吗',
             comment: '这个俚语很赞!'
           }
@@ -59,7 +63,20 @@
       ButtonPDFAnnotation: ButtonPDFAnnotation
     },
     methods: {
-      find() {
+      init(){
+        let pdfUrl = this.pdfUrl;
+        let fileId = this.$route.query.fileId;
+        this.$axios({
+          url: '/pdf',
+          method: 'get',
+          data: {
+            fileId: fileId
+          }
+        }).then(function (response) {
+          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
+        });
+      },
+      annotationGet() {
         let annotations = this.annotations;
         this.$axios({
           method: 'get',
@@ -69,6 +86,7 @@
           if (data) {
             data.forEach(function (item) {
               annotations.push({
+                id: item.id,
                 word: item.word,
                 comment: item.comment
               })
@@ -140,6 +158,9 @@
         }
       },
     },
+    mounted() {
+      this.init();
+    }
   };
 </script>
 

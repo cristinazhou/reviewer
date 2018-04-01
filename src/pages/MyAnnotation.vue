@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Table height="567" :columns="columns" :data="data1"></Table>
+        <Table height="567" :columns="columns" :data="papers"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
@@ -37,14 +37,17 @@
           {
             title: '操作',
             key: 'op',
-            render: function (h) {
+            render: function (h, params) {
               return h(ButtonMyAnnotation, {
-                props: {}
+                props: {
+                  paperId: params.row.paperId,
+                  fileId: params.row.fileId
+                }
               });
             }
           }
         ],
-        data1: [
+        papers: [
           {
             number: 1,
             paperName: '人脸识别系统',
@@ -55,7 +58,7 @@
     },
     method: {
       pageList: function () {
-        let data1 = this.data1;
+        let papers = this.papers;
         this.$axios({
           method: 'get',
           url: '/annotation/user_list'
@@ -63,11 +66,16 @@
           let data = response.data.data;
           if (data) {
             data.forEach(function (paper) {
-              data1.push({
+              let i = 1;
+              papers.push({
+                number: i,
                 id: paper.paperId,
-                name: paper.paperName,
-                author: paper.paperAuthor,
-              })
+                paperName: paper.paperName,
+                paperAuthor: paper.paperAuthor,
+                fileName: paper.file.fileName,
+                fileId: paper.file.id
+              });
+              ++i;
             })
           }
         })
