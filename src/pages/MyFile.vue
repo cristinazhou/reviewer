@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import ButtonMyFile from '@/components/buttons/ButtonMyFile.vue'
+  import DropDownFile from '@/components/dropdowns/DropDownFile.vue'
   export default {
     components: {
-      ButtonMyFile: ButtonMyFile
+      DropDownFile: DropDownFile
     },
     data(){
       return {
@@ -38,7 +38,7 @@
           title: '操作',
           key: 'operation3',
           render: function (h, params) {
-            return h(ButtonMyFile, {
+            return h(DropDownFile, {
               props: {
                 fileId: params.row.id
               }
@@ -104,7 +104,7 @@
                   id: file.id,
                   fileName: file.fileName
                 });
-                ++i;
+              ++i;
               }
             )
           }

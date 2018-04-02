@@ -1,6 +1,6 @@
 <template>
-    <div style="height:100%;width:100%;display:table">
-        <div style="float:left;display:table-cell;width:80%;height:100%">
+    <div style="height:100%;width:100%;">
+        <div style="float:left;width:70%;height:100%">
             <iframe ref="annotationIframe" :src="pdfUrl"
                     width="100%" height="100%"
                     scrolling="no"></iframe>
@@ -9,47 +9,36 @@
                              :paperId="paperId"
                              :fileId="fileId"></ModalAnnotation>
         </div>
-        <div style="float:right;width:20%;display: table-cell;height:100%">
+        <div style="float:right;width:30%;height:100%">
+            <Button v-if="annotationMode === false" size="small"
+                    @click.native="annotationModeSwitch(annotationMode)">开启批注模式
+            </Button>
+            <Button v-else size="small" @click.native="annotationModeSwitch(annotationMode)">关闭批注模式</Button>
             <Input @keyup.enter.native="annotationSearch"/>
-            <Table :columns="columns" :data="annotations"></Table>
-            <Button @click.native="annotationCreate">添加</Button>
+            <ModulePDFAnnotation :annotations="annotations"></ModulePDFAnnotation>
         </div>
     </div>
 </template>
 <script>
   import ModalAnnotation from '@/components/modals/ModalAnnotation.vue'
   import ButtonPDFAnnotation from '@/components/buttons/ButtonPDFAnnotation.vue'
+  import ModulePDFAnnotation from '@/components/modules/ModulePDFAnnotation.vue'
   import $ from 'jquery'
   export default {
+    components: {
+      ModalAnnotation: ModalAnnotation,
+      ButtonPDFAnnotation: ButtonPDFAnnotation,
+      ModulePDFAnnotation: ModulePDFAnnotation
+    },
     data(){
       return {
         pdfUrl: '',
+        annotationMode: false,
         textIframe: null,
         annotation: null,
         word: '',
         paperId: '',
         fileId: '',
-        columns: [
-          {
-            title: '原文',
-            key: 'word'
-          },
-          {
-            title: '批注',
-            key: 'comment'
-          },
-          {
-            title: '操作',
-            key: 'annotationOp',
-            render: function (h) {
-              return h(ButtonPDFAnnotation, {
-                props: {
-                  annotationId: ''
-                }
-              })
-            }
-          }
-        ],
         annotations: [
           {
             id: 1,
@@ -58,10 +47,6 @@
           }
         ]
       };
-    },
-    components: {
-      ModalAnnotation: ModalAnnotation,
-      ButtonPDFAnnotation: ButtonPDFAnnotation
     },
     methods: {
       annotationSearch(){
@@ -98,7 +83,9 @@
           }
         })
       },
-      annotationCreate() {
+      annotationModeSwitch(mode) {
+        this.annotationMode = !mode;
+        this.word = '';
         this.textIframe = this.$refs.annotationIframe;
         let textIframe = this.textIframe;
         let pages = $(textIframe.contentWindow.document).find(".page");
@@ -109,7 +96,9 @@
             if (divs.length) {
               for (let i = 0; i < divs.length; ++i) {
                 $(divs[i]).off('mouseup', this.textSelect);
-                $(divs[i]).on('mouseup', this.textSelect);
+                if (!mode) {
+                  $(divs[i]).on('mouseup', this.textSelect);
+                }
               }
             }
           }
