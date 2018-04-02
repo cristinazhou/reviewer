@@ -17,12 +17,18 @@
       ButtonMyCollection: ButtonMyCollection
     },
     computed: {
-      refresh(){
+      paperCollect(){
         return this.$store.state.app.paperCollect;
+      },
+      paperUncollect() {
+        return this.$store.state.app.paperUncollect;
       }
     },
     watch: {
-      refresh(val){
+      paperCollect(val){
+        this.pageList();
+      },
+      paperUncollect(val) {
         this.pageList();
       }
     },

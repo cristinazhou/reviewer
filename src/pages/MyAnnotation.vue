@@ -16,12 +16,12 @@
       ButtonMyAnnotation: ButtonMyAnnotation
     },
     computed: {
-      refresh(){
-        return this.$store.state.app.annotationDelete;
+      annotationAllDelete(){
+        return this.$store.state.app.annotationAllDelete;
       }
     },
     watch: {
-      refresh(val){
+      annotationAllDelete(val){
         this.pageList();
       }
     },

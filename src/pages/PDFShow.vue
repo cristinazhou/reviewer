@@ -5,7 +5,7 @@
                     width="100%" height="100%"
                     scrolling="no"></iframe>
             <ModalAnnotation @annotationCreate="annotationGet" ref="modalAnnotation"
-                             v-show="this.word.trim().length > 0"
+                             v-show="word.trim().length > 0"
                              :word="word"
                              :paperId="paperId"
                              :fileId="fileId"></ModalAnnotation>
@@ -31,6 +31,22 @@
       ModalAnnotation: ModalAnnotation,
       ButtonPDFAnnotation: ButtonPDFAnnotation,
       ModulePDFAnnotation: ModulePDFAnnotation
+    },
+    computed: {
+      annotationDelete(){
+        return this.$store.state.app.annotationDelete;
+      },
+      annotationCreate(){
+        return this.$store.state.app.annotationCreate;
+      }
+    },
+    watch: {
+      annotationDelete(val){
+        this.pageList();
+      },
+      annotationCreate(val){
+        this.pageList();
+      }
     },
     data(){
       return {
@@ -82,18 +98,18 @@
         }
       },
       init(){
-//        this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
-        let pdfUrl = this.pdfUrl;
-        let fileId = this.$route.query.fileId;
-        this.$axios({
-          url: '/pdf',
-          method: 'get',
-          data: {
-            fileId: fileId
-          }
-        }).then(function (response) {
-          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
-        });
+        this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
+//        let pdfUrl = this.pdfUrl;
+//        let fileId = this.$route.query.fileId;
+//        this.$axios({
+//          url: '/pdf',
+//          method: 'get',
+//          data: {
+//            fileId: fileId
+//          }
+//        }).then(function (response) {
+//          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
+//        });
       },
       annotationGet() {
         let annotations = this.annotations;
@@ -139,11 +155,14 @@
         if (selectedText !== null && selectedText.length > 0) {
           this.word = selectedText;
           let curNode = event.currentTarget;
-          let x = $(curNode).offset().top;
-          let y = $(curNode).offset().left;
+          let x = $(curNode).offset().left;
+          let y = $(curNode).offset().top;
           this.annotation = this.$refs.modalAnnotation;
-          let annotationBtn = this.annotation;
-          $(annotationBtn.$el).offset({top: x, left: y});
+          let annotationBtn = this.annotation.$el;
+          if ($(annotationBtn).css('display') === 'none') {
+            $(annotationBtn).css('display', 'block');
+          }
+          $(annotationBtn).offset({top: y, left: x});
         }
       },
     },

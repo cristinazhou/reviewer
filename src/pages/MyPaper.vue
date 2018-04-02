@@ -14,6 +14,22 @@
     components: {
       ButtonMyPaper
     },
+    computed: {
+      paperDelete(){
+        return this.$store.state.app.paperDelete;
+      },
+      paperUpdate() {
+        return this.$store.state.app.paperUpdate;
+      }
+    },
+    watch: {
+      paperDelete(val){
+        this.pageList();
+      },
+      paperUpdate(val) {
+        this.pageList();
+      }
+    },
     data() {
       return {
         columns: [

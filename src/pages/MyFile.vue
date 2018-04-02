@@ -24,6 +24,16 @@
     components: {
       DropDownFile: DropDownFile
     },
+    computed: {
+      fileDelete(){
+        return this.$store.state.app.fileDelete;
+      }
+    },
+    watch: {
+      fileDelete(val){
+        this.pageList();
+      },
+    },
     data(){
       return {
         value: '',
@@ -104,7 +114,7 @@
                   id: file.id,
                   fileName: file.fileName
                 });
-              ++i;
+                ++i;
               }
             )
           }

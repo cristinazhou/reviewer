@@ -3,9 +3,12 @@
  */
 const app = {
   state: {
+    annotationCreate: false,
     annotationDelete: false,
     annotationAllDelete: false,
     fileDelete: false,
+    paperDelete: false,
+    paperUpdate: false,
     paperCollect: false,
     paperUncollect: false,
     responseFailed: false,
@@ -32,6 +35,15 @@ const app = {
     },
     responseErrMsg(state, errMsg) {
       state.responseErrMsg = errMsg;
+    },
+    annotationCreate(state) {
+      state.annotationCreate = !state.annotationCreate;
+    },
+    paperDelete(state) {
+      state.paperDelete = !state.paperDelete;
+    },
+    paperUpdate(state){
+      state.paperUpdate = !state.paperUpdate;
     }
   }
 };
