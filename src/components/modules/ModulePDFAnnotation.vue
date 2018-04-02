@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <Collapse accordion v-for="annotation in annotations">
-            <Panel>原文: {{ annotation.word }}
+    <div class="container-collapse">
+        <Collapse value="annotation.id" v-for="annotation in annotations">
+            <Panel name="annotation.id">原文: {{ annotation.word }}
                 <p slot="content">批注: {{ annotation.comment }}
                     <Button @click.native="annotationDelete(annotation.id)" size="small" type="primary"
                             style="float: right;">删除批注

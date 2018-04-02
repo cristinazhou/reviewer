@@ -4,7 +4,8 @@
             <iframe ref="annotationIframe" :src="pdfUrl"
                     width="100%" height="100%"
                     scrolling="no"></iframe>
-            <ModalAnnotation @annotationCreate="annotationGet" ref="annotationBtn" v-show="this.word.trim().length > 0"
+            <ModalAnnotation @annotationCreate="annotationGet" ref="modalAnnotation"
+                             v-show="this.word.trim().length > 0"
                              :word="word"
                              :paperId="paperId"
                              :fileId="fileId"></ModalAnnotation>
@@ -14,7 +15,8 @@
                     @click.native="annotationModeSwitch(annotationMode)">开启批注模式
             </Button>
             <Button v-else size="small" @click.native="annotationModeSwitch(annotationMode)">关闭批注模式</Button>
-            <Input @keyup.enter.native="annotationSearch"/>
+            <Input v-model="keyWord" @keyup.enter.native="annotationSearch(keyWord)" placeholder="搜索关键字"
+                   icon="search"/>
             <ModulePDFAnnotation :annotations="annotations"></ModulePDFAnnotation>
         </div>
     </div>
@@ -32,6 +34,7 @@
     },
     data(){
       return {
+        keyWord: '',
         pdfUrl: '',
         annotationMode: false,
         textIframe: null,
@@ -44,12 +47,39 @@
             id: 1,
             word: '我敲里吗',
             comment: '这个俚语很赞!'
+          },
+          {
+            id: 2,
+            word: '我敲里吗来来??',
+            comment: '这个俚语也很赞!'
           }
         ]
       };
     },
     methods: {
-      annotationSearch(){
+      annotationSearch(keyWord){
+        if (keyWord.trim().length > 0) {
+          let containerCollapse = $(".container-collapse")[0];
+          let collapseChildren = $(containerCollapse).children("div");
+          if (collapseChildren.length) {
+            for (let i = 0; i < collapseChildren.length; ++i) {
+              let item = $(collapseChildren[i]).find(".ivu-collapse-item")[0];
+              let nodeHeader = $(item).children(".ivu-collapse-header")[0];
+              let nodeContent = $(item).children(".ivu-collapse-content")[0];
+              let nodeContentBox = $(nodeContent).children(".ivu-collapse-content-box")[0];
+
+              let word = $(nodeHeader).text().trim().substr(4,);
+              let comment = $($(nodeContentBox).children("p")[0]['childNodes'][0]).text().trim().substr(4,);
+              if (word.indexOf(keyWord) !== -1 || comment.indexOf(keyWord) !== -1) {
+                $(item).addClass("collapse-item-active");
+                $(nodeContent).css("display", "block");
+              } else {
+                $(item).removeClass("collapse-item-active");
+                $(nodeContent).css("display", "none");
+              }
+            }
+          }
+        }
       },
       init(){
         this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
@@ -111,7 +141,7 @@
           let curNode = event.currentTarget;
           let x = $(curNode).offset().top;
           let y = $(curNode).offset().left;
-          this.annotation = this.$refs.annotationBtn;
+          this.annotation = this.$refs.modalAnnotation;
           let annotationBtn = this.annotation;
           $(annotationBtn.$el).offset({top: x, left: y});
         }
