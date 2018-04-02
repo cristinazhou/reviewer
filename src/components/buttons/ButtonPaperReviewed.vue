@@ -19,6 +19,9 @@
   export default {
     methods: {
       list(){
+
+      },
+      judge(){
 //        let fileId = this.fileId;
 //        this.$router.push({
 //          name: 'PDFShow',

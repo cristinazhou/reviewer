@@ -2,7 +2,7 @@
     <div>
         <Button type="primary" @click='list' size="small">提交</Button>
         <!--如果角色是老师-->
-        <Button type="primary" @click='list' size="small">???</Button>
+        <!--<Button type="primary" @click='list' size="small">???</Button>-->
         <Dropdown style="margin-left: 20px" transfer trigger="click" @on-click="judge">
             <Button size="small" type="primary">文件
                 <Icon type="arrow-down-b"></Icon>
@@ -23,6 +23,9 @@
       return {};
     },
     methods: {
+      list(){
+
+      },
       judge(name) {
         switch (name) {
           case 'collect' : {

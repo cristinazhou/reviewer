@@ -46,6 +46,10 @@
     name: "AddPaper",
     data() {
       return {
+        listStyle: {},
+        dataCount: 40,
+        pageNum: 1,
+        pageSize: 10,
         formValidate: {
           paperTitle: '',
           paperAuthor: '',

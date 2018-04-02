@@ -34,6 +34,9 @@
     },
     data(){
       return {
+        dataCount: 40,
+        pageNum: 1,
+        pageSize: 10,
         columns: [
           {
             title: '序号',
@@ -71,6 +74,12 @@
       }
     },
     methods: {
+      handlePageSize(){
+
+      },
+      handlePage(){
+
+      },
       pageList() {
         let collections = this.collections;
         this.$axios({

@@ -18,6 +18,9 @@
     },
     data(){
       return {
+        dataCount: 40,
+        pageNum: 1,
+        pageSize: 10,
         columns: [
           {
             title: '序号',
@@ -58,7 +61,14 @@
         ]
       }
     },
-    methods: {}
+    methods: {
+      handlePage(){
+
+      },
+      handlePageSize(){
+
+      }
+    }
   }
 </script>
 
