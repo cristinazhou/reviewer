@@ -82,18 +82,18 @@
         }
       },
       init(){
-        this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
-//        let pdfUrl = this.pdfUrl;
-//        let fileId = this.$route.query.fileId;
-//        this.$axios({
-//          url: '/pdf',
-//          method: 'get',
-//          data: {
-//            fileId: fileId
-//          }
-//        }).then(function (response) {
-//          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
-//        });
+//        this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
+        let pdfUrl = this.pdfUrl;
+        let fileId = this.$route.query.fileId;
+        this.$axios({
+          url: '/pdf',
+          method: 'get',
+          data: {
+            fileId: fileId
+          }
+        }).then(function (response) {
+          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
+        });
       },
       annotationGet() {
         let annotations = this.annotations;
