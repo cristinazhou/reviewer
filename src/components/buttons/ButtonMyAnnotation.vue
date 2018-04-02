@@ -33,7 +33,7 @@
           }
         }).then(function (response) {
           msg.success('该文件所有批注删除成功');
-          store.$emit('annotationAllDelete');
+          store.commit('annotationAllDelete');
         })
       }
     }

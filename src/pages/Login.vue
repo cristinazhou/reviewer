@@ -64,7 +64,7 @@
             data: data
           }).then(function (response) {
             localStorage.setItem("token", response.data.data.token);
-            store.$emit('login', response.data.data.user.role.roleName);
+            store.commit('login', response.data.data.user.role.roleName);
             router.push({name: "home"});
           })
         }

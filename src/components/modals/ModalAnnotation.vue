@@ -35,7 +35,7 @@
           method: 'post',
           data: formData,
         }).then(function (response) {
-          this.$emit('annotationCreate');
+          this.commit('annotationCreate');
         })
       }
     },

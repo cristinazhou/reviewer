@@ -34,7 +34,7 @@
           }
         }).then(function (response) {
           msg.success('取消收藏成功');
-          store.$emit('paperUncollect');
+          store.commit('paperUncollect');
         })
       },
       judge(name){

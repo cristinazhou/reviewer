@@ -33,7 +33,7 @@
               }
             }).then(function (response) {
               message.success('文件删除成功');
-              store.$emit('fileDelete')
+              store.commit('fileDelete')
             });
             break;
           case 'fileDetail':

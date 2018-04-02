@@ -1,8 +1,8 @@
 <template>
     <div>
         <div>
-            <Input v-model="value" placeholder="请输入论文名" style="width: 200px"/>
-            <Button type="primary" @click="search">搜索</Button>
+            <Input @keyup.enter.native="search" v-model="value" placeholder="请输入论文名" style="width: 200px"/>
+            <Button type="primary" @click.native="search">搜索</Button>
             <Table height="531" :columns="columns" :data="papers"></Table>
         </div>
         <div style="border:1px">
@@ -51,6 +51,7 @@
               return h(ButtonPaperSearch, {
                 props: {
                   paperId: params.row.paperId,
+                  isCollected: params.row.isCollected
                 }
               })
             }
@@ -62,7 +63,7 @@
             paperId: 23,
             paperName: 'eeafd',
             paperAuthor: '123123',
-            paperOwner: '123123',
+            paperOwner: '123123'
           }
         ]
       }
@@ -97,6 +98,7 @@
                 paperName: paper.paperTitle,
                 paperAuthor: paper.paperAuthor,
                 paperOwner: paper.paperOwner,
+                isCollected: paper.isCollected
               });
               ++i;
             })

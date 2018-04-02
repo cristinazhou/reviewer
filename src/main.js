@@ -4,13 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import iView from 'iview'
-import Axios from 'axios'
+import axios from 'axios'
 import 'iview/dist/styles/iview.css'    // 使用 CSS
 import store from '@/store'
 import util from '@/lib/util';
 Vue.use(iView);
 
-var http = Axios.create({
+let http = axios.create({
   timeout: 8000,
   baseURL: 'http://localhost:8080/sce_reviewer',
 });
@@ -30,28 +30,20 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-http.interceptors.response.use(
-  response => {
-    if (response.status === 200) {
-      if (response.data) {
-        if (response.data.meta)
-          if (response.data.meta.success) {
-            return response;
-          } else {
-            //指定一个全局的方法弹出response的错误message
-            // message.error(response.data.meta.message);
-          }
+http.interceptors.response.use(function (response) {
+  if (response.data) {
+    if (response.data.meta) {
+      if (!response.data.meta.success) {
+        store.commit('responseErrMsg', response.data.meta.errMsg);
+      } else {
+        return Promise.resolve(response);
       }
-    }
-  }, error => {
-    if (error.response) {
-      switch (error.response.status) {
-        case 500 :
-      }
-      return Promise.reject(error);
     }
   }
-);
+}, function (error) {
+  store.commit('responseFailed', error.response.status);
+  return Promise.reject(error);
+});
 Vue.prototype.$axios = http;
 new Vue({
   el: '#app',

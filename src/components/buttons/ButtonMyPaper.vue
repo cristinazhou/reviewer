@@ -10,14 +10,14 @@
   export default {
     props: [
       'paperId',
-      'paperStatus',
+      'paperStatus'
     ],
     components: {
       ModalFile: ModalFile
     },
     data(){
       return {
-        modalFile: false,
+        modalFile: false
       }
     },
     methods: {
@@ -37,27 +37,31 @@
       paperUpdate() {
         let paperId = this.paperId;
         let paperStatus = this.paperStatus + 1;
+        let store = this.$store;
         this.$axios({
           url: '',
           method: 'post',
           data: {
             paperId: paperId,
-            paperStatus: paperStatus,
+            paperStatus: paperStatus
           }
         }).then(function (response) {
-          this.$Message('论文提交成功')
+          this.$Message('论文提交成功');
+          store.commit('paperUpdate');
         })
       },
       paperDelete() {
         let paperId = this.paperId;
+        let store = this.$store;
         this.$axios({
           url: '/paper/delete',
           method: 'post',
           data: {
-            paperId: paperId,
+            paperId: paperId
           }
         }).then(function (response) {
-          this.$Message('论文删除成功')
+          this.$Message('论文删除成功');
+          store.commit('paperDelete');
         })
       },
     }

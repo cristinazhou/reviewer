@@ -8,6 +8,8 @@ const app = {
     fileDelete: false,
     paperCollect: false,
     paperUncollect: false,
+    responseFailed: false,
+    responseErrMsg: '',
   },
   mutations: {
     annotationDelete(state) {
@@ -25,6 +27,12 @@ const app = {
     paperUncollect(state) {
       state.paperUncollect = !state.paperUncollect;
     },
+    responseFailed(state, code){
+      state.responseFailed = code;
+    },
+    responseErrMsg(state, errMsg) {
+      state.responseErrMsg = errMsg;
+    }
   }
 };
 

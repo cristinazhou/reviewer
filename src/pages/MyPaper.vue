@@ -42,8 +42,7 @@
               return h(ButtonMyPaper, {
                 props: {
                   paperId: params.row.id,
-                  paperStatus: params.row.paperStatus,
-//                  paperFiles:
+                  paperStatus: params.row.paperStatus
                 }
               })
             }
@@ -54,19 +53,19 @@
             number: 1,
             paperName: 18,
             paperAuthor: 'New York No. 1 Lake Park',
-            status: '待评审'
+            paperStatus: '待评审'
           },
           {
             number: 2,
             paperName: 24,
             paperAuthor: 'London No. 1 Lake Park',
-            status: '正在评审'
+            paperStatus: '正在评审'
           },
           {
             number: 3,
             paperName: 30,
             paperAuthor: 'Sydney No. 1 Lake Park',
-            status: '已定稿  '
+            paperStatus: '已定稿'
           }
         ]
       }
@@ -83,15 +82,32 @@
         this.$axios.get('/paper/list').then(function (response) {
           let data = response.data.data;
           if (data) {
+            let i = 1;
             data.forEach(function (paper) {
-              papers.push({
+              let item = {
+                number: i,
                 id: paper.paperId,
                 paperName: paper.paperTitle,
-                paperAuthor: paper.paperAuthor,
-                paperStatus: paper.paperStatus,
-                //单独请求
-                paperFiles: paper.files
-              })
+                paperAuthor: paper.paperAuthor
+              };
+              switch (paper.paperStatus) {
+                case 0:
+                  item.paperStatus = '未进入评审阶段';
+                  break;
+                case 1:
+                  item.paperStatus = '等待评审';
+                  break;
+                case 2:
+                  item.paperStatus = '评审中';
+                  break;
+                case 3:
+                  item.paperStatus = '已定稿';
+                  break;
+                default:
+                  break;
+              }
+              papers.push(item);
+              ++i;
             })
           }
         })
