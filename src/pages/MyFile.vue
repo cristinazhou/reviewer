@@ -1,11 +1,16 @@
 <template>
     <div>
-        <Input v-model=value placeholder="请输入文件名" style="width: 200px"/>
+        <div style="width:50%">
+      <Input v-model=value placeholder="请输入文件名" style="width: 200px"/><br>
         <i-button type="primary" @click="search">搜索</i-button>
-        <form class="file">
+        </div>
+      <div style="width: ">
+        <form class="file" >
             <input type="file" @change="getFile($event)"/>
-            <button @click="submitForm($event)">上传</button>
+
         </form>
+      <i-button type="primary" @click="submitForm($event)">上传</i-button>
+      </div>
         <Table :columns="columns" :data="fileSet">
         </Table>
         <Page :total="dataCount"
@@ -127,6 +132,7 @@
   };
 </script>
 <style lang="scss" type="text/scss">
+  @import '~@/style/input.scss';
 </style>
 
 
