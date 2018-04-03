@@ -1,11 +1,12 @@
 <template>
     <div>
-        <Table :columns="columns" :data="data1"></Table>
+        <Table :columns="columns" :data="papers"></Table>
         <Page :total="dataCount"
               :current="pageNum"
               :page-size="pageSize"
               show-elevator show-sizer show-total
-              placement="top" @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
+              placement="top"
+              @on-change="handlePage" @on-page-size-change='handlePageSize'></Page>
     </div>
 </template>
 <script>
@@ -16,6 +17,9 @@
     },
     data(){
       return {
+        dataCount: 40,
+        pageNum: 1,
+        pageSize: 10,
         columns: [
           {
             title: '序号',
@@ -37,7 +41,7 @@
             }
           }
         ],
-        data1: [
+        papers: [
           {
             number: 1,
             paperName: '人脸识别系统',
@@ -56,9 +60,15 @@
         ]
       }
     },
-    method: {
+    methods: {
+      handlePage(){
+
+      },
+      handlePageSize(){
+
+      },
       pageList: function () {
-        let data1 = this.data1;
+        let papers = this.papers;
         //根据教师ID获取
         this.$axios({
           method: 'get',
@@ -67,7 +77,7 @@
           let data = response.data.data;
           if (data) {
             data.forEach(function (paper) {
-              data1.push({
+              papers.push({
                 id: paper.paperId,
                 name: paper.paperName,
                 author: paper.paperAuthor,
