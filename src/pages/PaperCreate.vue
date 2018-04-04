@@ -33,12 +33,8 @@
             <!--<button @click="submitForm($event)">上传</button>-->
             <!--</form>-->
         </FormItem>
-        <FormItem>
-            <i-button type="primary" @click="handleSubmit('formValidate')">Submit</i-button>
-        </FormItem>
+        <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
     </Form>
-
-
 </template>
 
 <script>
@@ -84,21 +80,19 @@
           method: 'get',
           url: '/file/nopage_list'
         }).then(function (response) {
-            if (response.status === 200) {
-              for (let i = 0; i < response.data.data.length; i++) {
-                mockData.push({
-                  key: i,
-                  label: response.data.data[i].fileName,
-                  fileId: response.data.data[i].id,
-                  //disabled: Math.random() * 3 < 1
-                });
-              }
-
-            } else {
-              console.log('error');
+          if (response.status === 200) {
+            for (let i = 0; i < response.data.data.length; i++) {
+              mockData.push({
+                key: i,
+                label: response.data.data[i].fileName,
+                fileId: response.data.data[i].id,
+                //disabled: Math.random() * 3 < 1
+              });
             }
-
-          })
+          } else {
+            console.log('error');
+          }
+        });
         return mockData;
       },
       getTargetKeys () {
@@ -120,27 +114,25 @@
         this.$refs[name].resetFields();
       },
       handleSubmit (name) {
+        let _this = this;
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$axios.get('/paper/create',{
-              params:{
+            this.$axios.post('/paper/create', {
+              params: {
                 paperTitle: this.formValidate.paperTitle,
                 paperAuthor: this.formValidate.paperAuthor,
                 isPublic: this.formValidate.authority,
                 fileId: this.targetKeys[0].fileId
-
-              }})
-              .then(function(response){
-                message.success('论文新建成功');
-              })
+              }
+            }).then(function (response) {
+              _this.message.success('论文新建成功');
+            })
           } else {
             this.$Message.error('表单验证失败!');
           }
         })
       }
-
-
-      }
+    }
   };
 </script>
 

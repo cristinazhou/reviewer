@@ -25,7 +25,6 @@
 
 <script>
   import DropDownFile from '@/components/dropdowns/DropDownFile.vue'
-
   export default {
     components: {
       DropDownFile: DropDownFile
