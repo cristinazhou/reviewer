@@ -29,7 +29,7 @@
           method: 'post',
           url: '/',
           data: {
-            fileId: fileId,
+            fileId: fileId
           }
         }).then(function (response) {
           msg.success('该文件所有批注删除成功');
