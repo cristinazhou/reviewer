@@ -89,15 +89,19 @@
         event.preventDefault();
         let file = this.file;
         let formData = new FormData();
-        formData.append('file', file);
-        this.$axios({
-          method: 'post',
-          url: '/file/upload',
-          data: formData
-        }).then(function (response) {
-          message.success('文件上传成功');
-          store.commit('fileCreate');
-        })
+        if (typeof file === 'undefined') {
+          this.$Message.error('文件不能为空');
+        } else {
+          formData.append('file', file);
+          this.$axios({
+            method: 'post',
+            url: '/file/upload',
+            data: formData
+          }).then(function (response) {
+            message.success('文件上传成功');
+            store.commit('fileCreate');
+          })
+        }
       },
       search() {
         let _this = this;
@@ -122,7 +126,7 @@
         let _this = this;
         this.$axios({
           method: 'get',
-          url: '/file/user_list',
+          url: '/user/files',
         }).then(function (response) {
           let data = response.data.data;
           _this.fileSet = [];
@@ -141,7 +145,7 @@
       }
     },
     created() {
-      this.list();
+      this.pageList();
     }
   };
 </script>

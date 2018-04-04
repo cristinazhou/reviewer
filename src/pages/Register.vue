@@ -68,6 +68,7 @@
         let _this = this;
         this.$axios.get('/user/roles').then(function (response) {
           if (response.data.meta.success) {
+            //有bug
             let data = response.data;
             _this.roleList = [];
             let roles = data.data;
