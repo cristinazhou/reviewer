@@ -97,10 +97,11 @@
 
       },
       pageList: function () {
-        let papers = this.papers;
+        let _this = this;
         this.$axios.get('/paper/list').then(function (response) {
           let data = response.data.data;
-          if (data) {
+          _this.papers = [];
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
             let i = 1;
             data.forEach(function (paper) {
               let item = {
@@ -125,7 +126,7 @@
                 default:
                   break;
               }
-              papers.push(item);
+              _this.papers.push(item);
               ++i;
             })
           }

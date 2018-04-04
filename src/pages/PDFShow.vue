@@ -112,15 +112,16 @@
 //        });
       },
       annotationGet() {
-        let annotations = this.annotations;
+        let _this = this;
         this.$axios({
           method: 'get',
           url: '/'
         }).then(function (response) {
           let data = response.data.data;
-          if (data) {
+          _this.annotations = [];
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
             data.forEach(function (item) {
-              annotations.push({
+              _this.annotations.push({
                 id: item.id,
                 word: item.word,
                 comment: item.comment

@@ -73,16 +73,17 @@
 
       },
       pageList() {
-        let papers = this.papers;
+        let _this = this;
         this.$axios({
           method: 'get',
           url: '/annotation/user_list'
         }).then(function (response) {
           let data = response.data.data;
-          if (data) {
+          _this.papers = [];
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
             data.forEach(function (file) {
               let i = 1;
-              file.push({
+              _this.papers.push({
                 number: i,
                 id: file.id,
                 fileName: file.fileName,

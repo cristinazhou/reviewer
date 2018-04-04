@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <div style="width:50%">
-      <Input v-model=value placeholder="请输入文件名" style="width: 200px"/><br>
-      <i-button type="primary" @click="search">搜索</i-button>
-    </div>
-    <div style="width: ">
-      <form class="file">
-        <input type="file" @change="getFile($event)"/>
+    <div>
+        <div style="width:50%">
+            <Input v-model=value placeholder="请输入文件名" style="width: 200px"/><br>
+            <i-button type="primary" @click="search">搜索</i-button>
+        </div>
+        <div style="width: ">
+            <form class="file">
+                <input type="file" @change="getFile($event)"/>
 
-      </form>
-      <i-button type="primary" @click="submitForm($event)">上传</i-button>
+            </form>
+            <i-button type="primary" @click="submitForm($event)">上传</i-button>
+        </div>
+        <Table :columns="columns" :data="fileSet">
+        </Table>
+        <Page :total="dataCount"
+              :current="pageNum"
+              :page-size="pageSize"
+              show-elevator show-sizer show-total
+              placement="top"
+              @on-change="handlePage" @on-page-size-change='handlePageSize'>
+        </Page>
     </div>
-    <Table :columns="columns" :data="fileSet">
-    </Table>
-    <Page :total="dataCount"
-          :current="pageNum"
-          :page-size="pageSize"
-          show-elevator show-sizer show-total
-          placement="top"
-          @on-change="handlePage" @on-page-size-change='handlePageSize'>
-    </Page>
-  </div>
 </template>
 
 <script>
@@ -40,10 +40,10 @@
     },
     watch: {
       fileDelete(val) {
-        this.list();
+        this.pageList();
       },
       fileCreate(val) {
-        this.list();
+        this.pageList();
       }
     },
     data() {
@@ -100,13 +100,14 @@
         })
       },
       search() {
-        let fileSet = this.fileSet;
-        this.$axios.get('/file/user_search?keyWords=' + this.value)
-          .then(function (response) {
-            let data = response.data.data;
+        let _this = this;
+        this.$axios.get('/file/user_search?keyWords=' + this.value).then(function (response) {
+          let data = response.data.data;
+          _this.fileSet = [];
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
             let i = 1;
             data.forEach(function (file) {
-                fileSet.push({
+                _this.fileSet.push({
                   number: i,
                   id: file.id,
                   fileName: file.fileName
@@ -114,9 +115,10 @@
                 ++i;
               }
             )
-          })
+          }
+        })
       },
-      list() {
+      pageList() {
         let _this = this;
         this.$axios({
           method: 'get',
@@ -144,7 +146,7 @@
   };
 </script>
 <style lang="scss" type="text/scss">
-  @import '~@/style/input.scss';
+    @import '~@/style/input.scss';
 </style>
 
 

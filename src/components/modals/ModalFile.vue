@@ -47,22 +47,21 @@
       }
     },
     mounted(){
-      let url = this.url;
-      let paperId = this.paperId;
-      let files = this.files;
+      let _this = this;
       this.$axios({
-        url: url,
+        url: _this.url,
         method: 'get',
         data: {
-          paperId: paperId
+          paperId: _this.paperId
         }
       }).then(function (response) {
         let data = response.data.data;
-        if (data) {
+        _this.files = [];
+        if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
           data.forEach(function (file) {
-            files.push({
+            _this.files.push({
               fileId: file.id,
-              fileName: file.fileName,
+              fileName: file.fileName
             })
           });
         }

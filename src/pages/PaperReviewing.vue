@@ -68,20 +68,21 @@
 
       },
       pageList: function () {
-        let papers = this.papers;
+        let _this = this;
         //根据教师ID获取
         this.$axios({
           method: 'get',
-          url: '/',
+          url: '/'
         }).then(function (response) {
           let data = response.data.data;
-          if (data) {
+          _this.papers = [];
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
             data.forEach(function (paper) {
-              papers.push({
+              _this.papers.push({
                 id: paper.paperId,
                 name: paper.paperName,
                 author: paper.paperAuthor,
-                status: paper.status,
+                status: paper.status
               })
             })
           }

@@ -79,20 +79,20 @@
         this.pageList();
       },
       pageList: function () {
-        let papers = this.papers;
-        let key = this.key;
+        let _this = this;
         this.$axios({
           method: 'post',
           data: {
-            keyWords: key
+            keyWords: _this.key
           },
           url: '/public_paper/list?pageNo=' + this.pageNum + '&pageSize=' + this.pageSize
         }).then(function (response) {
           let data = response.data.data;
-          if (data) {
+          _this.papers = [];
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
             let i = 1;
             data.forEach(function (paper) {
-              papers.push({
+              _this.papers.push({
                 number: i,
                 paperId: paper.id,
                 paperName: paper.paperTitle,

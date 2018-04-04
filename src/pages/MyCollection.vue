@@ -81,27 +81,27 @@
 
       },
       pageList() {
-        let collections = this.collections;
+        let _this = this;
         this.$axios({
           method: 'get',
           url: '/individual_center/collect_list'
+        }).then(function (response) {
+          _this.collections = [];
+          let data = response.data.data;
+          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
+            let i = 1;
+            data.forEach(function (paper) {
+              _this.collections.push({
+                number: i,
+                id: paper.id,
+                paperName: paper.paperTitle,
+                paperAuthor: paper.paperAuthor,
+                status: paper.isPublic
+              });
+              ++i;
+            })
+          }
         })
-          .then(function (response) {
-            let data = response.data.data;
-            if (data) {
-              let i = 1;
-              data.forEach(function (paper) {
-                collections.push({
-                  number: i,
-                  id: paper.id,
-                  paperName: paper.paperTitle,
-                  paperAuthor: paper.paperAuthor,
-                  status: paper.isPublic
-                });
-                ++i;
-              })
-            }
-          })
       }
     },
     created(){
