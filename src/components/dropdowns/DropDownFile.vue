@@ -40,11 +40,11 @@
 //              }
 //            });
 //            break;
-          this.$axios.post('/file/delete?fileId=' + this.fileId)
-          .then(function (response) {
-              message.success('文件删除成功');
-              store.commit('fileDelete')
-            });
+            this.$axios.post('/file/delete/' + this.fileId)
+              .then(function (response) {
+                message.success('文件删除成功');
+                store.commit('fileDelete')
+              });
             break;
           case 'fileDetail':
             let fileId = this.fileId;
