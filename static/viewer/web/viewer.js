@@ -10054,7 +10054,7 @@ exports.ViewHistory = ViewHistory;
 
 
 // var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
-var DEFAULT_URL = '1707.04873.pdf';
+// var DEFAULT_URL = '1707.04873.pdf';
 ;
 var pdfjsWebApp = void 0;
 {

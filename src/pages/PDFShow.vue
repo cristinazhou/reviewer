@@ -51,7 +51,7 @@
     data(){
       return {
         keyWord: '',
-        pdfUrl: '',
+        DEFAULT_URL: '',
         annotationMode: false,
         textIframe: null,
         annotation: null,
@@ -98,18 +98,18 @@
         }
       },
       init(){
-        this.pdfUrl = 'static/viewer/web/viewer.html?file=' + './testpdf/170704873.pdf';
-//        let pdfUrl = this.pdfUrl;
-//        let fileId = this.$route.query.fileId;
-//        this.$axios({
-//          url: '/pdf',
-//          method: 'get',
-//          data: {
-//            fileId: fileId
-//          }
-//        }).then(function (response) {
-//          pdfUrl = 'static/viewer/web/viewer.html?file=' + response;
-//        });
+        let _this = this;
+        this.$axios({
+          url: '/file/pdf/' + _this.$route.query.fileId,
+          method: 'get',
+        }).then(function (response) {
+          let rawLength = response.length;
+          let array = new Uint8Array(new ArrayBuffer(rawLength));
+          for (let i = 0; i < rawLength; i++) {
+            array[i] = response.charCodeAt(i) & 0xff;
+          }
+          _this.DEFAULT_URL = array;
+        });
       },
       annotationGet() {
         let _this = this;
