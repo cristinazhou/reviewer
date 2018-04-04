@@ -82,7 +82,7 @@
         var mockData = [];
         this.$axios({
           method: 'get',
-          url: '/file/user_list'
+          url: '/file/nopage_list'
         }).then(function (response) {
             if (response.status === 200) {
               for (let i = 0; i < response.data.data.length; i++) {
@@ -93,12 +93,10 @@
                   //disabled: Math.random() * 3 < 1
                 });
               }
-
             } else {
               console.log('error');
             }
-
-          })
+          });
         return mockData;
       },
       getTargetKeys () {
@@ -120,22 +118,22 @@
         this.$refs[name].resetFields();
       },
       handleSubmit (name) {
-        let message = this.$Message;
-        this.$refs[name].validate(function (valid) {
+        let _this = this;
+        _this.$refs[name].validate(function (valid) {
           if (valid) {
-            this.$axios({
-              method: 'get',
+            _this.$axios({
+              method: 'post',
               url: '/paper/create',
               data: {
-                paperTitle: this.formValidate.paperTitle,
-                paperAuthor: this.formValidate.paperAuthor,
-                isPublic: this.formValidate.authority,
-                fileId: this.targetKeys[0].fileName
+                paperTitle: _this.formValidate.paperTitle,
+                paperAuthor: _this.formValidate.paperAuthor,
+                isPublic: _this.formValidate.authority,
+                fileId: _this.targetKeys[0].fileName
               }
             });
-            message.success('论文新建成功');
+            _this.message.success('论文新建成功');
           } else {
-            message.error('论文新建失败');
+            _this.message.error('论文新建失败');
           }
         })
       }

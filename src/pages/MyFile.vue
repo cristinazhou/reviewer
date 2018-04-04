@@ -105,7 +105,7 @@
       },
       search() {
         let _this = this;
-        this.$axios.get('/file/user_search?keyWords=' + this.value).then(function (response) {
+        this.$axios.get('/file/search?keyWords=' + this.value).then(function (response) {
           let data = response.data.data;
           _this.fileSet = [];
           if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
@@ -126,7 +126,7 @@
         let _this = this;
         this.$axios({
           method: 'get',
-          url: '/user/files',
+          url: '/user/files?pageNo=' + _this.pageNum + '&pageSize=' + _this.pageSize,
         }).then(function (response) {
           let data = response.data.data;
           _this.fileSet = [];
