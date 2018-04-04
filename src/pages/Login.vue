@@ -49,6 +49,7 @@
         return true;
       },
       doLogin() {
+        let _this = this;
         let userName = this.userName;
         let password = this.password;
         let store = this.$store;
@@ -64,6 +65,8 @@
             data: data
           }).then(function (response) {
             localStorage.setItem("token", response.data.data.tokn.token);
+            _this.$axios.defaults.headers.common['X-Token'] = localStorage.getItem('token');
+
             store.commit('login', response.data.data.user.role.roleName);
             router.push({name: "home"});
           })
