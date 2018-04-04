@@ -6,15 +6,15 @@
         <FormItem label="论文作者" prop="paperAuthor">
             <Input v-model="formValidate.paperAuthor" placeholder="Enter your author"/>
         </FormItem>
-        <FormItem label="所有者" prop="paperOwner">
-            <Input v-model="formValidate.paperOwner" placeholder="Enter your owner"/>
-        </FormItem>
-        <FormItem label="论文权限" prop="authority">
-            <RadioGroup v-model="formValidate.authority">
-                <Radio label="true" value="true">公开论文</Radio>
-                <Radio label="false" value="false">私有论文</Radio>
-            </RadioGroup>
-        </FormItem>
+        <!--<FormItem label="所有者" prop="paperOwner">-->
+        <!--<Input v-model="formValidate.paperOwner" placeholder="Enter your owner"/>-->
+        <!--</FormItem>-->
+        <!--<FormItem label="论文权限" prop="authority">-->
+        <!--<RadioGroup v-model="formValidate.authority">-->
+        <!--<Radio label="true" value="true">公开论文</Radio>-->
+        <!--<Radio label="false" value="false">私有论文</Radio>-->
+        <!--</RadioGroup>-->
+        <!--</FormItem>-->
         <FormItem>
             <Transfer
                     :data="dataLeft"
@@ -83,9 +83,9 @@
           if (response.status === 200) {
             for (let i = 0; i < response.data.data.length; i++) {
               mockData.push({
-                key: i,
-                label: response.data.data[i].fileName,
-                fileId: response.data.data[i].id,
+                key: i + 1,
+                label: response.data.data[i][0].fileName,
+                fileId: response.data.data[i][0].id,
                 //disabled: Math.random() * 3 < 1
               });
             }
