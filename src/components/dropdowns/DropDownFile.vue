@@ -40,13 +40,8 @@
 //              }
 //            });
 //            break;
-            this.$axios({
-              method: 'post',
-              url: '/file/delete',
-              data: {
-                fileId: fileId
-              }
-            }).then(function (response) {
+          this.$axios.get('/file/delete?fileId=' + this.fileId)
+          .then(function (response) {
               message.success('文件删除成功');
               store.commit('fileDelete')
             });

@@ -93,12 +93,8 @@
                   key: i,
                   label: response.data.data[i].fileName,
                   fileId: response.data.data[i].id,
-
-
                   //disabled: Math.random() * 3 < 1
                 });
-
-
               }
 
             } else {
@@ -131,7 +127,7 @@
         this.$refs[name].validate(function (valid) {
           if (valid) {
             this.$axios({
-              method: 'post',
+              method: 'get',
               url: '/paper/create',
               data: {
                 paperTitle: this.formValidate.paperTitle,

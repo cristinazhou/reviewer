@@ -63,7 +63,7 @@
             url: '/user/login',
             data: data
           }).then(function (response) {
-            localStorage.setItem("token", response.data.data.token);
+            localStorage.setItem("token", response.data.data.tokn.token);
             store.commit('login', response.data.data.user.role.roleName);
             router.push({name: "home"});
           })
