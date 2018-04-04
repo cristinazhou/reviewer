@@ -34,7 +34,7 @@
             <!--</form>-->
         </FormItem>
         <FormItem>
-            <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
+            <i-button type="primary" @click="handleSubmit('formValidate')">Submit</i-button>
         </FormItem>
     </Form>
 
@@ -120,26 +120,27 @@
         this.$refs[name].resetFields();
       },
       handleSubmit (name) {
-        let message = this.$Message;
-        this.$refs[name].validate(function (valid) {
+        this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$axios({
-              method: 'get',
-              url: '/paper/create',
-              data: {
+            this.$axios.get('/paper/create',{
+              params:{
                 paperTitle: this.formValidate.paperTitle,
                 paperAuthor: this.formValidate.paperAuthor,
                 isPublic: this.formValidate.authority,
-                fileId: this.targetKeys[0].fileName
-              }
-            });
-            message.success('论文新建成功');
+                fileId: this.targetKeys[0].fileId
+
+              }})
+              .then(function(response){
+                message.success('论文新建成功');
+              })
           } else {
-            message.error('论文新建失败');
+            this.$Message.error('表单验证失败!');
           }
         })
       }
-    }
+
+
+      }
   };
 </script>
 
