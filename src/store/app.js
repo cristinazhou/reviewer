@@ -7,6 +7,7 @@ const app = {
     annotationDelete: false,
     annotationAllDelete: false,
     fileDelete: false,
+    fileCreate: false,
     paperDelete: false,
     paperUpdate: false,
     paperCollect: false,
@@ -44,6 +45,9 @@ const app = {
     },
     paperUpdate(state){
       state.paperUpdate = !state.paperUpdate;
+    },
+    fileCreate(state) {
+      state.fileCreate = !state.fileCreate;
     }
   }
 };

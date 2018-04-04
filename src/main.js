@@ -34,10 +34,9 @@ http.interceptors.response.use(function (response) {
   if (response.data) {
     if (response.data.meta) {
       if (!response.data.meta.success) {
-        store.commit('responseErrMsg', response.data.meta.errMsg);
-      } else {
-        return Promise.resolve(response);
+        store.commit('responseErrMsg', response.data.meta.message);
       }
+      return Promise.resolve(response);
     }
   }
 }, function (error) {
