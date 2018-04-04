@@ -82,7 +82,7 @@
         var mockData = [];
         this.$axios({
           method: 'get',
-          url: '/file/user_list'
+          url: '/file/nopage_list'
         }).then(function (response) {
             if (response.status === 200) {
               for (let i = 0; i < response.data.data.length; i++) {
