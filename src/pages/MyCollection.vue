@@ -84,7 +84,7 @@
         let _this = this;
         this.$axios({
           method: 'get',
-          url: '/individual_center/collect_list'
+          url: '/collection/list'
         }).then(function (response) {
           _this.collections = [];
           let data = response.data.data;

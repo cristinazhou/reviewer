@@ -21,7 +21,7 @@
         let store = this.$store;
         switch (name) {
           case 'fileDownload':
-            this.$axios.get('/file/download?fileId=' + this.fileId).then(function (response) {
+            this.$axios.get('/file/download/' + this.fileId).then(function (response) {
             });
             break;
           case 'fileDelete':
@@ -40,11 +40,11 @@
 //              }
 //            });
 //            break;
-            this.$axios.post('/file/delete/' + this.fileId)
-              .then(function (response) {
-                message.success('文件删除成功');
-                store.commit('fileDelete')
-              });
+          this.$axios.post('/file/delete/' + this.fileId)
+          .then(function (response) {
+              message.success('文件删除成功');
+              store.commit('fileDelete')
+            });
             break;
           case 'fileDetail':
             let fileId = this.fileId;

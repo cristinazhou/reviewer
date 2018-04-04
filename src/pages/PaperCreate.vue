@@ -9,12 +9,12 @@
         <!--<FormItem label="所有者" prop="paperOwner">-->
         <!--<Input v-model="formValidate.paperOwner" placeholder="Enter your owner"/>-->
         <!--</FormItem>-->
-        <!--<FormItem label="论文权限" prop="authority">-->
-        <!--<RadioGroup v-model="formValidate.authority">-->
-        <!--<Radio label="true" value="true">公开论文</Radio>-->
-        <!--<Radio label="false" value="false">私有论文</Radio>-->
-        <!--</RadioGroup>-->
-        <!--</FormItem>-->
+        <FormItem label="论文权限" prop="authority">
+        <RadioGroup v-model="formValidate.authority">
+        <Radio label="true" value="true">公开论文</Radio>
+        <Radio label="false" value="false">私有论文</Radio>
+        </RadioGroup>
+        </FormItem>
         <FormItem>
             <Transfer
                     :data="dataLeft"
