@@ -80,16 +80,11 @@
       },
       pageList: function () {
         let _this = this;
-        this.$axios({
-          method: 'post',
-          data: {
-            keyWords: _this.key
-          },
-          url: '/public_paper/list?pageNo=' + this.pageNum + '&pageSize=' + this.pageSize
-        }).then(function (response) {
-          let data = response.data.data;
+        this.$axios.get('/public_paper/search?keyWords='+_this.key+'&pageNo=' + this.pageNum + '&pageSize=' + this.pageSize)
+          .then(function (response) {
+          let data = response.data.data.list;
           _this.papers = [];
-          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
+          if (Object.keys(data).length !== 0 && data.length !== 0) {
             let i = 1;
             data.forEach(function (paper) {
               _this.papers.push({

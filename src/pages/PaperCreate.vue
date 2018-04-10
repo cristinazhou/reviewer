@@ -114,15 +114,15 @@
         this.$refs[name].resetFields();
       },
       handleSubmit (name) {
-        let _this = this;
+
         this.$refs[name].validate((valid) => {
           if (valid) {
             this.$axios.post('/paper/create', {
               params: {
                 paperTitle: this.formValidate.paperTitle,
                 paperAuthor: this.formValidate.paperAuthor,
-                isPublic: this.formValidate.authority,
-                fileId: this.targetKeys[0].fileId
+                ispublic: this.formValidate.authority
+                // fileId: this.targetKeys[0].fileId
               }
             }).then(function (response) {
               _this.message.success('论文新建成功');

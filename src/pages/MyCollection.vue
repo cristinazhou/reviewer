@@ -82,10 +82,8 @@
       },
       pageList() {
         let _this = this;
-        this.$axios({
-          method: 'get',
-          url: '/collection/list'
-        }).then(function (response) {
+        this.$axios.get('/collection/list')
+          .then(function (response) {
           _this.collections = [];
           let data = response.data.data;
           if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
