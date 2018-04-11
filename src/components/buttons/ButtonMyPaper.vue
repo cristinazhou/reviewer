@@ -36,15 +36,13 @@
       },
       paperUpdate() {
         let paperId = this.paperId;
+        let teacherId = this.teacherId;
         let paperStatus = this.paperStatus + 1;
         let store = this.$store;
         this.$axios({
-          url: '',
+          url: '/paper_review/submit_paper/'+paperId+'/'+teacherId,
           method: 'post',
-          data: {
-            paperId: paperId,
-            paperStatus: paperStatus
-          }
+         
         }).then(function (response) {
           this.$Message('论文提交成功');
           store.commit('paperUpdate');
@@ -54,11 +52,9 @@
         let paperId = this.paperId;
         let store = this.$store;
         this.$axios({
-          url: '/paper/delete',
+          url: '/paper/delete/'+paperId,
           method: 'post',
-          data: {
-            paperId: paperId
-          }
+          
         }).then(function (response) {
           this.$Message('论文删除成功');
           store.commit('paperDelete');

@@ -98,10 +98,10 @@
       },
       pageList: function () {
         let _this = this;
-        this.$axios.get('/paper/list').then(function (response) {
-          let data = response.data.data;
+        this.$axios.get('/mypaper/list').then(function (response) {
+          let data = response.data.data.list;
           _this.papers = [];
-          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
+          if (Object.keys(data).length !== 0 && data.length !== 0) {
             let i = 1;
             data.forEach(function (paper) {
               let item = {
@@ -110,17 +110,14 @@
                 paperName: paper.paperTitle,
                 paperAuthor: paper.paperAuthor
               };
-              switch (paper.paperStatus) {
+              switch (paper.paperReview.paperStatus) {
                 case 0:
-                  item.paperStatus = '未进入评审阶段';
-                  break;
-                case 1:
                   item.paperStatus = '等待评审';
                   break;
-                case 2:
+                case 1:
                   item.paperStatus = '评审中';
                   break;
-                case 3:
+                case 2:
                   item.paperStatus = '已定稿';
                   break;
                 default:

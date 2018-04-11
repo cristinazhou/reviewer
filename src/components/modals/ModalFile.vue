@@ -49,11 +49,9 @@
     mounted(){
       let _this = this;
       this.$axios({
-        url: _this.url,
+        url: _this.url+'/'+_this.paperId,
         method: 'get',
-        data: {
-          paperId: _this.paperId
-        }
+
       }).then(function (response) {
         let data = response.data.data;
         _this.files = [];

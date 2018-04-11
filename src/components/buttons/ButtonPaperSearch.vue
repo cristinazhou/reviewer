@@ -22,7 +22,7 @@
             return h(ModalFile, {
               props: {
                 paperId: paperId,
-                url: '/paper/user_list'
+                url: '/paper/files'
               }
             })
           }
@@ -31,7 +31,7 @@
       collect(){
         let store = this.$store;
         let massage = this.$Message;
-        this.$axios.get('/public_paper/collect?paperId=' + this.paperId).then(function (response) {
+        this.$axios.get('/public_paper/collect/'+this.paperId).then(function (response) {
           massage.success("收藏成功！");
           store.commit('paperCollect');
         });

@@ -104,10 +104,10 @@
       },
       search() {
         let _this = this;
-        this.$axios.get('/file/search?keyWords=' + this.value).then(function (response) {
-          let data = response.data.data;
+        this.$axios.get('/file/user/list?keyWords=' + this.value).then(function (response) {
+          let data = response.data.data.list;
           _this.fileSet = [];
-          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
+          if (Object.keys(data).length !== 0 && data.length !== 0) {
             let i = 1;
             data.forEach(function (file) {
                 _this.fileSet.push({
@@ -125,7 +125,7 @@
         let _this = this;
         this.$axios({
           method: 'get',
-          url: '/file/user_list?pageNo=' + _this.pageNum + '&pageSize=' + _this.pageSize,
+          url: '/file/user/list?pageNo=' + _this.pageNum + '&pageSize=' + _this.pageSize,
           // url: '/user/files'
         }).then(function (response) {
           let data = response.data.data.list;

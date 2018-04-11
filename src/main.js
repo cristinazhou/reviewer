@@ -14,7 +14,7 @@ let http = axios.create({
   timeout: 8000,
   baseURL: 'http://localhost:8080/sce_reviewer',
 });
-// http.defaults.headers.common['X-Token'] = localStorage.getItem('token');
+http.defaults.headers.common['X-Token'] = localStorage.getItem('token');
 
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {

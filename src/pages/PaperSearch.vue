@@ -80,7 +80,7 @@
       },
       pageList: function () {
         let _this = this;
-        this.$axios.get('/public_paper/search?keyWords='+_this.key+'&pageNo=' + this.pageNum + '&pageSize=' + this.pageSize)
+        this.$axios.get('/public_paper/list?keyWords='+_this.key+'&pageNo=' + this.pageNum + '&pageSize=' + this.pageSize)
           .then(function (response) {
           let data = response.data.data.list;
           _this.papers = [];

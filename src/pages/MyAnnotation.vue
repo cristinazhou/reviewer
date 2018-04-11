@@ -76,18 +76,18 @@
         let _this = this;
         this.$axios({
           method: 'get',
-          url: '/annotation/user_list'
+          url: '/annotation/list'
         }).then(function (response) {
           let data = response.data.data;
           _this.papers = [];
-          if (Object.keys(response.data.data).length !== 0 && data.length !== 0) {
+          if (Object.keys(data).length !== 0 && data.length !== 0) {
             data.forEach(function (file) {
               let i = 1;
               _this.papers.push({
                 number: i,
                 id: file.id,
                 fileName: file.fileName,
-                paperId: file.paperId,
+                paperId: file.id,
                 paperName: file.paper.paperTitle
               });
               ++i;
